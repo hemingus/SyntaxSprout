@@ -1,16 +1,15 @@
-.wordBlock {
-    display: block;
-    font-size: 20px;
-    color: lightgreen;
-    background: black;
-    padding: 3px;
-    border: solid 3px green;
+.canvas-container {
+    width: auto;
+    height: auto;
 }
 
-.wordBlock-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+.tree-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: auto;
 }

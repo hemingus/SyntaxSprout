@@ -1,16 +1,54 @@
 .nodeBlock {
     display: block;
+    width: fit-content;
     font-size: 20px;
+    text-align: center;
+    color: lightskyblue;
+    background: black;
+    padding: 3px;
+    border: solid 3px blue;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.wordBlock {
+    display: block;
+    width: fit-content;
+    font-size: 30px;
+    text-align: center;
     color: lightgreen;
     background: black;
     padding: 3px;
     border: solid 3px green;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.wordBlock-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.nodeBlock:hover {
+    box-shadow: 0 0 5px 5px green;
+    border: solid 3px lightskyblue;
 }
 
 .nodeBlock-container {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
-    flex-wrap: wrap;
+}
+
+.nodeBlock-container-vertical {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
 }
