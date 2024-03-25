@@ -1,7 +1,8 @@
 import './SyntaxTreeNode.css'
 import { useState } from 'react'
 
-export type TreeNode = { 
+export type TreeNode = {
+    id: string, 
     label: string,
     children?: TreeNode[],
     parent?: TreeNode
@@ -21,26 +22,32 @@ const SyntaxTreeNode: React.FC<TreeNode> = (nodeData) => {
 
         return (
             <div className="nodeBlock-container">
-                {childrenToReturn.map((child, index) => ( 
-                    <SyntaxTreeNode key={index+child.label} {...child} />
+                {childrenToReturn.map((child) => ( 
+                    <SyntaxTreeNode key={child.id} {...child} />
                 ))}
             </div>
         )
     }
 
-    if (nodeData.children) return (
-        <div className="nodeBlock-container-vertical">
-            
+    if (!nodeData.parent) 
+        return (
+            <div className="nodeBlock-container-vertical">
+                <span id={nodeData.id} className="root-node">{nodeData.label}</span>
+                {nodeData.children ? returnChildren() : <></>}
+            </div>
+        )
+
+    else if (nodeData.children) 
+    return (
+        <div className="nodeBlock-container-vertical">         
             {editing ? <input type="text" onChange={(e) => setNewText(e.currentTarget.value)} onBlur={() => updateNodeLabel()}/> 
-            : <span id={nodeData.label} onClick={() => setEditing(true)} className="nodeBlock">{nodeData.label}</span>}
+            : <span id={nodeData.id} onClick={() => setEditing(true)} className="nodeBlock">{nodeData.label}</span>}
             {nodeData.children ? returnChildren() : <></>}
         </div>
     ) 
+
     else return (
-        <div className="wordBlock-container">
-            <span id={nodeData.label} className="wordBlock">{nodeData.label}</span>
-    
-        </div>
+            <span id={nodeData.id} className="wordBlock">{nodeData.label}</span>
     )
 }
 

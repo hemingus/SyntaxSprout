@@ -1,3 +1,17 @@
+.root-node {
+    display: block;
+    width: fit-content;
+    font-size: 30px;
+    text-align: center;
+    color: white;
+    background: grey;
+    padding: 3px;
+    border: solid 3px black;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: auto;
+}
+
 .nodeBlock {
     display: block;
     width: fit-content;
@@ -9,6 +23,7 @@
     border: solid 3px blue;
     cursor: pointer;
     border-radius: 10px;
+    overflow: auto;
 }
 
 .wordBlock {
@@ -22,13 +37,15 @@
     border: solid 3px green;
     cursor: pointer;
     border-radius: 10px;
+    overflow: auto;
 }
 
 .wordBlock-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: flex-end;
+    overflow: auto;
 }
 
 .nodeBlock:hover {
@@ -37,18 +54,22 @@
 }
 
 .nodeBlock-container {
+    position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
+    overflow: auto;
 }
 
 .nodeBlock-container-vertical {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     gap: 100px;
+    overflow: auto;
+    margin: auto;
 }
