@@ -1,20 +1,27 @@
 import './SyntaxTreeNode.css'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import SyntaxTreeContext from '../SyntaxTreeContext/SyntaxTreeContext';
+import { TreeNode } from '../TreeNode'
 
-export type TreeNode = {
-    id: string, 
-    label: string,
-    children?: TreeNode[],
-    parent?: TreeNode
+interface SyntaxTreeNodeProps {
+    nodeData: TreeNode
 }
 
-const SyntaxTreeNode: React.FC<TreeNode> = (nodeData) => {
+const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({nodeData}) => {
+    const {root, setRoot} = useContext(SyntaxTreeContext)!
     const [newText, setNewText] = useState("") 
     const [editing, setEditing] = useState(false)
+    const [showOptions, setShowOptions] = useState(false)
 
-    function updateNodeLabel() {
-        nodeData.label.replace(nodeData.label, newText)
-        setEditing(false)
+    const updateNodeLabel = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === "Enter") {
+            let currentNode = root.findNodeById(nodeData.id)!
+            currentNode.label = newText
+
+            const newRoot = root.clone()
+            setRoot(newRoot)
+            setEditing(false)
+        }
     }
 
     const returnChildren = () => {
@@ -23,7 +30,7 @@ const SyntaxTreeNode: React.FC<TreeNode> = (nodeData) => {
         return (
             <div className="nodeBlock-container">
                 {childrenToReturn.map((child) => ( 
-                    <SyntaxTreeNode key={child.id} {...child} />
+                    <SyntaxTreeNode key={child.id} nodeData={child} />
                 ))}
             </div>
         )
@@ -32,7 +39,11 @@ const SyntaxTreeNode: React.FC<TreeNode> = (nodeData) => {
     if (!nodeData.parent) 
         return (
             <div className="nodeBlock-container-vertical">
-                <span id={nodeData.id} className="root-node">{nodeData.label}</span>
+                <span 
+                id={nodeData.id} 
+                className="root-node">
+                    {nodeData.label}
+                </span>
                 {nodeData.children ? returnChildren() : <></>}
             </div>
         )
@@ -40,14 +51,32 @@ const SyntaxTreeNode: React.FC<TreeNode> = (nodeData) => {
     else if (nodeData.children) 
     return (
         <div className="nodeBlock-container-vertical">         
-            {editing ? <input type="text" onChange={(e) => setNewText(e.currentTarget.value)} onBlur={() => updateNodeLabel()}/> 
-            : <span id={nodeData.id} onClick={() => setEditing(true)} className="nodeBlock">{nodeData.label}</span>}
+            {editing ? <input type="text" onChange={(e) => setNewText(e.currentTarget.value)} onKeyDown={updateNodeLabel}/> 
+            : <span 
+            id={nodeData.id} 
+            onClick={() => setEditing(true)} 
+            className="nodeBlock">
+                {nodeData.label}
+            </span>}
             {nodeData.children ? returnChildren() : <></>}
         </div>
     ) 
 
     else return (
-            <span id={nodeData.id} className="wordBlock">{nodeData.label}</span>
+        <>
+            <span 
+            id={nodeData.id} 
+            className="wordBlock"
+            onClick={() => setShowOptions(true)}>
+                {nodeData.label}
+            </span>
+            {showOptions && (
+                <menu>
+                    <span onClick={() => {alert("it works"); setShowOptions(false)}}>See if it works</span>
+                    <span onClick={() => {alert("anything"); setShowOptions(false)}}>Anything</span>
+                </menu>
+            )}
+        </>
     )
 }
 

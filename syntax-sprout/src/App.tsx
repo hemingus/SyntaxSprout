@@ -1,11 +1,14 @@
 import './App.css'
 import SyntaxTreePage from './components/SyntaxTreePage/SyntaxTreePage'
+import { SyntaxTreeProvider } from "./components/SyntaxTreeContext/SyntaxTreeContext"
 
 function App() {
     return (
         <>
-            <h1>Syntax Sprout</h1>
-            <SyntaxTreePage />
+            <SyntaxTreeProvider>
+                <h1>Syntax Sprout</h1>
+                <SyntaxTreePage />
+            </SyntaxTreeProvider>
         </>
     )
 }

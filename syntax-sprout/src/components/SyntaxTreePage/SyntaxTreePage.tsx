@@ -1,7 +1,9 @@
 import SyntaxTreeCanvas from "../SyntaxTreeCanvas/SyntaxTreeCanvas"
-import { useState } from 'react'
-import { TreeNode } from '../SyntaxTreeNode/SyntaxTreeNode'
+import { useState, useContext } from 'react'
+import { TreeNode } from '../TreeNode'
 import { nanoid } from 'nanoid'
+import SyntaxTreeContext from "../SyntaxTreeContext/SyntaxTreeContext"
+
 
 const SyntaxTreePage = () => {
 
@@ -9,7 +11,7 @@ const SyntaxTreePage = () => {
     const [leafNodes, setLeafNodes] = useState<TreeNode[]>([])
     const [confirmed, setConfirmed] = useState(false)
     const [generateTree, setGenerateTree] = useState(false)
-    const [rootNode, setRootNode] = useState<TreeNode>({id: "root", label: "S"})
+    const {root, setRoot} = useContext(SyntaxTreeContext)!
 
     const sentenceGenerator = () => {
         return (
@@ -21,7 +23,7 @@ const SyntaxTreePage = () => {
                     <button onClick={() => {handleClearSentence()}}>Clear Sentence</button> 
                     <div>
                         <h3>{sentence}</h3> 
-                        <button onClick={() => {setGenerateTree(true); setRootNode({id: "root-node", label: "S", children: leafNodes})}}>Generate Syntax Tree</button>
+                        <button onClick={() => {setGenerateTree(true); setRoot(new TreeNode("rootNode", leafNodes))}}>Generate Syntax Tree</button>
                     </div>
                     </>
                     : <button onClick={() => {handleConfirmSentence()}}>Confirm Sentence</button>}
@@ -38,14 +40,14 @@ const SyntaxTreePage = () => {
     const handleConfirmSentence = () => {
         const words = sentence.split(" ")
         const leaves: TreeNode[] = []
-        words.forEach(word => {console.log(word); const leaf = {id: nanoid(), label: word, parent: rootNode}; leaves.push(leaf)})
+        words.forEach(word => {console.log(word); const leaf = new TreeNode(word, undefined, root); leaves.push(leaf)})
         setLeafNodes(leaves)
         setConfirmed(true)
     }
     
     if (generateTree) {
         return (
-            <SyntaxTreeCanvas root={rootNode}/>
+                <SyntaxTreeCanvas/>
         )
     }
     return sentenceGenerator()
