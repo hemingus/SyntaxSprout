@@ -3,18 +3,19 @@
     width: fit-content;
     font-size: 30px;
     text-align: center;
-    color: white;
-    background: grey;
+    color: gold;
+    background: black;
     padding: 3px;
-    border: solid 3px black;
+    border: solid 3px darkred;
     cursor: pointer;
-    border-radius: 50%;
-    overflow: auto;
+    border-radius: 10px;
+    align-self: center;
 }
 
 .nodeBlock {
     display: block;
     width: fit-content;
+    height: fit-content;
     font-size: 20px;
     text-align: center;
     color: lightskyblue;
@@ -23,13 +24,15 @@
     border: solid 3px blue;
     cursor: pointer;
     border-radius: 10px;
-    overflow: auto;
+    z-index: 2;
+    justify-self: flex-start;
 }
 
 .wordBlock {
     display: block;
     width: fit-content;
-    font-size: 30px;
+    height: fit-content;
+    font-size: 20px;
     text-align: center;
     color: lightgreen;
     background: black;
@@ -37,7 +40,8 @@
     border: solid 3px green;
     cursor: pointer;
     border-radius: 10px;
-    overflow: auto;
+    z-index: 2;
+    align-self: flex-start;
 }
 
 .wordBlock-container {
@@ -45,7 +49,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-end;
-    overflow: auto;
+    margin: auto;
 }
 
 .nodeBlock:hover {
@@ -57,19 +61,18 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    overflow: auto;
+    justify-content: center;
+    align-items: start;
+    gap: 20px;
+    margin: auto;
 }
 
 .nodeBlock-container-vertical {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
-    gap: 100px;
-    overflow: auto;
-    margin: auto;
+    gap: 50px;
 }

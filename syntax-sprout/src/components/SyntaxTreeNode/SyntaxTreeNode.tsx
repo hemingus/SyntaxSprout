@@ -17,11 +17,14 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({nodeData}) => {
         if (event.key === "Enter") {
             let currentNode = root.findNodeById(nodeData.id)!
             currentNode.label = newText
-
-            const newRoot = root.clone()
-            setRoot(newRoot)
+            refreshRoot()
             setEditing(false)
         }
+    }
+
+    function refreshRoot(): void {
+        const newRoot = root.clone()
+        setRoot(newRoot)
     }
 
     const returnChildren = () => {
@@ -72,7 +75,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({nodeData}) => {
             </span>
             {showOptions && (
                 <menu>
-                    <span onClick={() => {alert("it works"); setShowOptions(false)}}>See if it works</span>
+                    <span onClick={() => {root.deleteChild(nodeData); setShowOptions(false)}}>See if it works</span>
                     <span onClick={() => {alert("anything"); setShowOptions(false)}}>Anything</span>
                 </menu>
             )}

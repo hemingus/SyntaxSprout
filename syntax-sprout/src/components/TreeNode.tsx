@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 export interface TreeNodeMethods {
     findNodeById(id: string): TreeNode | undefined
     addNode(newNode: TreeNode): void
-    deleteNode(node: TreeNode): void
+    deleteChild(node: TreeNode): void
     clone(): TreeNode
 }
 
@@ -48,8 +48,8 @@ export class TreeNode implements TreeNodeMethods {
         this.children.push(newNode);
     }
     
-    deleteNode(node: TreeNode): void {
-        console.log(`want to delete node: ${node}`)
+    deleteChild(node: TreeNode): void {
+        this.children = this.children?.filter(n => n.id !== node.id)
     }
 }
 

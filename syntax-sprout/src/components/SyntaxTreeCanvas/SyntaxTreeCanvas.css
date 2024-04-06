@@ -8,6 +8,7 @@
     overflow: auto;
     transform-origin: top left;
     padding: 100px;
+    background: grey;
 }
 
 .tree-lines {
@@ -18,5 +19,5 @@
     left: 0;
     z-index: 0;
     pointer-events: none;
-    overflow: auto;
+    overflow: visible;
 }

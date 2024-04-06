@@ -10,24 +10,55 @@ const SyntaxTreeCanvas : React.FC = () => {
     const {root, setRoot} = useContext(SyntaxTreeContext)!
     const [confirmed, setConfirmed] = useState(true)
     const [lines, setLines] = useState<JSX.Element[]>([])
+
+    var and4 = new TreeNode("we_are_the_words_we_are_the_children")
+    var and3 = new TreeNode("we_are_the_words_we_are_the_children", [and4])
+    var and2 = new TreeNode("we_are_the_words_we_are_the_children", [and3])
+    var and1 = new TreeNode("we_are_the_words_we_are_the_children", [and2])
     
-    var c1_gc1 = new TreeNode("child1_grandchild1")
-    var c1_gc2 = new TreeNode("child1_grandchild2")
-    var c1_gc3 = new TreeNode("child1_grandchild3")
+    var c1_gc1 = new TreeNode("we_are_the_words_we_are_the_children")
+    var c1_gc2 = new TreeNode("we_are_the_words_we_are_the_children")
+    var c1_gc3 = new TreeNode("we_are_the_words_we_are_the_children")
         
-    var c2_gc1 = new TreeNode("child2_grandchild1")  
-    var c2_gc2 = new TreeNode("child2_grandchild2")
-    var c2_gc3 = new TreeNode("child2_grandchild3")
+    var c2_gc1 = new TreeNode("we_are_the_words_we_are_the_children")  
+    var c2_gc2 = new TreeNode("we_are_the_words_we_are_the_children", [and1])
+    var c2_gc3 = new TreeNode("we_are_the_words_we_are_the_children")
 
-    var c3_gc1 = new TreeNode("child3_grandchild1")
-    var c3_gc2 = new TreeNode("child3_grandchild2")
-    var c3_gc3 = new TreeNode("child3_grandchild3")
+    var c3_gc1 = new TreeNode("we_are_the_words_we_are_the_children")
+    var c3_gc2 = new TreeNode("we_are_the_words_we_are_the_children")
+    var c3_gc3 = new TreeNode("we_are_the_words_we_are_the_children")
 
-    var child1 = new TreeNode("the_eldest_son_child1", [c1_gc1, c1_gc2, c1_gc3])
+    var child1 = new TreeNode("the_eldest_son_child1", [c1_gc1])
     var child2 = new TreeNode("the_middle_son_child2", [c2_gc1, c2_gc2, c2_gc3])
     var child3 = new TreeNode("the_youngest_son_child3", [c3_gc1, c3_gc2, c3_gc3])
         
-    const testRoot = new TreeNode("testRoot", [c1_gc1, c1_gc2, c1_gc3, child2, child3])
+    const testRoot = new TreeNode("testRoot", [child1, c1_gc2, c1_gc3, child2, child3])
+
+    var word1 = new TreeNode("YouTube")
+    var word2 = new TreeNode("shows")
+    var word3 = new TreeNode("that")
+    var word4 = new TreeNode("the")
+    var word5 = new TreeNode("cat")
+    var word6 = new TreeNode("plays")
+    var word7 = new TreeNode("piano")
+    
+    var N1 = new TreeNode("N", [word1])
+    var V1 = new TreeNode("V", [word2])
+    var Comp1 = new TreeNode("Comp", [word3])
+    var Det1 = new TreeNode("Det", [word4])
+    var N2 = new TreeNode("N", [word5])
+    var V2 = new TreeNode("V", [word6])
+    var N3 = new TreeNode("N", [word7])
+    
+    var NP1 = new TreeNode("NP", [N1])
+    var NP2 = new TreeNode("NP", [Det1, N2])
+    var NP3 = new TreeNode("NP", [N3])
+    var VP1 = new TreeNode("V", [V2, NP3])
+    var S1 = new TreeNode("S", [NP2, VP1])
+    var S_1 = new TreeNode("S'", [Comp1, S1])
+    var VP2 = new TreeNode("VP", [V1, S_1])
+    
+    const testRoot2 = new TreeNode("S", [NP1, VP2])
         
     function assignParents(node: TreeNode) {
         if (node.children) {
@@ -40,13 +71,13 @@ const SyntaxTreeCanvas : React.FC = () => {
     }
 
     const reRenderLines = () => {
-        setLines([])
         const linesToRender = renderTreeLines(root, null)
         setLines(linesToRender!) 
     }
 
     useEffect(() => {
         assignParents(testRoot)
+        assignParents(testRoot2)
     })
 
     useLayoutEffect(() => {
@@ -93,6 +124,13 @@ const SyntaxTreeCanvas : React.FC = () => {
             const childRect = document.getElementById(child.id)?.getBoundingClientRect()!;
             const childCenterX = childRect.left + childRect.width / 2 + window.scrollX;
             const childTopY = childRect.top + window.scrollY;
+
+            let stroke = "white"
+            if (!child.children) {
+                stroke = "yellowgreen"
+            } else {
+                stroke = "skyblue"
+            }
             
             newLines.push(
                 <line
@@ -101,7 +139,7 @@ const SyntaxTreeCanvas : React.FC = () => {
                     y1={parentBottomY}
                     x2={childCenterX}
                     y2={childTopY}
-                    stroke="black" 
+                    stroke={stroke} 
                     strokeWidth="3"
                     strokeOpacity="1">
                 </line>
@@ -115,7 +153,8 @@ const SyntaxTreeCanvas : React.FC = () => {
         console.log(root.children)
         return (
             <>
-            <button onClick={() => setRoot(testRoot)}>Test custom root</button>
+            <button onClick={() => setRoot(testRoot2)}>Test small tree</button>
+            <button onClick={() => setRoot(testRoot)}>Test big tree</button>
             <div id="syntax-tree-container" className="canvas-container">
                 <SyntaxTreeNode nodeData={root} /> 
                 <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
