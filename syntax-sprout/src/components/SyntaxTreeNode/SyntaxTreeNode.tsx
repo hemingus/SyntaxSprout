@@ -39,6 +39,11 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({nodeData}) => {
         )
     }
 
+    function handleContextMenuNode(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        event.preventDefault()
+        setShowOptions(!showOptions)
+    }
+
     if (!nodeData.parent) 
         return (
             <div className="nodeBlock-container-vertical">
@@ -54,14 +59,25 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({nodeData}) => {
     else if (nodeData.children) 
     return (
         <div className="nodeBlock-container-vertical">         
-            {editing ? <input type="text" onChange={(e) => setNewText(e.currentTarget.value)} onKeyDown={updateNodeLabel}/> 
-            : <span 
+            {editing && (
+            <input className="edit-node" 
+            type="text" 
+            onChange={(e) => setNewText(e.currentTarget.value)} onKeyDown={updateNodeLabel}
+            onBlur={() => setEditing(false)}
+            />)} 
+            <span className="nodeBlock"
             id={nodeData.id} 
-            onClick={() => setEditing(true)} 
-            className="nodeBlock">
+            onContextMenu={handleContextMenuNode}>
                 {nodeData.label}
-            </span>}
+            </span>
             {nodeData.children ? returnChildren() : <></>}
+            {showOptions && (
+            <div className="node-options"
+            onMouseLeave={() => setShowOptions(false)}>
+                <span className="option-block" onClick={() => {root.deleteNodeById(nodeData.id); refreshRoot(); setShowOptions(false)}}>Delete</span>
+                <span className="option-block" onClick={() => {setEditing(true); setShowOptions(false)}}>Edit</span>
+            </div>
+            )}
         </div>
     ) 
 
@@ -74,10 +90,9 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({nodeData}) => {
                 {nodeData.label}
             </span>
             {showOptions && (
-                <menu>
-                    <span onClick={() => {root.deleteChild(nodeData); setShowOptions(false)}}>See if it works</span>
-                    <span onClick={() => {alert("anything"); setShowOptions(false)}}>Anything</span>
-                </menu>
+                <div>
+                    <span onClick={() => {setEditing(true); setShowOptions(false)}}>Edit</span>
+                </div>
             )}
         </>
     )
