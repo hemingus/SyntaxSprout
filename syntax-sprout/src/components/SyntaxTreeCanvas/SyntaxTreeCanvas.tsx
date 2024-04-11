@@ -7,7 +7,7 @@ import './SyntaxTreeCanvas.css'
 
 
 const SyntaxTreeCanvas : React.FC = () => {
-    const {root, setRoot} = useContext(SyntaxTreeContext)!
+    const {root, setRoot, selectedNodes} = useContext(SyntaxTreeContext)!
     const [confirmed, setConfirmed] = useState(true)
     const [lines, setLines] = useState<JSX.Element[]>([])
 
@@ -62,8 +62,8 @@ const SyntaxTreeCanvas : React.FC = () => {
         
     function assignParents(node: TreeNode) {
         if (node.children) {
-            node.children.forEach(child => 
-                {child.parent = node
+            node.children.forEach(child => {
+                child.parent = node
                 if (child.children) {
                     assignParents(child)
                 }})
@@ -150,17 +150,23 @@ const SyntaxTreeCanvas : React.FC = () => {
     }
 
     const syntaxTree = () => {
-        console.log(root.children)
         return (
             <>
             <button onClick={() => setRoot(testRoot2)}>Test small tree</button>
             <button onClick={() => setRoot(testRoot)}>Test big tree</button>
+
             <div id="syntax-tree-container" className="canvas-container">
-                <SyntaxTreeNode nodeData={root} /> 
+                <SyntaxTreeNode node={root} /> 
                 <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
                     {lines}
                 </svg>      
             </div>
+
+            <ul>
+                {selectedNodes.map((node) => <li>
+                    {node.label}
+                </li>)}
+            </ul>
             </>
         )
     }

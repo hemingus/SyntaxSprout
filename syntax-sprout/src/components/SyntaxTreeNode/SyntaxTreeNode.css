@@ -1,6 +1,8 @@
 .root-node {
     display: block;
     width: fit-content;
+    min-width: 30px;
+    min-height: 30px;
     font-size: 30px;
     text-align: center;
     color: gold;
@@ -8,7 +10,7 @@
     padding: 3px;
     border: solid 3px darkred;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 50%;
     align-self: center;
 }
 

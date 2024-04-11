@@ -3,10 +3,12 @@ import { nanoid } from 'nanoid'
 export interface TreeNodeMethods {
     findNodeById(id: string): TreeNode | undefined
     findAllLeaves(): TreeNode[]
-    addNode(newNode: TreeNode): void
+    addChild(newNode: TreeNode): void
     deleteNode(): void
+    setChildren(nodes: TreeNode[]): void
     deleteNodeById(id: string): void
     deleteChildren(nodes: TreeNode[]): void
+    generateParentFromChildren(nodes: TreeNode[], label: string): void
     clone(): TreeNode
 }
 
@@ -27,6 +29,16 @@ export class TreeNode implements TreeNodeMethods {
         const nodeClone: TreeNode = Object.create(this)
         return nodeClone
     }
+
+    setChildren(nodes: TreeNode[]) {
+        this.children = this.children || []; // Initialize children array if undefined
+        this.children.length = 0; // Clear existing children
+        nodes.forEach((node) => {
+            node.parent = this; // Set parent for each child
+            this.children!.push(node); // Add new child
+        });
+    }
+        
 
     findNodeById(id: string): TreeNode | undefined {
         if (this.id === id) {
@@ -63,7 +75,7 @@ export class TreeNode implements TreeNodeMethods {
         }
     }
     
-    addNode(newNode: TreeNode): void {
+    addChild(newNode: TreeNode): void {
         if (!this.children) {
             this.children = []
         }
@@ -96,6 +108,13 @@ export class TreeNode implements TreeNodeMethods {
 
     deleteChildren(nodes: TreeNode[]): void {
         nodes.forEach(node => this.deleteNodeById(node.id))
+    }
+
+    generateParentFromChildren(nodes: TreeNode[], label: string): void {
+        const newParent = new TreeNode(label)
+        newParent.setChildren(nodes)
+        this.deleteChildren(nodes)
+        this.addChild(newParent)
     }
 }
 

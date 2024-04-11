@@ -22,12 +22,19 @@ const SyntaxTreePage = () => {
                     <button onClick={() => {handleClearSentence()}}>Clear Sentence</button> 
                     <div>
                         <h3>{sentence}</h3> 
-                        <button onClick={() => {setGenerateTree(true); setRoot(new TreeNode("S", leafNodes))}}>Generate Syntax Tree</button>
+                        <button onClick={() => {generateSyntaxTree()}}>Generate Syntax Tree</button>
                     </div>
                     </>
                     : <button onClick={() => {handleConfirmSentence()}}>Confirm Sentence</button>}
             </div>
         )
+    }
+
+    const generateSyntaxTree = () => {
+        const newRoot = root.clone()
+        newRoot.setChildren(leafNodes)
+        setRoot(newRoot)
+        setGenerateTree(true)
     }
 
     const handleClearSentence = () => {

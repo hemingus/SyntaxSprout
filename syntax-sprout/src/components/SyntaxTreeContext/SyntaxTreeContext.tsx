@@ -4,6 +4,8 @@ import { TreeNode } from '../TreeNode'
 interface SyntaxTreeContextProps {
     root: TreeNode
     setRoot: Dispatch<SetStateAction<TreeNode>>
+    selectedNodes: TreeNode[]
+    setSelectedNodes: Dispatch<SetStateAction<TreeNode[]>>
 }
 
 interface SyntaxTreeProviderProps {
@@ -13,11 +15,14 @@ interface SyntaxTreeProviderProps {
 const SyntaxTreeContext = createContext<SyntaxTreeContextProps | undefined>(undefined);
 
 export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children }) => {
-    const [root, setRoot] = useState<TreeNode>(new TreeNode("root"))
+    const [root, setRoot] = useState<TreeNode>(new TreeNode("root", []))
+    const [selectedNodes, setSelectedNodes] = useState<TreeNode[]>([])
 
     const contextValue: SyntaxTreeContextProps = {
         root, 
-        setRoot
+        setRoot,
+        selectedNodes,
+        setSelectedNodes
     }
 
     return (
