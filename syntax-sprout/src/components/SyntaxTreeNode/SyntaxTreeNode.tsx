@@ -36,15 +36,10 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
                 const newSelectedNodes = []
                 newSelectedNodes.push(...selectedNodes)
                 newSelectedNodes.push(...nodesToAdd)
-                console.log("yes")
-                console.log(nodesToAdd)
-                console.log(newSelectedNodes)
                 setSelectedNodes(newSelectedNodes)
             } else {
                 setSelectedNodes([node])
             }
-
-            selectedNodes.forEach((n) => console.log(n.label))
         }
     }
 
@@ -125,7 +120,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
 
             {showOptions && (
                 <div>
-                    <span onClick={() => {setEditing(true); setShowOptions(false)}}>Edit</span>
+                    <span className="option-block" onClick={() => {setShowOptions(false)}}>Edit</span>
                 </div>
             )}
         </>

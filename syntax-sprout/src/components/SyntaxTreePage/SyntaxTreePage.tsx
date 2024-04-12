@@ -46,7 +46,7 @@ const SyntaxTreePage = () => {
     const handleConfirmSentence = () => {
         const words = sentence.split(" ")
         const leaves: TreeNode[] = []
-        words.forEach(word => {console.log(word); const leaf = new TreeNode(word, undefined, root); leaves.push(leaf)})
+        words.forEach(word => {const leaf = new TreeNode(word, undefined, root); leaves.push(leaf)})
         setLeafNodes(leaves)
         setConfirmed(true)
     }

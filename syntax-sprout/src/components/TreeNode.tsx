@@ -6,6 +6,7 @@ export interface TreeNodeMethods {
     addChild(newNode: TreeNode): void
     deleteNode(): void
     setChildren(nodes: TreeNode[]): void
+    setParent(node: TreeNode): void
     deleteNodeById(id: string): void
     deleteChildren(nodes: TreeNode[]): void
     generateParentFromChildren(nodes: TreeNode[], label: string): void
@@ -31,12 +32,17 @@ export class TreeNode implements TreeNodeMethods {
     }
 
     setChildren(nodes: TreeNode[]) {
-        this.children = this.children || []; // Initialize children array if undefined
+        this.children = []; // Initialize children array if undefined
         this.children.length = 0; // Clear existing children
         nodes.forEach((node) => {
-            node.parent = this; // Set parent for each child
-            this.children!.push(node); // Add new child
+            const newChildNode = node.clone()
+            newChildNode.parent = this; // Set parent for each child
+            this.children!.push(newChildNode); // Add new child
         });
+    }
+
+    setParent(node: TreeNode) {
+        this.parent = node
     }
         
 
@@ -82,6 +88,16 @@ export class TreeNode implements TreeNodeMethods {
         this.children.push(newNode)
     }
 
+    insertChild(newNode: TreeNode, index: number): void {
+        if (!this.children) {
+            this.children = []
+            this.children.push(newNode)
+        }
+        else {
+            this.children.splice(index, 0, newNode)
+        }
+    }
+
     deleteNode(): void {
         if (this.parent) {
             // Find the index of this node within its parent's children array
@@ -111,10 +127,21 @@ export class TreeNode implements TreeNodeMethods {
     }
 
     generateParentFromChildren(nodes: TreeNode[], label: string): void {
-        const newParent = new TreeNode(label)
+        
+        const oldParent = nodes[0].parent!
+        const newParent = new TreeNode(label, nodes, oldParent)
+        const newParentIndex = oldParent.children!.indexOf(nodes[0])
+        if (newParentIndex) console.log(newParentIndex.toString)
+        console.log(`newParentIndex`)
+        nodes.forEach(node => {
+            node.parent = newParent
+        })
+        console.log(`old parent: ${oldParent.label}`)
+        console.log(`new parent: ${newParent.label}`)
         newParent.setChildren(nodes)
-        this.deleteChildren(nodes)
-        this.addChild(newParent)
+        
+        oldParent.children = oldParent.children!.filter(child => !nodes.includes(child))
+        oldParent.insertChild(newParent, newParentIndex)
     }
 }
 
