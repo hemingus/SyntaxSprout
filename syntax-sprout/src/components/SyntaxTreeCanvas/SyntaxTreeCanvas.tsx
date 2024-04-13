@@ -8,7 +8,7 @@ import { expectedTree, bigTree } from '../../testcases/TestRoots'
 
 
 const SyntaxTreeCanvas : React.FC = () => {
-    const {root, setRoot, selectedNodes} = useContext(SyntaxTreeContext)!
+    const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const [confirmed, setConfirmed] = useState(true)
     const [lines, setLines] = useState<JSX.Element[]>([])
     const [showNewNodeInput, setShowNewNodeInput] = useState(false)
@@ -29,6 +29,7 @@ const SyntaxTreeCanvas : React.FC = () => {
             if (selectedNodes.length >= 1) {
                 const newRoot = root.clone()
                 newRoot.generateParentFromChildren(selectedNodes, newNodeText)
+                setSelectedNodes([])
                 setRoot(newRoot)
             }
             setShowNewNodeInput(false)
