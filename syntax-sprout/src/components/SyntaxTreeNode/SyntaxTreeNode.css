@@ -1,9 +1,10 @@
 .root-node {
     display: block;
-    width: fit-content;
-    min-width: 30px;
-    min-height: 30px;
-    font-size: 30px;
+    min-width: fit-content;
+    min-height: fit-content;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
     text-align: center;
     color: gold;
     background: black;

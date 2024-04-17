@@ -1,7 +1,12 @@
+body {
+  margin: auto;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  background: url("./assets/vines_waterfall_01.png");
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

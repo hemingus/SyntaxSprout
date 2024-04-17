@@ -2,6 +2,7 @@ import SyntaxTreeCanvas from "../SyntaxTreeCanvas/SyntaxTreeCanvas"
 import { useState, useContext } from 'react'
 import { TreeNode } from '../TreeNode'
 import SyntaxTreeContext from "../SyntaxTreeContext/SyntaxTreeContext"
+import './SyntaxTreePage.css'
 
 
 const SyntaxTreePage = () => {
@@ -14,17 +15,18 @@ const SyntaxTreePage = () => {
 
     const sentenceGenerator = () => {
         return (
-            <div>
-                <label>Input Sentence: </label>
-                <input id="sentence-input" onChange={(e) => setSentence(e.target.value)} type="text" />
+            <div className="syntax-tree-page">
+                <h3>{"Sentence: "}<span style={{color: "yellowgreen"}}>{sentence}</span></h3>
+                {!confirmed ? 
+                <>
+                <label>Input Sentence: </label> 
+                <input onKeyDown={(event) => {if (event.key === 'Enter') handleConfirmSentence()}} id="sentence-input" onChange={(e) => setSentence(e.target.value)} type="text" />
+                </> : <></>}
                 {confirmed ? 
-                    <>
-                    <button onClick={() => {handleClearSentence()}}>Clear Sentence</button> 
-                    <div>
-                        <h3>{sentence}</h3> 
-                        <button onClick={() => {generateSyntaxTree()}}>Generate Syntax Tree</button>
+                    <div style={{display: "flex", flexDirection: "column", gap: "20px"}}>
+                    <button onClick={() => {handleClearSentence()}}>Change Sentence</button>
+                    <button onClick={() => {generateSyntaxTree()}}>Generate Syntax Tree</button>
                     </div>
-                    </>
                     : <button onClick={() => {handleConfirmSentence()}}>Confirm Sentence</button>}
             </div>
         )
@@ -38,7 +40,6 @@ const SyntaxTreePage = () => {
     }
 
     const handleClearSentence = () => {
-        (document.getElementById("sentence-input") as HTMLInputElement).value = ""
         setSentence("")
         setConfirmed(false)
     }

@@ -117,12 +117,6 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             onClick={handleSelectNode}>
                 {node.label}
             </span>
-
-            {showOptions && (
-                <div>
-                    <span className="option-block" onClick={() => {setShowOptions(false)}}>Edit</span>
-                </div>
-            )}
         </>
     )
 }

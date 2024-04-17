@@ -14,6 +14,7 @@ const SyntaxTreeCanvas : React.FC = () => {
     const [showNewNodeInput, setShowNewNodeInput] = useState(false)
     const [newNodeText, setNewNodeText] = useState("")
 
+
     function assignParents(node: TreeNode) {
         if (node.children) {
             node.children.forEach(child => {
@@ -103,13 +104,13 @@ const SyntaxTreeCanvas : React.FC = () => {
             const childCenterX = childRect.left + childRect.width / 2 + window.scrollX;
             const childTopY = childRect.top + window.scrollY;
 
-            let stroke = "white"
-            if (!child.children) {
-                stroke = "yellowgreen"
-            } else {
-                stroke = "skyblue"
-            }
-            
+            let stroke = "black"
+            // if (!child.children) {
+            //     stroke = "darkgreen"
+            // } else {
+            //     stroke = "#773300"
+            // }
+    
             newLines.push(
                 <line
                     key={child.id}
@@ -131,14 +132,20 @@ const SyntaxTreeCanvas : React.FC = () => {
         return (
             <>
             {showNewNodeInput && newNodeInput()}
+            <div className="canvas-container">
+            <button onClick={() => setConfirmed(false)}>Change sentence</button>
             <button onClick={() => setRoot(expectedTree)}>Test expected tree</button>
             <button onClick={() => setRoot(bigTree)}>Test big tree</button>
+            </div>
 
-            <div onContextMenu={(event) => {event.preventDefault(); setShowNewNodeInput(true)}} id="syntax-tree-container" className="canvas-container">     
-                <SyntaxTreeNode node={root} /> 
-                <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
-                    {lines}
-                </svg>      
+            {/** The canvas for the syntax tree */}
+            <div className="canvas-container">
+                <div onContextMenu={(event) => {event.preventDefault(); setShowNewNodeInput(true)}} id="syntax-tree-container" className="canvas">     
+                    <SyntaxTreeNode node={root} /> 
+                    <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
+                        {lines}
+                    </svg>      
+                </div>
             </div>
 
             <ul>
@@ -154,8 +161,7 @@ const SyntaxTreeCanvas : React.FC = () => {
         if (confirmed) {
             return (
                 <>
-                    {syntaxTree()}
-                    <button onClick={() => setConfirmed(false)}>Change sentence</button>
+                    {syntaxTree()}    
                 </>
                 )
         }

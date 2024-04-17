@@ -4,12 +4,12 @@ import { SyntaxTreeProvider } from "./components/SyntaxTreeContext/SyntaxTreeCon
 
 function App() {
     return (
-        <>
+        <div className="app">
+            <h1 className="main-header">Syntax Sprout</h1>
             <SyntaxTreeProvider>
-                <h1>Syntax Sprout</h1>
                 <SyntaxTreePage />
             </SyntaxTreeProvider>
-        </>
+        </div>
     )
 }
 

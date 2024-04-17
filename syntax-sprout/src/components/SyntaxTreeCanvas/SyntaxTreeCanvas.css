@@ -1,14 +1,20 @@
 .canvas-container {
     display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-x: auto;
+  }
+
+.canvas {
+    display: flex;
     justify-content: flex-start;
     flex-direction: column;
-    align-items: center;
-    width: auto;
+    width: fit-content;
     height: auto;
     overflow: auto;
     transform-origin: top left;
     padding: 100px;
-    background: grey;
+    background: linear-gradient(rgb(150, 170, 140), rgb(170, 150, 115));
 }
 
 .tree-lines {
@@ -20,6 +26,10 @@
     z-index: 0;
     pointer-events: none;
     overflow: visible;
+}
+
+.button-container {
+
 }
 
 .new-node-input {

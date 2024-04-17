@@ -2,6 +2,27 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+}
+
+.app button {
+  font-size: 20px;
+  color: darkgrey;
+  background: black;
+  cursor: pointer;
+}
+
+.app button:hover {
+  color: white;
+}
+
+.main-header {
+  display: block;
+  width: 100vw;
+  background: linear-gradient(transparent, black);
+  font-size: 40px;
+  text-align: center;
+  color: green;
+  -webkit-text-stroke: 2px yellowgreen;
   margin: auto;
 }
+
