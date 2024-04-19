@@ -100,7 +100,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             {showOptions && (
             <div className="node-options"
             onMouseLeave={() => setShowOptions(false)}>
-                <span className="option-block" onClick={() => {root.deleteNodeById(node.id); refreshRoot(); setShowOptions(false)}}>Delete</span>
+                <span className="option-block" onClick={() => {root.deleteNodeById(node.id); setSelectedNodes([]); refreshRoot(); setShowOptions(false)}}>Delete</span>
                 <span className="option-block" onClick={() => {setEditing(true); setShowOptions(false)}}>Edit</span>
             </div>
             )}
