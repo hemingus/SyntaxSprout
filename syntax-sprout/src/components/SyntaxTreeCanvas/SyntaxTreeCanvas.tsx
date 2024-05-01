@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useContext } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef, useContext } from 'react'
 import { TreeNode } from '../TreeNode'
 import SyntaxTreeNode from '../SyntaxTreeNode/SyntaxTreeNode'
 import SyntaxTreePage from '../SyntaxTreePage/SyntaxTreePage'
@@ -13,7 +13,10 @@ const SyntaxTreeCanvas : React.FC = () => {
     const [lines, setLines] = useState<JSX.Element[]>([])
     const [showNewNodeInput, setShowNewNodeInput] = useState(false)
     const [newNodeText, setNewNodeText] = useState("")
-
+    const [showOptions, setShowOptions] = useState(false)
+    const [position, setPosition] = useState({ x: 0, y: 0 })
+    const [editing, setEditing] = useState(false)
+    const inputRef = useRef<HTMLInputElement>(null)
 
     function assignParents(node: TreeNode) {
         if (node.children) {
@@ -25,7 +28,7 @@ const SyntaxTreeCanvas : React.FC = () => {
         }
     }
 
-    const updateNodeLabel = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const insertNewNode = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Enter") {
             if (selectedNodes.length >= 1) {
                 const newRoot = root.clone()
@@ -37,14 +40,29 @@ const SyntaxTreeCanvas : React.FC = () => {
         }
     }
 
+    function updateNodeLabel(event: React.KeyboardEvent<HTMLInputElement>) {
+        if (event.key === "Enter") {
+            if (selectedNodes.length >= 1) {
+                editSelectedNodes()
+            }
+            setShowNewNodeInput(false)
+            setEditing(false)
+        }
+    }  
+
     const newNodeInput = () => {
         return (
-            <div className="new-node-input">
+            <div className="new-node-input" >
+                <div style={{position: "absolute", top: position.y, left: position.x}}>
                 <label>Enter label: </label>
-                <input 
-                type="text" 
-                onChange={(e) => setNewNodeText(e.currentTarget.value)} onKeyDown={updateNodeLabel}></input>
+                <input
+                ref={inputRef}
+                type="text"
+                onChange={(e) => setNewNodeText(e.currentTarget.value)} 
+                onKeyDown={editing ? updateNodeLabel : insertNewNode}>
+                </input>
                 <button onClick={() => setShowNewNodeInput(false)}>Cancel</button>
+                </div>
             </div>
         )
     }
@@ -57,7 +75,13 @@ const SyntaxTreeCanvas : React.FC = () => {
     useEffect(() => {
         assignParents(bigTree)
         assignParents(expectedTree)
-    })
+    }, [])
+
+    useEffect(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, [showNewNodeInput]);
 
     useLayoutEffect(() => {
         const resizeObserver = new ResizeObserver(() => {
@@ -128,9 +152,42 @@ const SyntaxTreeCanvas : React.FC = () => {
         return newLines
     }
 
+    function handleContextMenuNode(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        event.preventDefault()
+        setPosition({ x: event.clientX, y: event.clientY });
+        setShowOptions(!showOptions)
+    }
+
+    function refreshRoot(): void {
+        const newRoot = root.clone()
+        setRoot(newRoot)
+    }
+
+    function deleteSelectedNodes() {
+        selectedNodes.forEach(node => {node.children ? root.deleteNodeById(node.id) : {}})
+        refreshRoot()
+        setSelectedNodes([])
+        setShowOptions(false)
+    }
+
+    function editSelectedNodes() {
+        selectedNodes.forEach(node => node.children ? node.setLabel(newNodeText) : {})
+        setSelectedNodes([])
+        setShowOptions(false)
+        setShowNewNodeInput(false)
+    }
+
     const syntaxTree = () => {
         return (
             <>
+            {showOptions && (
+            <div style={{position: "absolute", top: position.y, left: position.x}} className="node-options"
+            onMouseLeave={() => setShowOptions(false)}>
+                <span className="option-block" onClick={() => {setShowNewNodeInput(true); }}>Generate new parent node from selected</span>
+                <span className="option-block" onClick={() => {deleteSelectedNodes()}}>Delete selected nodes</span>
+                <span className="option-block" onClick={() => {setEditing(true); setShowNewNodeInput(true)}}>Edit selected nodes</span>
+            </div>
+            )}
             {showNewNodeInput && newNodeInput()}
             <div className="canvas-container">
             <button onClick={() => setConfirmed(false)}>Change sentence</button>
@@ -140,7 +197,7 @@ const SyntaxTreeCanvas : React.FC = () => {
 
             {/** The canvas for the syntax tree */}
             <div className="canvas-container">
-                <div onContextMenu={(event) => {event.preventDefault(); setShowNewNodeInput(true)}} id="syntax-tree-container" className="canvas">     
+                <div onContextMenu={handleContextMenuNode} id="syntax-tree-container" className="canvas">     
                     <SyntaxTreeNode node={root} /> 
                     <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
                         {lines}

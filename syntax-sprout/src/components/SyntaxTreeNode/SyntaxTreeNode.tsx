@@ -1,5 +1,5 @@
 import './SyntaxTreeNode.css'
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import SyntaxTreeContext from '../SyntaxTreeContext/SyntaxTreeContext';
 import { TreeNode } from '../TreeNode'
 
@@ -8,19 +8,7 @@ interface SyntaxTreeNodeProps {
 }
 
 const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
-    const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
-    const [editText, setEditText] = useState("") 
-    const [editing, setEditing] = useState(false)
-    const [showOptions, setShowOptions] = useState(false)
-
-    const updateNodeLabel = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            let currentNode = root.findNodeById(node.id)!
-            currentNode.label = editText
-            refreshRoot()
-            setEditing(false)
-        }
-    }
+    const {selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
 
     function handleSelectNode(): void {
         if (node.parent && node.parent.children) {
@@ -43,11 +31,6 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
         }
     }
 
-    function refreshRoot(): void {
-        const newRoot = root.clone()
-        setRoot(newRoot)
-    }
-
     const returnChildren = () => {
         const childrenToReturn = node.children!
 
@@ -60,10 +43,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
         )
     }
 
-    function handleContextMenuNode(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        event.preventDefault()
-        setShowOptions(!showOptions)
-    }
+
     // If the node has no parent, it is the root which has its own properties.
     if (!node.parent) 
         return (
@@ -80,30 +60,14 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     else if (node.children) 
     return (
         <div className="nodeBlock-container-vertical"> 
-            {editing && (
-            <input className="edit-node" 
-            type="text" 
-            onChange={(e) => setEditText(e.currentTarget.value)} onKeyDown={updateNodeLabel}
-            onBlur={() => setEditing(false)}
-            />)} 
-
             <span className="nodeBlock"
             style={selectedNodes.includes(node) ? {borderColor: "white"} : {}}
             id={node.id} 
-            onContextMenu={handleContextMenuNode}
             onClick={handleSelectNode}>
                 {node.label}
             </span>
 
-            {node.children ? returnChildren() : <></>}
-
-            {showOptions && (
-            <div className="node-options"
-            onMouseLeave={() => setShowOptions(false)}>
-                <span className="option-block" onClick={() => {root.deleteNodeById(node.id); setSelectedNodes([]); refreshRoot(); setShowOptions(false)}}>Delete</span>
-                <span className="option-block" onClick={() => {setEditing(true); setShowOptions(false)}}>Edit</span>
-            </div>
-            )}
+            {node.children && returnChildren()}
         </div>
     ) 
     // If the node has no children, it is a leaf, which means it is a word in the generated sentence.
@@ -113,7 +77,6 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             style={selectedNodes.includes(node) ? {borderColor: "white"} : {}}
             id={node.id} 
             className="wordBlock"
-            onContextMenu={() => setShowOptions(true)}
             onClick={handleSelectNode}>
                 {node.label}
             </span>

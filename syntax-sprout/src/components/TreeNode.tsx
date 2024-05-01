@@ -5,6 +5,7 @@ export interface TreeNodeMethods {
     findAllLeaves(): TreeNode[]
     addChild(newNode: TreeNode): void
     deleteNode(): void
+    setLabel(label: string): void
     setChildren(nodes: TreeNode[]): void
     setParent(node: TreeNode): void
     deleteNodeById(id: string): void
@@ -41,8 +42,12 @@ export class TreeNode implements TreeNodeMethods {
         });
     }
 
-    setParent(node: TreeNode) {
+    setParent(node: TreeNode): void {
         this.parent = node
+    }
+
+    setLabel(label: string): void {
+        this.label = label
     }
         
 
