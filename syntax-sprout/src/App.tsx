@@ -1,14 +1,11 @@
 import './App.css'
-import SyntaxTreePage from './components/SyntaxTreePage/SyntaxTreePage'
-import { SyntaxTreeProvider } from "./components/SyntaxTreeContext/SyntaxTreeContext"
+import MainMenu from './components/MainMenu/MainMenu'
 
 function App() {
     return (
         <div className="app">
             <h1 className="main-header">Syntax Sprout</h1>
-            <SyntaxTreeProvider>
-                <SyntaxTreePage />
-            </SyntaxTreeProvider>
+            <MainMenu />
         </div>
     )
 }
