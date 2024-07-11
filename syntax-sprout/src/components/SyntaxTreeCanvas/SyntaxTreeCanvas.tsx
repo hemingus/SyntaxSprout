@@ -4,7 +4,7 @@ import SyntaxTreeNode from '../SyntaxTreeNode/SyntaxTreeNode'
 import SyntaxTreePage from '../SyntaxTreePage/SyntaxTreePage'
 import SyntaxTreeContext from '../SyntaxTreeContext/SyntaxTreeContext'
 import './SyntaxTreeCanvas.css'
-import { expectedTree, bigTree } from '../../testcases/TestRoots'
+import { expectedTree, bigTree, assignParents } from '../../testcases/TestRoots'
 import * as htmlToImage from 'html-to-image'
 import { saveAs } from 'file-saver'
 import { dataURLToBlob } from '../../utils/DataConvertion'
@@ -101,17 +101,6 @@ const SyntaxTreeCanvas : React.FC = () => {
             }, 500); // Delay to ensure DOM is fully rendered
         }
     };
-
-    // fuction for assiging parents where the node's children are known.
-    function assignParents(node: TreeNode) {
-        if (node.children) {
-            node.children.forEach(child => {
-                child.parent = node
-                if (child.children) {
-                    assignParents(child)
-                }})
-        }
-    }
 
     // adding a new node to the syntax tree, updating its structure.
     const insertNewNode = (event: React.KeyboardEvent<HTMLInputElement>) => {

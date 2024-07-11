@@ -51,7 +51,7 @@ var VP2 = new TreeNode("VP", [V1, S_1])
 export const expectedTree = new TreeNode("S", [NP1, VP2])
 assignParents(expectedTree)
     
-function assignParents(node: TreeNode) {
+export function assignParents(node: TreeNode) {
     if (node.children) {
         node.children.forEach(child => {
             child.parent = node
