@@ -231,7 +231,7 @@ const SyntaxTreeCanvas : React.FC = () => {
             </div>
 
             {/** The canvas for the syntax tree */}
-            <div className="canvas-container">
+            <div className="flex justify-center items-start overflow-x-auto relative">
                 <div ref={syntaxTreeRef}  onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className="canvas">  
                     <SyntaxTreeNode node={root} /> 
                     <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
