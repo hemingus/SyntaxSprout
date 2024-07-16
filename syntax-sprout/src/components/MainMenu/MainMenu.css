@@ -1,27 +1,13 @@
 .main-menu {
     display: block;
-    background: linear-gradient(green -100%, sienna 50%, green 200%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: left;
+    background: linear-gradient(grey -100%, white 50%, grey 200%);
+    display: grid;
+    grid-direction: column;
+    grid-template-columns: 1fr 1fr;
     width: 80svw;
     margin: 20px auto;
     padding: 20px;
     border-radius: 20px;
     border: solid 3px black;
     gap: 10px;
-}
-
-.main-menu label {
-    font-size: 1.5rem;
-    color: black;
-    font-weight: 700;
-}
-
-.flex-container {
-    display: "flex"; 
-    flex-direction: "row"; 
-    justify-content: "space-between"; 
-    align-items: "left";
 }

@@ -16,15 +16,13 @@ const MainMenu : React.FC = () => {
 
     return (
         <div className="main-menu">
-            <div style={{width: "fit-content", alignSelf: "center"}}>
-            <div className="flex-container">
-                <label>Generate syntax tree from a sentence ⏵ </label>
-                <button onClick={() => setShowSyntaxTree(true)}>Syntax Tree Generator</button>
+            <div className="flex flex-col items-end">
+                <label className="h-6">Generate syntax tree from a sentence ⏵ </label>
+                <label className="h-6">Freely generate a tree model ⏵ </label>    
             </div>
-            <div className="flex-container">
-                <label>Freely generate a tree model ⏵ </label>
-                <button>Custom Tree Generator</button>
-            </div>
+            <div className="flex flex-col items-start">
+                <button className="h-6" onClick={() => setShowSyntaxTree(true)}>Syntax Tree Generator</button>
+                <button className="h-6">Custom Tree Generator</button>
             </div>
         </div>
     )
