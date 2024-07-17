@@ -17,3 +17,14 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.main-header {
+  display: block;
+  width: 100vw;
+  background: linear-gradient(transparent, black);
+  font-size: 40px;
+  text-align: center;
+  color: green;
+  -webkit-text-stroke: 2px yellowgreen;
+  margin: auto;
+}
