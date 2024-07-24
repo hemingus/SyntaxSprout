@@ -37,10 +37,11 @@
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    z-index: 5;
+    z-index: 20;
     color: white;
     font-size: 2rem;
     background-color: rgba(0, 0, 0, 0.5);
@@ -48,6 +49,7 @@
 
 .new-node-input input {
     width: auto;
+    max-width: 80vw;
     background: black;
     color: lightblue;
     font-size: 2rem;
