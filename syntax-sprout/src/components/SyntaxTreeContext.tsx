@@ -1,5 +1,5 @@
 import { useState, createContext, ReactNode, SetStateAction, Dispatch } from 'react'
-import { TreeNode } from '../TreeNode' 
+import { TreeNode } from './TreeNode' 
 
 interface SyntaxTreeContextProps {
     root: TreeNode

@@ -1,6 +1,6 @@
 import './SyntaxTreeNode.css'
 import { useContext } from 'react'
-import SyntaxTreeContext from '../SyntaxTreeContext/SyntaxTreeContext';
+import SyntaxTreeContext from '../SyntaxTreeContext';
 import { TreeNode } from '../TreeNode'
 
 interface SyntaxTreeNodeProps {

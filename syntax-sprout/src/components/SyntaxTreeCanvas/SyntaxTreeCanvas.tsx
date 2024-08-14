@@ -2,7 +2,7 @@ import { useState, useEffect, useLayoutEffect, useRef, useContext } from 'react'
 import { TreeNode } from '../TreeNode'
 import SyntaxTreeNode from '../SyntaxTreeNode/SyntaxTreeNode'
 import SyntaxTreePage from '../SyntaxTreePage/SyntaxTreePage'
-import SyntaxTreeContext from '../SyntaxTreeContext/SyntaxTreeContext'
+import SyntaxTreeContext from '../SyntaxTreeContext'
 import './SyntaxTreeCanvas.css'
 import { expectedTree, bigTree, assignParents } from '../../testcases/TestRoots'
 import * as htmlToImage from 'html-to-image'
@@ -232,7 +232,7 @@ const SyntaxTreeCanvas : React.FC = () => {
 
             {/** The canvas for the syntax tree */}
             <div className="flex justify-center items-start overflow-x-auto relative">
-                <div ref={syntaxTreeRef}  onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className="canvas">  
+                <div ref={syntaxTreeRef} onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className="canvas">  
                     <SyntaxTreeNode node={root} /> 
                     <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
                         {lines}

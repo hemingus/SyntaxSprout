@@ -4,11 +4,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(brown -200%, yellowgreen 50%, brown 300%);
+    background: linear-gradient(rgb(150, 170, 140), rgb(170, 150, 115));
     width: 80svw;
     margin: 20px auto;
     padding: 20px;
-    border-radius: 20px;
-    border: solid 3px black;
-    gap: 10px;
 }
