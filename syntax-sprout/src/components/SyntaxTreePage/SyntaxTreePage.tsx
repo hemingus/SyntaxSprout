@@ -17,17 +17,19 @@ const SyntaxTreePage = () => {
         return (
             <div className="syntax-tree-page">
                 <h3>{"Sentence: "}<span style={{color: "yellowgreen"}}>{sentence}</span></h3>
-                {!confirmed ? 
-                <>
+                {!confirmed ? <div className="flex flex-col items-center">
                 <label>Input Sentence: </label> 
-                <input onKeyDown={(event) => {if (event.key === 'Enter') handleConfirmSentence()}} id="sentence-input" onChange={(e) => setSentence(e.target.value)} type="text" />
-                </> : <></>}
-                {confirmed ? 
-                    <div style={{display: "flex", flexDirection: "column", gap: "20px"}}>
+                <textarea
+                    onKeyDown={(event) => {if (event.key === 'Enter') handleConfirmSentence()}} 
+                    id="sentence-input" 
+                    onChange={(e) => setSentence(e.target.value)}  
+                />
+                <button onClick={() => {handleConfirmSentence()}}>Confirm Sentence</button>
+                </div> : 
+                <div className="flex flex-col gap-5">
                     <button onClick={() => {handleClearSentence()}}>Change Sentence</button>
                     <button onClick={() => {generateSyntaxTree()}}>Generate Syntax Tree</button>
-                    </div>
-                    : <button onClick={() => {handleConfirmSentence()}}>Confirm Sentence</button>}
+                </div>}
             </div>
         )
     }
