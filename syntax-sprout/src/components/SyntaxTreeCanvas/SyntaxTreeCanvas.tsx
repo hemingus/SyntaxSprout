@@ -1,19 +1,15 @@
-import { useState, useEffect, useLayoutEffect, useRef, useContext } from 'react'
-import { TreeNode } from '../TreeNode'
+import { useState, useEffect, useRef, useContext } from 'react'
 import SyntaxTreeNode from '../SyntaxTreeNode/SyntaxTreeNode'
 import SyntaxTreePage from '../SyntaxTreePage/SyntaxTreePage'
 import SyntaxTreeContext from '../SyntaxTreeContext'
 import './SyntaxTreeCanvas.css'
 import { expectedTree, bigTree, assignParents } from '../../testcases/TestRoots'
-import * as htmlToImage from 'html-to-image'
-import { saveAs } from 'file-saver'
-import { dataURLToBlob } from '../../utils/DataConvertion'
-
+import HtmlToImageButton from '../HtmlToImageButton/HtmlToImageButton'
+import SyntaxTreeLines from '../SyntaxTreeLines/SyntaxTreeLines'
 
 const SyntaxTreeCanvas : React.FC = () => {
     const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const [confirmed, setConfirmed] = useState(true)
-    const [lines, setLines] = useState<JSX.Element[]>([])
     const [showNewNodeInput, setShowNewNodeInput] = useState(false)
     const [newNodeText, setNewNodeText] = useState("")
     const [showOptions, setShowOptions] = useState(false)
@@ -53,54 +49,6 @@ const SyntaxTreeCanvas : React.FC = () => {
             document.removeEventListener('keydown', handleKeyDown)
         }
     }, [selectedNodes])
-
-    // make sure that lines in the syntax tree gets rendered correctly and responds to changes.
-    useLayoutEffect(() => {
-        const resizeObserver = new ResizeObserver(() => {
-           reRenderLines()
-        });
-        const syntaxTreeCanvas = document.getElementById("syntax-tree-canvas");
-        if (syntaxTreeCanvas) {
-            resizeObserver.observe(syntaxTreeCanvas);
-        }
-        syntaxTreeCanvas!.addEventListener('scroll', reRenderLines)
-
-        window.addEventListener('resize', reRenderLines)
-        window.addEventListener('scroll', reRenderLines)
-        reRenderLines()
-        return () => {
-            window.removeEventListener('resize', reRenderLines)
-            window.removeEventListener('scroll', reRenderLines)
-            syntaxTreeCanvas?.removeEventListener('scroll', reRenderLines)
-            resizeObserver.disconnect()}
-                        
-    }, [root])
-
-    // transform the syntax tree canvas into a image file (png) and download it.
-    const handleDownload = (): void => {
-        if (syntaxTreeRef.current) {
-            // Scroll to the top left to capture the full tree
-            syntaxTreeRef.current.scrollTop = 0;
-            syntaxTreeRef.current.scrollLeft = 0;
-
-            const originalOverflow = syntaxTreeRef.current.style.overflow;
-
-            syntaxTreeRef.current.style.overflow = 'visible';
-    
-            setTimeout(() => {
-                htmlToImage.toPng(syntaxTreeRef.current as HTMLElement, { pixelRatio: 2 }) // Increase pixel ratio for better quality
-                    .then((dataUrl: string) => {
-                        const blob = dataURLToBlob(dataUrl);
-                        saveAs(blob, 'syntax-tree.png');
-                        syntaxTreeRef.current!.style.overflow = originalOverflow;
-                    })
-                    .catch((error: Error) => {
-                        console.error('Error generating image:', error);
-                        syntaxTreeRef.current!.style.overflow = originalOverflow;
-                    });
-            }, 500); // Delay to ensure DOM is fully rendered
-        }
-    };
 
     // adding a new node to the syntax tree, updating its structure.
     const insertNewNode = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -145,47 +93,6 @@ const SyntaxTreeCanvas : React.FC = () => {
         )
     }
 
-    const reRenderLines = () => {
-        const linesToRender = renderTreeLines(root, null)
-        setLines(linesToRender!) 
-    }
-
-    // calculates the lines that connects the syntax tree. @Return list of SVG <line> elements 
-    function renderTreeLines(node: TreeNode, parentNodeRect: DOMRect | null) {
-        const newLines: JSX.Element[] = []
-        if (!node.children) {
-            return newLines
-        }
-        const canvas = document.getElementById("syntax-tree-canvas")!
-        const canvasRect: DOMRect = canvas?.getBoundingClientRect()!
-        const parentRect = document.getElementById(node.id)?.getBoundingClientRect()!
-        const parentCenterX = parentRect.left + parentRect.width/2 + canvas.scrollLeft - canvas.offsetLeft 
-        const parentBottomY = parentRect.top + parentRect.height + canvas.scrollTop - canvasRect.top
-        if (parentNodeRect === null) {
-            return renderTreeLines(node, parentRect)
-        }      
-        node.children.forEach((child: TreeNode) => {
-            const childRect = document.getElementById(child.id)?.getBoundingClientRect()!
-            const childCenterX = childRect.left + childRect.width / 2 + canvas.scrollLeft - canvasRect.left
-            const childTopY = childRect.top + canvas.scrollTop - canvasRect.top
-            let stroke = "black"
-            newLines.push(
-                <line
-                    key={child.id}
-                    x1={parentCenterX}
-                    y1={parentBottomY}
-                    x2={childCenterX}
-                    y2={childTopY}
-                    stroke={stroke} 
-                    strokeWidth="3"
-                    strokeOpacity="1">
-                </line>
-                )
-            newLines.push(...renderTreeLines(child, parentRect))
-        });
-        return newLines
-    }
-
     function handleContextMenuNode(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
         event.preventDefault()
         setPosition({ x: event.clientX, y: event.clientY });
@@ -227,16 +134,14 @@ const SyntaxTreeCanvas : React.FC = () => {
             <button onClick={() => setConfirmed(false)}>Change sentence</button>
             <button onClick={() => setRoot(expectedTree)}>Test expected tree</button>
             <button onClick={() => setRoot(bigTree)}>Test big tree</button>
-            <button onClick={handleDownload}>Download Syntax Tree as Image</button>
+            <HtmlToImageButton element={syntaxTreeRef.current} />
             </div>
 
             {/** The canvas for the syntax tree */}
             <div className="flex justify-center items-start overflow-x-auto relative">
                 <div ref={syntaxTreeRef} onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className="canvas">  
                     <SyntaxTreeNode node={root} /> 
-                    <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
-                        {lines}
-                    </svg>      
+                    <SyntaxTreeLines />    
                 </div>
             </div>
 

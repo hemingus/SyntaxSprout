@@ -15,11 +15,12 @@ const SyntaxTreePage = () => {
 
     const sentenceGenerator = () => {
         return (
-            <div className="syntax-tree-page">
-                <h3>{"Sentence: "}<span style={{color: "yellowgreen"}}>{sentence}</span></h3>
+            <div className="syntax-tree-page w-full lg:w-1/2 md:w-3/4">
+                <h3 className="w-full">{"Sentence: "}<span className="text-yellow-400">{sentence}</span></h3>
                 {!confirmed ? <div className="flex flex-col items-center">
                 <label>Input Sentence: </label> 
                 <textarea
+                    className="w-full"
                     onKeyDown={(event) => {if (event.key === 'Enter') handleConfirmSentence()}} 
                     id="sentence-input" 
                     onChange={(e) => setSentence(e.target.value)}  
