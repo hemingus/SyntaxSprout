@@ -122,7 +122,7 @@ const SyntaxTreeCanvas : React.FC = () => {
         return (
             <>
             {showOptions && (
-            <div style={{position: "absolute", top: position.y, left: position.x}} className="node-options"
+            <div style={{top: position.y, left: position.x}} className="node-options"
             onMouseLeave={() => setShowOptions(false)}>
                 <span className="option-block" onClick={() => {setShowNewNodeInput(true); }}>Generate new parent node from selected</span>
                 <span className="option-block" onClick={() => {deleteSelectedNodes()}}>Delete selected nodes</span>
@@ -131,9 +131,21 @@ const SyntaxTreeCanvas : React.FC = () => {
             )}
             {showNewNodeInput && newNodeInput()}
             <div className="canvas-container">
-            <button onClick={() => setConfirmed(false)}>Change sentence</button>
-            <button onClick={() => setRoot(expectedTree)}>Test expected tree</button>
-            <button onClick={() => setRoot(bigTree)}>Test big tree</button>
+            <button 
+                className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
+                onClick={() => setConfirmed(false)}>
+                    Change sentence
+            </button>
+            <button 
+                className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                onClick={() => setRoot(expectedTree)}>
+                    Test expected tree
+            </button>
+            <button 
+                className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                onClick={() => setRoot(bigTree)}>
+                    Test big tree
+            </button>
             <HtmlToImageButton element={syntaxTreeRef.current} />
             </div>
 

@@ -34,7 +34,11 @@ const HtmlToImageButton = ({element}: HtmlToImageButtonProps) => {
     };
 
     return (
-        <button onClick={handleDownload}>Download as image</button>
+        <button 
+            className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+            onClick={handleDownload}>
+                Download as image
+        </button>
     )
 }
 
