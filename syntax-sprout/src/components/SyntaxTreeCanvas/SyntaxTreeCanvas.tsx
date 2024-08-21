@@ -130,23 +130,23 @@ const SyntaxTreeCanvas : React.FC = () => {
             </div>
             )}
             {showNewNodeInput && newNodeInput()}
-            <div className="canvas-container">
-            <button 
-                className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
-                onClick={() => setConfirmed(false)}>
-                    Change sentence
-            </button>
-            <button 
-                className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                onClick={() => setRoot(expectedTree)}>
-                    Test expected tree
-            </button>
-            <button 
-                className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                onClick={() => setRoot(bigTree)}>
-                    Test big tree
-            </button>
-            <HtmlToImageButton element={syntaxTreeRef.current} />
+            <div className="canvas-container solid bg-lime-700 p-8">
+                <button 
+                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
+                    onClick={() => setConfirmed(false)}>
+                        Change sentence
+                </button>
+                <button 
+                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                    onClick={() => setRoot(expectedTree)}>
+                        Test expected tree
+                </button>
+                <button 
+                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                    onClick={() => setRoot(bigTree)}>
+                        Test big tree
+                </button>
+                <HtmlToImageButton element={syntaxTreeRef.current} />
             </div>
 
             {/** The canvas for the syntax tree */}
