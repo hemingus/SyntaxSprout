@@ -42,6 +42,10 @@ const SyntaxTreeCanvas : React.FC = () => {
                 else if (event.altKey && event.key === 'w') {
                     setShowNewNodeInput(true)
                 }
+                else if (event.altKey && event.key === 'q') {
+                    setEditing(true)
+                    setShowNewNodeInput(true)
+                }
             }
         }
         document.addEventListener('keydown', handleKeyDown)
@@ -122,7 +126,7 @@ const SyntaxTreeCanvas : React.FC = () => {
         return (
             <>
             {showOptions && (
-            <div style={{top: position.y, left: position.x}} className="node-options"
+            <div style={{top: position.y-10, left: position.x-10}} className="node-options"
             onMouseLeave={() => setShowOptions(false)}>
                 <span className="option-block" onClick={() => {setShowNewNodeInput(true); }}>Generate new parent node from selected</span>
                 <span className="option-block" onClick={() => {deleteSelectedNodes()}}>Delete selected nodes</span>
@@ -130,7 +134,7 @@ const SyntaxTreeCanvas : React.FC = () => {
             </div>
             )}
             {showNewNodeInput && newNodeInput()}
-            <div className="canvas-container solid bg-lime-700 p-8">
+            <div className="canvas-container w-fit left-1/2 -translate-x-1/2 solid bg-black p-8">
                 <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
                     onClick={() => setConfirmed(false)}>
