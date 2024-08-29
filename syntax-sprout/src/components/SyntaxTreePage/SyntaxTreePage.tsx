@@ -2,7 +2,9 @@ import SyntaxTreeCanvas from "../SyntaxTreeCanvas/SyntaxTreeCanvas"
 import { useState, useContext } from 'react'
 import { TreeNode } from '../TreeNode'
 import SyntaxTreeContext from "../SyntaxTreeContext"
+import { ThemeProvider } from "../Theme/ThemeContext"
 import './SyntaxTreePage.css'
+
 
 
 const SyntaxTreePage = () => {
@@ -57,7 +59,9 @@ const SyntaxTreePage = () => {
     
     if (generateTree) {
         return (
+            <ThemeProvider>
                 <SyntaxTreeCanvas/>
+            </ThemeProvider>
         )
     }
     return sentenceGenerator()

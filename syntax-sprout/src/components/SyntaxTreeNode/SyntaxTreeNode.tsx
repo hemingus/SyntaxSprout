@@ -2,6 +2,7 @@ import './SyntaxTreeNode.css'
 import { useContext } from 'react'
 import SyntaxTreeContext from '../SyntaxTreeContext';
 import { TreeNode } from '../TreeNode'
+import { useTheme } from '../Theme/ThemeContext';
 
 interface SyntaxTreeNodeProps {
     node: TreeNode
@@ -9,6 +10,7 @@ interface SyntaxTreeNodeProps {
 
 const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     const {selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
+    const {theme} = useTheme()
 
     function handleSelectNode(): void {
         if (node.parent && node.parent.children) {
@@ -50,7 +52,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             <div className="nodeBlock-container-vertical">
                 <span 
                 id={node.id} 
-                className="root-node">
+                className={`root-node ${theme.root}`}>
                     {node.label}
                 </span>
                 {node.children ? returnChildren() : <></>}
@@ -60,8 +62,8 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     else if (node.children) 
     return (
         <div className="nodeBlock-container-vertical"> 
-            <span className="nodeBlock"
-            style={selectedNodes.includes(node) ? {borderColor: "white"} : {}}
+            <span className={`nodeBlock ${theme.node}`}
+            style={selectedNodes.includes(node) ? {borderColor: "white", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
             onClick={handleSelectNode}>
                 {node.label}
@@ -74,9 +76,9 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     else return (
         <>
             <span 
-            style={selectedNodes.includes(node) ? {borderColor: "white"} : {}}
+            style={selectedNodes.includes(node) ? {borderColor: "white", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
-            className="wordBlock"
+            className={`nodeBlock ${theme.leaf}`}
             onClick={handleSelectNode}>
                 {node.label}
             </span>

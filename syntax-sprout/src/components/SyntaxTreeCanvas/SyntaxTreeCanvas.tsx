@@ -7,9 +7,12 @@ import './SyntaxTreeCanvas.css'
 import { expectedTree, bigTree, assignParents } from '../../testcases/TestRoots'
 import HtmlToImageButton from '../HtmlToImageButton/HtmlToImageButton'
 import SyntaxTreeLines from '../SyntaxTreeLines/SyntaxTreeLines'
+import ThemeSettings from '../Theme/ThemeSettings'
+import { useTheme } from '../Theme/ThemeContext'
 
 const SyntaxTreeCanvas : React.FC = () => {
     const {root, setRoot, selectedNodes} = useContext(SyntaxTreeContext)!
+    const {theme} = useTheme()
     const [confirmed, setConfirmed] = useState(true)
     const [showActions, setShowActions] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -54,11 +57,13 @@ const SyntaxTreeCanvas : React.FC = () => {
                         Test big tree
                 </button>
                 <HtmlToImageButton element={syntaxTreeRef.current} />
+                <ThemeSettings />
             </div>
+            
             
             {/** The canvas for the syntax tree */}
             <div className="flex justify-center items-start overflow-x-auto relative">
-                <div ref={syntaxTreeRef} onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className="canvas">  
+                <div ref={syntaxTreeRef} onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className={`canvas ${theme.canvas}`}>  
                     <SyntaxTreeNode node={root} /> 
                     <SyntaxTreeLines />
                 </div>

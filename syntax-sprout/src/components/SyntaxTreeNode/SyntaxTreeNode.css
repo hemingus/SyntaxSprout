@@ -8,7 +8,6 @@
     font-size: 20px;
     text-align: center;
     color: gold;
-    background: black;
     padding: 3px;
     border: solid 3px darkred;
     cursor: pointer;
@@ -22,14 +21,11 @@
     width: fit-content;
     font-size: 20px;
     text-align: center;
-    color: lightskyblue;
-    background: black;
-    padding: 3px;
-    border: solid 3px blue;
     cursor: pointer;
     border-radius: 10px;
-    z-index: 2;
-    justify-self: flex-start;
+    z-index: 3;
+    padding: 3px;
+    border: solid 3px transparent;
 }
 
 .node-options {
@@ -60,23 +56,6 @@
     z-index: 3;
 }
 
-.wordBlock {
-    position: relative;
-    display: block;
-    width: fit-content;
-    height: fit-content;
-    font-size: 20px;
-    text-align: center;
-    color: lightgreen;
-    background: black;
-    padding: 3px;
-    border: solid 3px green;
-    cursor: pointer;
-    border-radius: 10px;
-    z-index: 2;
-    align-self: flex-start;
-}
-
 .wordBlock-container {
     position: relative;
     display: flex;
@@ -87,8 +66,8 @@
 }
 
 .nodeBlock:hover {
-    box-shadow: 0 0 5px 5px green;
-    border: solid 3px lightskyblue;
+    box-shadow: 0 0 5px 5px black;
+    border-color: white;
 }
 
 .nodeBlock-container {

@@ -15,7 +15,7 @@
     transform-origin: top left;
     overflow: auto;
     padding: 100px;
-    background: linear-gradient(rgb(150, 170, 140), rgb(170, 150, 115));
+    /* background: linear-gradient(rgb(150, 170, 140), rgb(170, 150, 115)); */
     position: relative;
 }
 
@@ -25,7 +25,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 10;
     pointer-events: none;
     overflow: visible;
 }
