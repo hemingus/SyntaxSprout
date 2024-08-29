@@ -62,8 +62,8 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     else if (node.children) 
     return (
         <div className="nodeBlock-container-vertical"> 
-            <span className={`node-block ${theme.node}`}
-            style={selectedNodes.includes(node) ? {borderColor: "white"} : {}}
+            <span className={`nodeBlock ${theme.node}`}
+            style={selectedNodes.includes(node) ? {borderColor: "white", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
             onClick={handleSelectNode}>
                 {node.label}
@@ -76,9 +76,9 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     else return (
         <>
             <span 
-            style={selectedNodes.includes(node) ? {borderColor: "white"} : {}}
+            style={selectedNodes.includes(node) ? {borderColor: "white", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
-            className={`wordBlock ${theme.leaf}`}
+            className={`nodeBlock ${theme.leaf}`}
             onClick={handleSelectNode}>
                 {node.label}
             </span>
