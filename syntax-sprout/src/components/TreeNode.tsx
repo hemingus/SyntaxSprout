@@ -12,6 +12,7 @@ export interface TreeNodeMethods {
     deleteChildren(nodes: TreeNode[]): void
     generateParentFromChildren(nodes: TreeNode[], label: string): void
     clone(): TreeNode
+    toJSON(): Record<string, any>
 }
 
 export class TreeNode implements TreeNodeMethods {
@@ -30,6 +31,15 @@ export class TreeNode implements TreeNodeMethods {
     clone(): TreeNode {
         const nodeClone: TreeNode = Object.create(this)
         return nodeClone
+    }
+
+        // Custom toJSON method to handle circular references
+    toJSON(): Record<string, any> {
+        const { parent, ...rest } = this
+        return {
+            ...rest,
+            children: this.children?.map(child => child.toJSON()) // Recursively apply toJSON on children
+        };
     }
 
     setChildren(nodes: TreeNode[]) {
