@@ -41,23 +41,27 @@ const SyntaxTreeCanvas : React.FC = () => {
             <>
             <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
             <div className="canvas-container w-fit left-1/2 -translate-x-1/2 solid bg-black p-8">
-                <button 
-                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
-                    onClick={() => setConfirmed(false)}>
-                        Change sentence
-                </button>
-                <button 
-                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                    onClick={() => setRoot(expectedTree)}>
-                        Test expected tree
-                </button>
-                <button 
-                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                    onClick={() => setRoot(bigTree)}>
-                        Test big tree
-                </button>
-                <HtmlToImageButton element={syntaxTreeRef.current} />
-                <ThemeSettings />
+                <div className="flex">
+                    <div className="flex flex-col">
+                        <button 
+                            className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
+                            onClick={() => setConfirmed(false)}>
+                                Change sentence
+                        </button>
+                        <button 
+                            className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                            onClick={() => setRoot(expectedTree)}>
+                                Test expected tree
+                        </button>
+                        <button 
+                            className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                            onClick={() => setRoot(bigTree)}>
+                                Test big tree
+                        </button>
+                        <HtmlToImageButton element={syntaxTreeRef.current} />
+                    </div>
+                    <ThemeSettings />
+                </div>
             </div>
             
             
