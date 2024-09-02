@@ -76,16 +76,14 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
         </div>
     ) 
     // If the node has no children, it is a leaf, which means it is a word in the generated sentence.
-    else return (
-        <>
-            <span 
-            style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
-            id={node.id} 
-            className={`nodeBlock ${theme.leaf}`}
-            onClick={handleSelectNode}>
-                {node.label}
-            </span>
-        </>
+    else return (  
+        <span 
+        style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
+        id={node.id} 
+        className={`nodeBlock ${theme.leaf}`}
+        onClick={handleSelectNode}>
+            {node.label}
+        </span>
     )
 }
 
