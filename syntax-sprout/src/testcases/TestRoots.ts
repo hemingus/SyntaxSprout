@@ -22,7 +22,6 @@ var child2 = new TreeNode("the_middle_son_child2", [c2_gc1, c2_gc2, c2_gc3])
 var child3 = new TreeNode("the_youngest_son_child3", [c3_gc1, c3_gc2, c3_gc3])
     
 export const bigTree = new TreeNode("S", [child1, c1_gc2, c1_gc3, child2, child3])
-assignParents(bigTree)
 
 var word1 = new TreeNode("YouTube")
 var word2 = new TreeNode("shows")
@@ -48,15 +47,4 @@ var S1 = new TreeNode("S", [NP2, VP1])
 var S_1 = new TreeNode("S'", [Comp1, S1])
 var VP2 = new TreeNode("VP", [V1, S_1])
 
-export const expectedTree = new TreeNode("S", [NP1, VP2])
-assignParents(expectedTree)
-    
-export function assignParents(node: TreeNode) {
-    if (node.children) {
-        node.children.forEach(child => {
-            child.parent = node
-            if (child.children) {
-                assignParents(child)
-            }})
-    }
-}
+export const expectedTree = new TreeNode("S", [NP1, VP2], undefined, "Expected Tree")

@@ -4,11 +4,12 @@ import SyntaxTreePage from '../SyntaxTreePage/SyntaxTreePage'
 import SyntaxTreeActions from '../SyntaxTreeActions/SyntaxTreeActions'
 import SyntaxTreeContext from '../SyntaxTreeContext'
 import './SyntaxTreeCanvas.css'
-import { expectedTree, bigTree, assignParents } from '../../testcases/TestRoots'
+import { expectedTree, bigTree } from '../../testcases/TestRoots'
 import HtmlToImageButton from '../HtmlToImageButton/HtmlToImageButton'
 import SyntaxTreeLines from '../SyntaxTreeLines/SyntaxTreeLines'
 import ThemeSettings from '../Theme/ThemeSettings'
 import { useTheme } from '../Theme/ThemeContext'
+import MySyntaxTrees from '../MySyntaxTrees'
 
 const SyntaxTreeCanvas : React.FC = () => {
     const {root, setRoot, selectedNodes} = useContext(SyntaxTreeContext)!
@@ -17,12 +18,6 @@ const SyntaxTreeCanvas : React.FC = () => {
     const [showActions, setShowActions] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const syntaxTreeRef = useRef<HTMLDivElement>(null);
-
-    // assign parent-values for test-trees
-    useEffect(() => {
-        assignParents(bigTree)
-        assignParents(expectedTree)
-    }, [])
 
     function handleContextMenuNode(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
         event.preventDefault()
@@ -61,6 +56,7 @@ const SyntaxTreeCanvas : React.FC = () => {
                         <HtmlToImageButton element={syntaxTreeRef.current} />
                     </div>
                     <ThemeSettings />
+                    <MySyntaxTrees />
                 </div>
             </div>
             

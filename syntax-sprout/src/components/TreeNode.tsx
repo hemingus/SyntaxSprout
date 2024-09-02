@@ -20,12 +20,18 @@ export class TreeNode implements TreeNodeMethods {
     label: string
     children?: TreeNode[]
     parent?: TreeNode
+    name?: string
 
-    constructor(label: string, children?: TreeNode[], parent?: TreeNode) {
+    constructor(label: string, children?: TreeNode[], parent?: TreeNode, name?: string) {
         this.id = nanoid()
         this.label = label
         this.children = children
         this.parent = parent
+        this.name = name || ""
+
+        if (children) {
+            children.forEach(child => child.parent = this);
+        }
     }
 
     clone(): TreeNode {
@@ -40,6 +46,20 @@ export class TreeNode implements TreeNodeMethods {
             ...rest,
             children: this.children?.map(child => child.toJSON()) // Recursively apply toJSON on children
         };
+    }
+    
+    // Static method to create an instance from JSON and correctly set parent references
+    static fromJSON(data: any, parent?: TreeNode): TreeNode {
+        const children = data.children ? data.children.map((childData: any) => TreeNode.fromJSON(childData)) : undefined;
+        const node = new TreeNode(data.label, children, parent);
+        node.id = data.id
+
+        // Now set the parent for each child node
+        if (node.children) {
+            node.children.forEach(child => child.parent = node);
+        }
+
+        return node;
     }
 
     setChildren(nodes: TreeNode[]) {

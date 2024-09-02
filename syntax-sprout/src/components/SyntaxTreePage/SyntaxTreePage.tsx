@@ -38,7 +38,7 @@ const SyntaxTreePage = () => {
     }
 
     const generateSyntaxTree = () => {
-        const newRoot = root.clone()
+        const newRoot = new TreeNode("S")
         newRoot.setChildren(leafNodes)
         setRoot(newRoot)
         setGenerateTree(true)

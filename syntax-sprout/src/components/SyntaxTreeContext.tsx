@@ -1,4 +1,4 @@
-import { useState, createContext, ReactNode, SetStateAction, Dispatch } from 'react'
+import { useState, useEffect, createContext, ReactNode, SetStateAction, Dispatch } from 'react'
 import { TreeNode } from './TreeNode' 
 
 interface SyntaxTreeContextProps {
@@ -6,6 +6,8 @@ interface SyntaxTreeContextProps {
     setRoot: Dispatch<SetStateAction<TreeNode>>
     selectedNodes: TreeNode[]
     setSelectedNodes: Dispatch<SetStateAction<TreeNode[]>>
+    savedTrees: TreeNode[]
+    setSavedTrees: Dispatch<SetStateAction<TreeNode[]>>
 }
 
 interface SyntaxTreeProviderProps {
@@ -17,12 +19,28 @@ const SyntaxTreeContext = createContext<SyntaxTreeContextProps | undefined>(unde
 export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children }) => {
     const [root, setRoot] = useState<TreeNode>(new TreeNode("S", []))
     const [selectedNodes, setSelectedNodes] = useState<TreeNode[]>([])
+    const [savedTrees, setSavedTrees] = useState<TreeNode[]>([])
+
+    useEffect(() => {
+        const savedTrees = localStorage.getItem('my_trees');
+        if (savedTrees) {
+            const parsedTrees = JSON.parse(savedTrees);
+            const loadedTrees = parsedTrees.map((treeData: any) => TreeNode.fromJSON(treeData));
+            setSavedTrees(loadedTrees);
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('my_trees', JSON.stringify(savedTrees))
+    }, [savedTrees]);
 
     const contextValue: SyntaxTreeContextProps = {
         root, 
         setRoot,
         selectedNodes,
-        setSelectedNodes
+        setSelectedNodes,
+        savedTrees,
+        setSavedTrees
     }
 
     return (
