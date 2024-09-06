@@ -35,7 +35,7 @@ const SyntaxTreeCanvas : React.FC = () => {
         return (
             <>
             <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
-            <div className="canvas-container w-fit left-1/2 -translate-x-1/2 solid bg-black p-8">
+            <div className="canvas-container w-fit left-1/2 -translate-x-1/2 solid bg-gradient-to-b from-green-950 to-slate-900 p-8">
                 <div className="flex">
                     <div className="flex flex-col">
                         <button 

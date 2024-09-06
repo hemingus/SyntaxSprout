@@ -20,14 +20,12 @@ export class TreeNode implements TreeNodeMethods {
     label: string
     children?: TreeNode[]
     parent?: TreeNode
-    name?: string
 
-    constructor(label: string, children?: TreeNode[], parent?: TreeNode, name?: string) {
+    constructor(label: string, children?: TreeNode[], parent?: TreeNode) {
         this.id = nanoid()
         this.label = label
         this.children = children
         this.parent = parent
-        this.name = name || ""
 
         if (children) {
             children.forEach(child => child.parent = this);
@@ -37,6 +35,22 @@ export class TreeNode implements TreeNodeMethods {
     clone(): TreeNode {
         const nodeClone: TreeNode = Object.create(this)
         return nodeClone
+    }
+
+    // Method to create a deep clone of the TreeNode
+    deepClone(): TreeNode {
+        // Recursively clone the children
+        const clonedChildren = this.children?.map(child => child.deepClone());
+
+        // Create a new node with the same label and cloned children
+        const clonedNode = new TreeNode(this.label, clonedChildren);
+
+        // Set the parent reference for each cloned child
+        if (clonedChildren) {
+            clonedChildren.forEach(child => child.parent = clonedNode);
+        }
+
+        return clonedNode;
     }
 
         // Custom toJSON method to handle circular references
