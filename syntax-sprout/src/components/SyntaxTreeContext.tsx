@@ -21,17 +21,37 @@ export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children
     const [selectedNodes, setSelectedNodes] = useState<TreeNode[]>([])
     const [savedTrees, setSavedTrees] = useState<TreeNode[]>([])
 
+    const [loading, setLoading] = useState<boolean>(true)
+
     useEffect(() => {
-        const savedTrees = localStorage.getItem('my_trees');
-        if (savedTrees) {
-            const parsedTrees = JSON.parse(savedTrees);
-            const loadedTrees = parsedTrees.map((treeData: any) => TreeNode.fromJSON(treeData));
-            setSavedTrees(loadedTrees);
+        setSelectedNodes([])
+    }, [root])
+
+    useEffect(() => {
+        const myTrees = localStorage.getItem('my_trees')
+        if (myTrees) {
+            try {
+                const parsedTrees = JSON.parse(myTrees)
+                if (Array.isArray(parsedTrees)) {
+                    const loadedTrees = parsedTrees.map((treeData: any) => TreeNode.fromJSON(treeData))
+                    setSavedTrees(loadedTrees)
+                    console.log(loadedTrees)
+                }
+            } catch (error) {
+                console.error('Error parsing saved trees from localStorage:', error)
+            }
+        } else {
+            console.log("'my_trees' does not exist in local storage.")
+            setSavedTrees([])
         }
+        setLoading(false)
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('my_trees', JSON.stringify(savedTrees))
+        if (!loading) {
+            localStorage.setItem('my_trees', JSON.stringify(savedTrees))
+        }
+       
     }, [savedTrees]);
 
     const contextValue: SyntaxTreeContextProps = {

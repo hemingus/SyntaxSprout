@@ -44,6 +44,7 @@ export class TreeNode implements TreeNodeMethods {
 
         // Create a new node with the same label and cloned children
         const clonedNode = new TreeNode(this.label, clonedChildren);
+        clonedNode.id = this.id;
 
         // Set the parent reference for each cloned child
         if (clonedChildren) {
@@ -68,7 +69,7 @@ export class TreeNode implements TreeNodeMethods {
         const node = new TreeNode(data.label, children, parent);
         node.id = data.id
 
-        // Now set the parent for each child node
+        // set the parent for each child node
         if (node.children) {
             node.children.forEach(child => child.parent = node);
         }

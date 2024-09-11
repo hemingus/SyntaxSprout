@@ -27,6 +27,10 @@ const MySyntaxTrees = () => {
         console.log('Tree loaded from local storage')
     }
 
+    function deleteSyntaxTree(tree: TreeNode) {
+        setSavedTrees(savedTrees.filter(x => x !== tree))
+    }
+
     function clearAll() {
         setSavedTrees([])
     }
@@ -42,6 +46,8 @@ const MySyntaxTrees = () => {
                 key={tree.id}
                 onClick={() => loadSyntaxTree(tree)}>
                     {index +1} {tree.id}
+                    <span className="ml-4 p-1 rounded cursor-pointer text-xl bg-slate-700 text-red-700 hover:bg-slate-500" 
+                        onClick={() => deleteSyntaxTree(tree)}>Trash</span>
                 </li>
             ))}
         </ul>
