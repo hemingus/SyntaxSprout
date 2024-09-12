@@ -13,7 +13,7 @@ import MySyntaxTrees from '../MySyntaxTrees'
 
 const SyntaxTreeCanvas : React.FC = () => {
     const {root, setRoot, selectedNodes} = useContext(SyntaxTreeContext)!
-    const {theme} = useTheme()
+    const {activeTheme} = useTheme()
     const [confirmed, setConfirmed] = useState(true)
     const [showActions, setShowActions] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -35,7 +35,7 @@ const SyntaxTreeCanvas : React.FC = () => {
         return (
             <>
             <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
-            <div className="canvas-container w-fit left-1/2 -translate-x-1/2 solid bg-gradient-to-b from-green-950 to-slate-900 p-8">
+            <div className="canvas-container mb-4 w-fit left-1/2 -translate-x-1/2 solid bg-gradient-to-tr from-black to-slate-900 p-8">
                 <div className="flex">
                     <div className="flex flex-col">
                         <button 
@@ -56,14 +56,15 @@ const SyntaxTreeCanvas : React.FC = () => {
                         <HtmlToImageButton element={syntaxTreeRef.current} />
                     </div>
                     <ThemeSettings />
-                    <MySyntaxTrees />
+                    
                 </div>
+                <MySyntaxTrees />
             </div>
             
             
             {/** The canvas for the syntax tree */}
             <div className="flex justify-center items-start overflow-x-auto relative">
-                <div ref={syntaxTreeRef} onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className={`canvas ${theme.canvas}`}>  
+                <div ref={syntaxTreeRef} onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className={`canvas ${activeTheme.canvas}`}>  
                     <SyntaxTreeNode node={root} /> 
                     <SyntaxTreeLines />
                 </div>

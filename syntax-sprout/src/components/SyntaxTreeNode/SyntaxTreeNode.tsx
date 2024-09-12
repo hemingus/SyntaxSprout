@@ -10,7 +10,7 @@ interface SyntaxTreeNodeProps {
 
 const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     const {selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
-    const {theme} = useTheme()
+    const {activeTheme} = useTheme()
 
     function handleSelectNode(): void {
         if (selectedNodes.some(obj => obj.id === node.id)) {
@@ -55,7 +55,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             <div className="nodeBlock-container-vertical">
                 <span 
                 id={node.id} 
-                className={`root-node ${theme.root}`}>
+                className={`root-node ${activeTheme.root}`}>
                     {node.label}
                 </span>
                 {node.children ? returnChildren() : <></>}
@@ -65,7 +65,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     else if (node.children) 
     return (
         <div className="nodeBlock-container-vertical"> 
-            <span className={`nodeBlock ${theme.node}`}
+            <span className={`nodeBlock ${activeTheme.node}`}
             style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
             onClick={handleSelectNode}>
@@ -80,7 +80,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
         <span 
         style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
         id={node.id} 
-        className={`nodeBlock ${theme.leaf}`}
+        className={`nodeBlock ${activeTheme.leaf}`}
         onClick={handleSelectNode}>
             {node.label}
         </span>

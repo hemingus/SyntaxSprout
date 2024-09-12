@@ -59,6 +59,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     function editSelectedNodes() {
         selectedNodes.forEach(node => node.children ? node.setLabel(newNodeText) : {})
+        refreshRoot()
         setSelectedNodes([])
         setShowNewNodeInput(false)
     }

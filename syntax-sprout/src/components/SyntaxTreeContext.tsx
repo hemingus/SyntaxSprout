@@ -28,6 +28,18 @@ export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children
     }, [root])
 
     useEffect(() => {
+        if (!root) return;
+    
+        // Find the tree in savedTrees and update it
+        const updatedTrees = savedTrees.map(tree =>
+            tree.id === root.id ? root.deepCopy() : tree // Deep clone the root tree
+        );
+    
+        // Set the updated trees in state
+        setSavedTrees(updatedTrees);
+    }, [root]); // Runs when root changes
+
+    useEffect(() => {
         const myTrees = localStorage.getItem('my_trees')
         if (myTrees) {
             try {

@@ -12,6 +12,8 @@ export interface TreeNodeMethods {
     deleteChildren(nodes: TreeNode[]): void
     generateParentFromChildren(nodes: TreeNode[], label: string): void
     clone(): TreeNode
+    deepClone(): TreeNode
+    deepCopy(): TreeNode
     toJSON(): Record<string, any>
 }
 
@@ -38,13 +40,30 @@ export class TreeNode implements TreeNodeMethods {
     }
 
     // Method to create a deep clone of the TreeNode
-    deepClone(): TreeNode {
+    deepCopy(): TreeNode {
         // Recursively clone the children
         const clonedChildren = this.children?.map(child => child.deepClone());
 
         // Create a new node with the same label and cloned children
         const clonedNode = new TreeNode(this.label, clonedChildren);
         clonedNode.id = this.id;
+
+        // Set the parent reference for each cloned child
+        if (clonedChildren) {
+            clonedChildren.forEach(child => child.parent = clonedNode);
+        }
+
+        return clonedNode;
+    }
+
+    // Method to create a deep clone of the TreeNode
+    deepClone(): TreeNode {
+        // Recursively clone the children
+        const clonedChildren = this.children?.map(child => child.deepClone());
+
+        // Create a new node with the same label and cloned children
+        const clonedNode = new TreeNode(this.label, clonedChildren);
+        // clonedNode.id = this.id;
 
         // Set the parent reference for each cloned child
         if (clonedChildren) {

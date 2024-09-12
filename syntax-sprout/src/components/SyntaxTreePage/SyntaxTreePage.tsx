@@ -5,15 +5,12 @@ import SyntaxTreeContext from "../SyntaxTreeContext"
 import { ThemeProvider } from "../Theme/ThemeContext"
 import './SyntaxTreePage.css'
 
-
-
 const SyntaxTreePage = () => {
-
     const [sentence, setSentence] = useState("")
     const [leafNodes, setLeafNodes] = useState<TreeNode[]>([])
     const [confirmed, setConfirmed] = useState(false)
     const [generateTree, setGenerateTree] = useState(false)
-    const {root, setRoot} = useContext(SyntaxTreeContext)!
+    const {root, setRoot, savedTrees, setSavedTrees} = useContext(SyntaxTreeContext)!
 
     const sentenceGenerator = () => {
         return (
@@ -41,6 +38,7 @@ const SyntaxTreePage = () => {
         const newRoot = new TreeNode("S")
         newRoot.setChildren(leafNodes)
         setRoot(newRoot)
+        setSavedTrees([...savedTrees, newRoot])
         setGenerateTree(true)
     }
 

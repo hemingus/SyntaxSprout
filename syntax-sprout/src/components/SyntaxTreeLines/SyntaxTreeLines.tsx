@@ -4,7 +4,7 @@ import { TreeNode } from '../TreeNode'
 import { useTheme } from '../Theme/ThemeContext'
 
 const SyntaxTreeLines = () => {
-    const {theme} = useTheme()
+    const {activeTheme} = useTheme()
     const {root} = useContext(SyntaxTreeContext)!
     const [lines, setLines] = useState<JSX.Element[]>([])
 
@@ -27,7 +27,7 @@ const SyntaxTreeLines = () => {
             syntaxTreeCanvas?.removeEventListener('scroll', reRenderLines)
             resizeObserver.disconnect()}
                         
-    }, [root, theme])
+    }, [root, activeTheme])
 
     const reRenderLines = () => {
         const linesToRender = renderTreeLines(root, null)
@@ -51,7 +51,7 @@ const SyntaxTreeLines = () => {
             const childRect = document.getElementById(child.id)?.getBoundingClientRect()!
             const childCenterX = childRect.left + childRect.width / 2 + canvas.scrollLeft - canvasRect.left
             const childTopY = childRect.top + canvas.scrollTop - canvasRect.top
-            let stroke = theme.lines
+            let stroke = activeTheme.lines
             newLines.push(
                 <line
                     key={child.id}
