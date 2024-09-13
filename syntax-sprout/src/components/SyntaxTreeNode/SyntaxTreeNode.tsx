@@ -37,17 +37,14 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     }
 
     const returnChildren = () => {
-        const childrenToReturn = node.children!
-
         return (
             <div className="nodeBlock-container">
-                {childrenToReturn.map((child) => ( 
+                {node.children!.map((child) => ( 
                     <SyntaxTreeNode key={child.id} node={child} />
                 ))}
             </div>
         )
     }
-
 
     // If the node has no parent, it is the root which has its own properties.
     if (!node.parent) 
@@ -58,32 +55,32 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
                 className={`root-node ${activeTheme.root}`}>
                     {node.label}
                 </span>
-                {node.children ? returnChildren() : <></>}
+                {node.children && returnChildren()}
             </div>
         )
     // If the node has children, it is not a leaf, it is a regular node inside the tree graph.
     else if (node.children) 
-    return (
-        <div className="nodeBlock-container-vertical"> 
-            <span className={`nodeBlock ${activeTheme.node}`}
+        return (
+            <div className="nodeBlock-container-vertical"> 
+                <span className={`nodeBlock ${activeTheme.node}`}
+                style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
+                id={node.id} 
+                onClick={handleSelectNode}>
+                    {node.label}
+                </span>
+                {node.children && returnChildren()}
+            </div>
+    ) 
+    // If the node has no children, it is a leaf, which means it is a word in the generated sentence.
+    else 
+        return (  
+            <span 
             style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
+            className={`nodeBlock ${activeTheme.leaf}`}
             onClick={handleSelectNode}>
                 {node.label}
             </span>
-
-            {node.children && returnChildren()}
-        </div>
-    ) 
-    // If the node has no children, it is a leaf, which means it is a word in the generated sentence.
-    else return (  
-        <span 
-        style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
-        id={node.id} 
-        className={`nodeBlock ${activeTheme.leaf}`}
-        onClick={handleSelectNode}>
-            {node.label}
-        </span>
     )
 }
 

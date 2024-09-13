@@ -1,56 +1,25 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
-import { useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import { TreeNode } from './TreeNode'
 import Tooltip from '../utils/Tooltip'
-
-type SavedTree = {
-    name: string
-    tree: TreeNode
-}
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!
 
-
-
-    function updateSyntaxTree(updatedTree: TreeNode) {
-        const treeIndex = savedTrees.findIndex(tree => tree.id === updatedTree.id);
-
-        if (treeIndex !== -1) {
-            // Create a copy of the savedTrees array
-            const updatedSavedTrees = [...savedTrees];
-    
-            // Replace the tree at the found index with the updated tree
-            updatedSavedTrees[treeIndex] = updatedTree;
-    
-            // Update state with the modified array
-            
-        }
-    }
-
     function duplicateSyntaxTree() {
-        if (savedTrees.length >= 5) {
-            alert("max 5 saves")
-        } else {
-            const newTree = root.deepClone()
-            setRoot(newTree)
-            setSavedTrees([...savedTrees, newTree])
-            
-            console.log(newTree)
-            console.log('Tree saved to local storage')
-        }
+        const newTree = root.deepClone()
+        setRoot(newTree)
+        setSavedTrees([...savedTrees, newTree])
     }
 
     function loadSyntaxTree(tree: TreeNode) {
-        console.log(tree)
         setRoot(tree)
-        console.log('Tree loaded from local storage')
     }
 
     function deleteSyntaxTree(tree: TreeNode) {
         const updatedTrees = savedTrees.filter(x => x !== tree)
         setSavedTrees(updatedTrees)
-        if (savedTrees.length > 0) {
+        if (tree.id === root.id && savedTrees.length > 0) {
             setRoot(savedTrees[0])
         }
     }
@@ -74,9 +43,9 @@ const MySyntaxTrees = () => {
                 >
                     {index +1} {tree.id}
                     <Tooltip text="delete">
-                        <span 
-                            className="ml-4 p-1 rounded cursor-pointer text-xl bg-transparent text-white hover:" 
-                            onClick={() => deleteSyntaxTree(tree)}
+                        <span
+                            className="ml-4 p-1 rounded cursor-pointer text-xl bg-transparent text-white"
+                            onClick={(e) => {e.stopPropagation(); deleteSyntaxTree(tree)}}
                             >❌</span>
                     </Tooltip>
                 </li>

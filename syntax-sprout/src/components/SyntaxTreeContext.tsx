@@ -23,22 +23,21 @@ export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children
 
     const [loading, setLoading] = useState<boolean>(true)
 
+    // Clear all selected nodes after changing or modifying current tree.
     useEffect(() => {
         setSelectedNodes([])
     }, [root])
 
+    // Update tree object in savedTrees on change.
     useEffect(() => {
         if (!root) return;
-    
-        // Find the tree in savedTrees and update it
         const updatedTrees = savedTrees.map(tree =>
-            tree.id === root.id ? root.deepCopy() : tree // Deep clone the root tree
+            tree.id === root.id ? root.deepCopy() : tree
         );
-    
-        // Set the updated trees in state
         setSavedTrees(updatedTrees);
-    }, [root]); // Runs when root changes
+    }, [root]);
 
+    // Load tree data from local storage on mount.
     useEffect(() => {
         const myTrees = localStorage.getItem('my_trees')
         if (myTrees) {
@@ -59,6 +58,7 @@ export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children
         setLoading(false)
     }, [])
 
+    // Update local storage when savedTrees changes.
     useEffect(() => {
         if (!loading) {
             localStorage.setItem('my_trees', JSON.stringify(savedTrees))
