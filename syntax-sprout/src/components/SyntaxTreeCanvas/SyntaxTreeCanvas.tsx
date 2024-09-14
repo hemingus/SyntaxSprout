@@ -12,7 +12,7 @@ import { useTheme } from '../Theme/ThemeContext'
 import MySyntaxTrees from '../MySyntaxTrees'
 
 const SyntaxTreeCanvas : React.FC = () => {
-    const {root, setRoot, selectedNodes} = useContext(SyntaxTreeContext)!
+    const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const {activeTheme} = useTheme()
     const [confirmed, setConfirmed] = useState(true)
     const [showActions, setShowActions] = useState(false)
@@ -64,11 +64,17 @@ const SyntaxTreeCanvas : React.FC = () => {
             
             {/** The canvas for the syntax tree */}
             <div className="flex justify-center items-start overflow-x-auto relative">
-                <div ref={syntaxTreeRef} onContextMenu={handleContextMenuNode} id="syntax-tree-canvas" className={`canvas ${activeTheme.canvas}`}>  
-                    <SyntaxTreeNode node={root} /> 
+                <div 
+                ref={syntaxTreeRef} 
+                onContextMenu={handleContextMenuNode} 
+                id="syntax-tree-canvas" 
+                className={`canvas ${activeTheme.canvas}`}
+                onClick={() => setSelectedNodes([])}>  
+                    <SyntaxTreeNode node={root} />  
                     <SyntaxTreeLines />
                 </div>
             </div>
+            
             
 
             

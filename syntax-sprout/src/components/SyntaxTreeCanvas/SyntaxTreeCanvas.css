@@ -16,7 +16,6 @@
     transform-origin: top left;
     overflow: auto;
     padding: 100px;
-    /* background: linear-gradient(rgb(150, 170, 140), rgb(170, 150, 115)); */
     position: relative;
 }
 
