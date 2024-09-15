@@ -15,16 +15,18 @@ const MainMenu : React.FC = () => {
     }
 
     return (
-        <div className="main-menu text-xl">
-            <div className="flex flex-col justify-center items-center solid bg-slate-700 p-4">
-                <p className="text-white">
-                    Welcome to Syntax Sprout! 
+        <div className="w-[90svw] h-[90svh] flex flex-col justify-center items-center self-center 
+        bg-[url('./assets/vines_waterfall_02.png')] bg-contain bg-no-repeat bg-center">
+            <div className="flex flex-col justify-center items-center p-8 bg-gradient-to-tr from-slate-900 via-emerald-900 to-slate-900
+            border-solid border-8 border-slate-700">
+                <p className="text-white text-2xl">
+                    Welcome to Syntax Sprout!
                     <br/> If you are analyzing sentences and are looking to construct a syntax tree, 
                     <br/> here is a neat tool to help you accomplish that.
                     <br/> Enter your sentence and start building!
                 </p>
                 <button 
-                    className="text-xl bg-green-900 text-slate-300 cursor-pointer hover:text-white" 
+                    className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white" 
                     onClick={() => setShowSyntaxTree(true)}>
                         Start building! ⏵
                 </button>

@@ -35,7 +35,7 @@ const SyntaxTreeCanvas : React.FC = () => {
         return (
             <>
             <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
-            <div className="canvas-container mb-4 w-fit left-1/2 -translate-x-1/2 solid bg-gradient-to-tr from-black to-slate-900 p-8">
+            <div className="canvas-container w-fit left-1/2 -translate-x-1/2 solid  p-8 bg-gradient-to-tr from-slate-950 via-emerald-950 to-slate-950">
                 <div className="flex">
                     <div className="flex flex-col">
                         <button 
@@ -60,7 +60,6 @@ const SyntaxTreeCanvas : React.FC = () => {
                 </div>
                 <MySyntaxTrees />
             </div>
-            
             
             {/** The canvas for the syntax tree */}
             <div className="flex justify-center items-start overflow-x-auto relative">

@@ -14,10 +14,11 @@ const SyntaxTreePage = () => {
 
     const sentenceGenerator = () => {
         return (
-            <div className="syntax-tree-page w-full lg:w-1/2 md:w-3/4">
-                <h3 className="w-full">{"Sentence: "}<span className="text-yellow-400">{sentence}</span></h3>
+            <div className="syntax-tree-page w-full lg:w-1/2 md:w-3/4 bg-gradient-to-tr from-slate-900 via-emerald-900 to-slate-900
+            border-solid border-8 border-slate-700">
+                <h3 className="text-2xl">{"Sentence: "}<span className="text-yellow-400">{sentence}</span></h3>
                 {!confirmed ? <div className="flex flex-col items-center">
-                <label>Input Sentence: </label> 
+                <label className="text-slate-300">Input Sentence: </label> 
                 <textarea
                     className="w-full"
                     onKeyDown={(event) => {if (event.key === 'Enter') handleConfirmSentence()}} 

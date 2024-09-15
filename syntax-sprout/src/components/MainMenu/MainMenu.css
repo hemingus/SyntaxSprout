@@ -2,10 +2,10 @@
     display: block;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center ;
     align-items: center;
-    background: linear-gradient(rgb(150, 170, 140), rgb(170, 150, 115));
-    width: 80svw;
+    width: 24svw;
+    height: 24svh;
     margin: 20px auto;
     padding: 20px;
 }

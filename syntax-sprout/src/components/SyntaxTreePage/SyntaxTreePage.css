@@ -4,7 +4,6 @@
     align-items: center;
     flex-direction: column;
     display: block;
-    background: linear-gradient(to bottom, rgb(150, 170, 140), rgb(170, 150, 115));
     padding: 20px;
     gap: 20px;
     width: fit-content;
