@@ -35,8 +35,9 @@ const SyntaxTreeCanvas : React.FC = () => {
         return (
             <>
             <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
-            <div className="canvas-container w-fit left-1/2 -translate-x-1/2 solid  p-8 bg-gradient-to-tr from-slate-950 via-emerald-950 to-slate-950">
-                <div className="flex">
+            <div className="flex flex-col justify-center items-center">
+            <div className="canvas-container flex flex-col justify-center items-center w-full solid bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900">
+                <div className="flex flex-row justify-center items-center">
                     <div className="flex flex-col">
                         <button 
                             className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
@@ -55,10 +56,10 @@ const SyntaxTreeCanvas : React.FC = () => {
                         </button>
                         <HtmlToImageButton element={syntaxTreeRef.current} />
                     </div>
-                    <ThemeSettings />
-                    
+                    <ThemeSettings />  
                 </div>
                 <MySyntaxTrees />
+            </div>
             </div>
             
             {/** The canvas for the syntax tree */}

@@ -55,14 +55,17 @@ const MySyntaxTrees = () => {
     }
 
     return (
-        <div>
-            <button 
-                className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                onClick={duplicateSyntaxTree}>Duplicate Current Tree</button>
-            <button 
-                className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                onClick={clearAll}>Clear All</button>
-            {savedTrees && savedTreesList()}
+        <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-row justify-center items-center gap-2">
+                <button 
+                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                    onClick={duplicateSyntaxTree}>Duplicate Current Tree</button>
+                <button 
+                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                    onClick={clearAll}>Clear All</button>
+            </div>
+                {savedTrees && savedTreesList()}
+            
         </div>
     )
 };

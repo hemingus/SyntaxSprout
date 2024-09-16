@@ -7,7 +7,7 @@ import { useTheme } from '../Theme/ThemeContext';
 interface SyntaxTreeNodeProps {
     node: TreeNode
 }
-
+// 8 12 16 20 24 28 32 36 40
 const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     const {selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const {activeTheme} = useTheme()
@@ -49,8 +49,8 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             <div className="nodeBlock-container-vertical">
                 <span 
                 id={node.id} 
-                className={`relative block min-w-min min-h-min w-[30px] h-[30px] 
-                text-[20px] text-center p-[3px] border-solid border-[3px]
+                className={`relative block min-w-min min-h-min w-[36px] h-[36px] 
+                text-[24px] text-center p-[3px] border-solid border-[3px]
                 cursor-pointer rounded-full self-center 
                 ${activeTheme.root}`}>
                     {node.label}
@@ -63,7 +63,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
         return (
             <div className="nodeBlock-container-vertical"> 
                 <span className={`relative block w-fit z-[3] p-[3px] 
-                text-[20px] text-center cursor-pointer 
+                text-[24px] text-center cursor-pointer 
                 border-solid rounded-[10px] border-[3px] hover:border-white hover:shadow-[0_0_5px_5px_black] ${activeTheme.node}`}
                 style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
                 id={node.id} 
@@ -80,7 +80,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
             className={`relative block w-fit z-[3] p-[3px] 
-                text-[20px] text-center cursor-pointer 
+                text-[24px] text-center cursor-pointer 
                 border-solid rounded-[10px] border-[3px] hover:border-white hover:shadow-[0_0_5px_5px_black] ${activeTheme.leaf}`}
             onClick={(e) => {e.stopPropagation(); handleSelectNode();}}>
                 {node.label}

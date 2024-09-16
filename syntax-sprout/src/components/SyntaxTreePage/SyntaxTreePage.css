@@ -8,9 +8,6 @@
     gap: 20px;
     width: fit-content;
     position: relative;
-    left: 50%;
-    transform: translate(-50%);
-    margin-top: 5vh;
 }
 
 .syntax-tree-page label {
