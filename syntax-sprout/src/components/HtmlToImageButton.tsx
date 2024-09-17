@@ -1,6 +1,6 @@
 import * as htmlToImage from 'html-to-image'
 import { saveAs } from 'file-saver'
-import { dataURLToBlob } from "../../utils/DataConvertion";
+import { dataURLToBlob } from "../utils/DataConvertion";
 
 interface HtmlToImageButtonProps {
     element: HTMLElement | null

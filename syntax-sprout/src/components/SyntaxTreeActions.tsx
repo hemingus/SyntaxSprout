@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useContext } from 'react'
-import SyntaxTreeContext from '../SyntaxTreeContext'
-import '../SyntaxTreeCanvas/SyntaxTreeCanvas.css'
+import SyntaxTreeContext from './SyntaxTreeContext'
 
 interface SyntaxTreeActionProps {
     active: boolean
