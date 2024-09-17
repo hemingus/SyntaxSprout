@@ -2,9 +2,11 @@ import { useState, useLayoutEffect, useContext } from 'react'
 import SyntaxTreeContext from '../SyntaxTreeContext'
 import { TreeNode } from '../TreeNode'
 import { useTheme } from '../Theme/ThemeContext'
+import { useTreeSetting } from '../Settings/SettingsContex'
 
 const SyntaxTreeLines = () => {
     const {activeTheme} = useTheme()
+    const {setting} = useTreeSetting()
     const {root} = useContext(SyntaxTreeContext)!
     const [lines, setLines] = useState<JSX.Element[]>([])
 
@@ -27,7 +29,7 @@ const SyntaxTreeLines = () => {
             syntaxTreeCanvas?.removeEventListener('scroll', reRenderLines)
             resizeObserver.disconnect()}
                         
-    }, [root, activeTheme])
+    }, [root, activeTheme, setting])
 
     const reRenderLines = () => {
         const linesToRender = renderTreeLines(root, null)

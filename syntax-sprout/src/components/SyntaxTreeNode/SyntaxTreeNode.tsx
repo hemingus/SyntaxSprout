@@ -3,14 +3,16 @@ import { useContext } from 'react'
 import SyntaxTreeContext from '../SyntaxTreeContext';
 import { TreeNode } from '../TreeNode'
 import { useTheme } from '../Theme/ThemeContext';
+import { useTreeSetting } from '../Settings/SettingsContex';
 
 interface SyntaxTreeNodeProps {
     node: TreeNode
 }
-// 8 12 16 20 24 28 32 36 40
+
 const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     const {selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const {activeTheme} = useTheme()
+    const {setting} = useTreeSetting()
 
     function handleSelectNode(): void {
         if (node.parent && node.parent.children) {
@@ -35,7 +37,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
 
     const returnChildren = () => {
         return (
-            <div className="nodeBlock-container">
+            <div className={`relative flex flex-row justify-center items-start m-auto ${setting.xGap}`}>
                 {node.children!.map((child) => ( 
                     <SyntaxTreeNode key={child.id} node={child} />
                 ))}
@@ -46,7 +48,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     // If the node has no parent, it is the root which has its own properties.
     if (!node.parent) 
         return (
-            <div className="nodeBlock-container-vertical">
+            <div className={`relative h-full w-full flex flex-col justify-start items-center ${setting.yGap}`}>
                 <span 
                 id={node.id} 
                 className={`relative block min-w-min min-h-min w-[36px] h-[36px] 
@@ -61,9 +63,9 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     // If the node has children, it is not a leaf, it is a regular node inside the tree graph.
     else if (node.children) 
         return (
-            <div className="nodeBlock-container-vertical"> 
+            <div className={`relative h-full w-full flex flex-col justify-start items-center ${setting.yGap}`}> 
                 <span className={`relative block w-fit z-[3] p-[3px] 
-                text-[24px] text-center cursor-pointer 
+                ${setting.nodeSize} text-center cursor-pointer 
                 border-solid rounded-[10px] border-[3px] hover:border-white hover:shadow-[0_0_5px_5px_black] ${activeTheme.node}`}
                 style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
                 id={node.id} 
@@ -80,7 +82,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
             className={`relative block w-fit z-[3] p-[3px] 
-                text-[24px] text-center cursor-pointer 
+                ${setting.nodeSize} text-center cursor-pointer 
                 border-solid rounded-[10px] border-[3px] hover:border-white hover:shadow-[0_0_5px_5px_black] ${activeTheme.leaf}`}
             onClick={(e) => {e.stopPropagation(); handleSelectNode();}}>
                 {node.label}
