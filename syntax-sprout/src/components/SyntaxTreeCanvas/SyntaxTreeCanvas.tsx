@@ -10,6 +10,7 @@ import SyntaxTreeLines from '../SyntaxTreeLines/SyntaxTreeLines'
 import ThemeSettings from '../Theme/ThemeSettings'
 import { useTheme } from '../Theme/ThemeContext'
 import MySyntaxTrees from '../MySyntaxTrees'
+import TreeSettings from '../Settings/TreeSettings'
 
 const SyntaxTreeCanvas : React.FC = () => {
     const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
@@ -56,7 +57,8 @@ const SyntaxTreeCanvas : React.FC = () => {
                         </button>
                         <HtmlToImageButton element={syntaxTreeRef.current} />
                     </div>
-                    <ThemeSettings />  
+                    <ThemeSettings />
+                    <TreeSettings />
                 </div>
                 <MySyntaxTrees />
             </div>

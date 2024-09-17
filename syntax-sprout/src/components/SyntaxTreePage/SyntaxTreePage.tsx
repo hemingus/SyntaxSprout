@@ -4,6 +4,7 @@ import { TreeNode } from '../TreeNode'
 import SyntaxTreeContext from "../SyntaxTreeContext"
 import { ThemeProvider } from "../Theme/ThemeContext"
 import './SyntaxTreePage.css'
+import { SettingsProvider } from "../Settings/SettingsContex"
 
 const SyntaxTreePage = () => {
     const [sentence, setSentence] = useState("")
@@ -61,9 +62,11 @@ const SyntaxTreePage = () => {
     
     if (generateTree) {
         return (
-            <ThemeProvider>
-                <SyntaxTreeCanvas/>
-            </ThemeProvider>
+            <SettingsProvider>
+                <ThemeProvider>
+                    <SyntaxTreeCanvas/>
+                </ThemeProvider>
+            </SettingsProvider>
         )
     }
     return sentenceGenerator()
