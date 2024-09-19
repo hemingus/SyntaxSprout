@@ -32,8 +32,10 @@ const SyntaxTreeLines = () => {
     }, [root, activeTheme, setting])
 
     const reRenderLines = () => {
-        const linesToRender = renderTreeLines(root, null)
-        setLines(linesToRender!) 
+        setTimeout(() => {
+            const linesToRender = renderTreeLines(root, null)
+            setLines(linesToRender)
+        }, 0)
     }
 
     function renderTreeLines(node: TreeNode, parentNodeRect: DOMRect | null) {
@@ -46,28 +48,83 @@ const SyntaxTreeLines = () => {
         const parentRect = document.getElementById(node.id)?.getBoundingClientRect()!
         const parentCenterX = parentRect.left + parentRect.width/2 + canvas.scrollLeft - canvas.offsetLeft 
         const parentBottomY = parentRect.top + parentRect.height + canvas.scrollTop - canvasRect.top
+
         if (parentNodeRect === null) {
             return renderTreeLines(node, parentRect)
-        }      
-        node.children.forEach((child: TreeNode) => {
-            const childRect = document.getElementById(child.id)?.getBoundingClientRect()!
-            const childCenterX = childRect.left + childRect.width / 2 + canvas.scrollLeft - canvasRect.left
-            const childTopY = childRect.top + canvas.scrollTop - canvasRect.top
+        }
+
+        if (node.meta?.merged) {
+            const n = node.children.length
+            const firstChild = node.children[0]
+            const lastChild = node.children[n-1]
+            const childRectStart = document.getElementById(firstChild.id)?.getBoundingClientRect()!
+            const childRectEnd = document.getElementById(lastChild.id)?.getBoundingClientRect()!
+            const childStartX = childRectStart.left + canvas.scrollLeft - canvasRect.left
+            const childEndX = childRectEnd.left + childRectEnd.width + canvas.scrollLeft - canvasRect.left
+            const childRectY = childRectStart.top + canvas.scrollTop - canvasRect.top
             let stroke = activeTheme.lines
+            // newLines.push(
+            //     <line
+            //         key={firstChild.id}
+            //         x1={parentCenterX}
+            //         y1={parentBottomY}
+            //         x2={childStartX}
+            //         y2={childRectY}
+            //         stroke={stroke} 
+            //         strokeWidth="3"
+            //         strokeOpacity="1">
+            //     </line>)
+            // newLines.push(
+            //     <line
+            //         key={lastChild.id}
+            //         x1={parentCenterX}
+            //         y1={parentBottomY}
+            //         x2={childEndX}
+            //         y2={childRectY}
+            //         stroke={stroke} 
+            //         strokeWidth="3"
+            //         strokeOpacity="1">
+            //     </line>)
+            // newLines.push(
+            //     <line
+            //         key={firstChild.id + lastChild.id}
+            //         x1={childStartX}
+            //         y1={childRectY}
+            //         x2={childEndX}
+            //         y2={childRectY}
+            //         stroke={stroke} 
+            //         strokeWidth="2"
+            //         strokeOpacity="1">
+            //     </line>)
+            const points = `${parentCenterX},${parentBottomY},${childStartX},${childRectY},${childEndX},${childRectY}`
             newLines.push(
-                <line
-                    key={child.id}
-                    x1={parentCenterX}
-                    y1={parentBottomY}
-                    x2={childCenterX}
-                    y2={childTopY}
-                    stroke={stroke} 
-                    strokeWidth="3"
-                    strokeOpacity="1">
-                </line>
-                )
-            newLines.push(...renderTreeLines(child, parentRect))
-        });
+            <polygon points={points} fill="transparent" stroke={stroke} stroke-width="3"/>)
+                
+            node.children.forEach((child: TreeNode) => {
+                newLines.push(...(renderTreeLines(child, parentRect) || [])); // Ensures an array
+            });
+
+        } else {
+        node.children.forEach((child: TreeNode) => {
+        const childRect = document.getElementById(child.id)?.getBoundingClientRect()!
+        const childCenterX = childRect.left + childRect.width / 2 + canvas.scrollLeft - canvasRect.left
+        const childTopY = childRect.top + canvas.scrollTop - canvasRect.top
+        let stroke = activeTheme.lines
+        newLines.push(
+            <line
+                key={child.id}
+                x1={parentCenterX}
+                y1={parentBottomY}
+                x2={childCenterX}
+                y2={childTopY}
+                stroke={stroke} 
+                strokeWidth="3"
+                strokeOpacity="1">
+            </line>
+            )
+        newLines.push(...renderTreeLines(child, parentRect))
+        }); }
+
         return newLines
     }
 

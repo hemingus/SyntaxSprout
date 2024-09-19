@@ -49,6 +49,12 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         setRoot(newRoot)
     }
 
+    function mergeLines(): void {
+        selectedNodes.forEach(node => {node.meta?.merged ? node.setMeta({merged: !node.meta!.merged}) : node.setMeta({merged: true})})
+        refreshRoot()
+        setSelectedNodes([])
+    }
+
     function deleteSelectedNodes() {
         selectedNodes.forEach(node => {node.children ? root.deleteNodeById(node.id) : {}})
         refreshRoot()
@@ -118,6 +124,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             <span className="option-block" onClick={() => setShowNewNodeInput(true)}>Generate new parent node from selected</span>
             <span className="option-block" onClick={() => {deleteSelectedNodes()}}>Delete selected nodes</span>
             <span className="option-block" onClick={() => {setEditing(true); setShowNewNodeInput(true)}}>Edit selected nodes</span>
+            <span className="option-block" onClick={() => mergeLines()}>Merge/Unmerge children</span>
         </div>}
         </>
     )

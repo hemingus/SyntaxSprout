@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid'
 
 export type TreeMeta = {
     name?: string
+    merged?: boolean
 }
 
 export interface TreeNodeMethods {
