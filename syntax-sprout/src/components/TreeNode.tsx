@@ -1,5 +1,9 @@
 import { nanoid } from 'nanoid'
 
+export type TreeMeta = {
+    name?: string
+}
+
 export interface TreeNodeMethods {
     findNodeById(id: string): TreeNode | undefined
     findAllLeaves(): TreeNode[]
@@ -8,6 +12,7 @@ export interface TreeNodeMethods {
     setLabel(label: string): void
     setChildren(nodes: TreeNode[]): void
     setParent(node: TreeNode): void
+    setMeta(meta: TreeMeta): void
     deleteNodeById(id: string): void
     deleteChildren(nodes: TreeNode[]): void
     generateParentFromChildren(nodes: TreeNode[], label: string): void
@@ -22,12 +27,14 @@ export class TreeNode implements TreeNodeMethods {
     label: string
     children?: TreeNode[]
     parent?: TreeNode
+    meta?: TreeMeta
 
     constructor(label: string, children?: TreeNode[], parent?: TreeNode) {
         this.id = nanoid()
         this.label = label
         this.children = children
         this.parent = parent
+        this.meta = undefined
 
         if (children) {
             children.forEach(child => child.parent = this);
@@ -42,11 +49,11 @@ export class TreeNode implements TreeNodeMethods {
     // Method to create a deep clone of the TreeNode
     deepCopy(): TreeNode {
         // Recursively clone the children
-        const clonedChildren = this.children?.map(child => child.deepClone());
-
+        const clonedChildren = this.children?.map(child => child.deepCopy());
         // Create a new node with the same label and cloned children
         const clonedNode = new TreeNode(this.label, clonedChildren);
         clonedNode.id = this.id;
+        clonedNode.meta = this.meta;
 
         // Set the parent reference for each cloned child
         if (clonedChildren) {
@@ -60,9 +67,10 @@ export class TreeNode implements TreeNodeMethods {
     deepClone(): TreeNode {
         // Recursively clone the children
         const clonedChildren = this.children?.map(child => child.deepClone());
-
+        
         // Create a new node with the same label and cloned children
         const clonedNode = new TreeNode(this.label, clonedChildren);
+        clonedNode.meta = this.meta;
         // clonedNode.id = this.id;
 
         // Set the parent reference for each cloned child
@@ -87,6 +95,7 @@ export class TreeNode implements TreeNodeMethods {
         const children = data.children ? data.children.map((childData: any) => TreeNode.fromJSON(childData)) : undefined;
         const node = new TreeNode(data.label, children, parent);
         node.id = data.id
+        node.meta = data.meta
 
         // set the parent for each child node
         if (node.children) {
@@ -113,7 +122,10 @@ export class TreeNode implements TreeNodeMethods {
     setLabel(label: string): void {
         this.label = label
     }
-        
+
+    setMeta(meta: TreeMeta): void {
+        this.meta = meta
+    }    
 
     findNodeById(id: string): TreeNode | undefined {
         if (this.id === id) {

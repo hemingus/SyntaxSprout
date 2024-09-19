@@ -1,6 +1,6 @@
 import { useState, useRef, useContext } from 'react'
 import SyntaxTreeNode from '../SyntaxTreeNode/SyntaxTreeNode'
-import SyntaxTreePage from '../SyntaxTreePage/SyntaxTreePage'
+import SyntaxTreePage from '../SyntaxTreePage'
 import SyntaxTreeActions from '../SyntaxTreeActions'
 import SyntaxTreeContext from '../SyntaxTreeContext'
 import './SyntaxTreeCanvas.css'

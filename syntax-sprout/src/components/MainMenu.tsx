@@ -1,4 +1,4 @@
-import SyntaxTreePage from './SyntaxTreePage/SyntaxTreePage'
+import SyntaxTreePage from './SyntaxTreePage'
 import { SyntaxTreeProvider } from "./SyntaxTreeContext"
 import { useState } from 'react'
 

@@ -47,4 +47,4 @@ var S1 = new TreeNode("S", [NP2, VP1])
 var S_1 = new TreeNode("S'", [Comp1, S1])
 var VP2 = new TreeNode("VP", [V1, S_1])
 
-export const expectedTree = new TreeNode("S", [NP1, VP2], undefined)
+export const expectedTree = new TreeNode("S", [NP1, VP2])

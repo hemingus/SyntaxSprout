@@ -16,11 +16,11 @@ const MySyntaxTrees = () => {
         setRoot(tree)
     }
 
-    function deleteSyntaxTree(tree: TreeNode) {
+    function deleteSyntaxTree(tree: TreeNode, index: number) {
         const updatedTrees = savedTrees.filter(x => x !== tree)
         setSavedTrees(updatedTrees)
-        if (tree.id === root.id && savedTrees.length > 0) {
-            setRoot(savedTrees[0])
+        if (tree.id === root.id && savedTrees.length > 1) {
+            savedTrees[index-1] ? setRoot(savedTrees[index-1]) : setRoot(savedTrees[index+1])
         }
     }
 
@@ -35,17 +35,17 @@ const MySyntaxTrees = () => {
                 <li className={`solid p-2 m-0 rounded list-none 
                 ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500" 
                     : "bg-gradient-to-b from-slate-800 to-slate-500"}
-                text-white 
+                text-white text-lg font-semibold
                 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-700 hover:to-lime-500`}
+                hover:bg-gradient-to-b hover:text-lime-400`}
                 key={tree.id}
                 onClick={() => loadSyntaxTree(tree)}
                 >
-                    {index +1} {tree.id}
+                    <span className="text-yellow-400">{`${index+1}.`}</span> {tree.meta?.name! ? tree.meta.name : tree.id}
                     <Tooltip text="delete">
                         <span
                             className="ml-4 p-1 rounded cursor-pointer text-xl bg-transparent text-white"
-                            onClick={(e) => {e.stopPropagation(); deleteSyntaxTree(tree)}}
+                            onClick={(e) => {e.stopPropagation(); deleteSyntaxTree(tree, index)}}
                             >❌</span>
                     </Tooltip>
                 </li>
