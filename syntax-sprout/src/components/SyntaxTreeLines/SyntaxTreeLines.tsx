@@ -3,6 +3,7 @@ import SyntaxTreeContext from '../SyntaxTreeContext'
 import { TreeNode } from '../TreeNode'
 import { useTheme } from '../Theme/ThemeContext'
 import { useTreeSetting } from '../Settings/SettingsContex'
+import CurvedArrow from './CurvedArrow'
 
 const SyntaxTreeLines = () => {
     const {activeTheme} = useTheme()
@@ -40,9 +41,8 @@ const SyntaxTreeLines = () => {
 
     function renderTreeLines(node: TreeNode, parentNodeRect: DOMRect | null) {
         const newLines: JSX.Element[] = []
-        if (!node.children) {
-            return newLines
-        }
+        let stroke = activeTheme.lines
+
         const canvas = document.getElementById("syntax-tree-canvas")!
         const canvasRect: DOMRect = canvas?.getBoundingClientRect()!
         const parentRect = document.getElementById(node.id)?.getBoundingClientRect()!
@@ -51,6 +51,33 @@ const SyntaxTreeLines = () => {
 
         if (parentNodeRect === null) {
             return renderTreeLines(node, parentRect)
+        }
+
+        if (node.meta?.arrows!) {
+            node.meta.arrows.forEach((targetId) => {
+                const targetRect = document.getElementById(targetId)?.getBoundingClientRect()!
+                const targetCenterX = targetRect.left + targetRect.width/2 + canvas.scrollLeft - canvas.offsetLeft
+                const targetBottomY = targetRect.top + targetRect.height + canvas.scrollTop - canvasRect.top
+                const controlX = (parentCenterX + targetCenterX) / 2; // Example control point calculation
+                const controlY = canvasRect.height; // Adjust this for the curvature height
+    
+                newLines.push(
+                    <CurvedArrow
+                        key={`${node.id + targetId}`}
+                        startX={parentCenterX}
+                        startY={parentBottomY}
+                        endX={targetCenterX}
+                        endY={targetBottomY}
+                        controlX={controlX}
+                        controlY={controlY}
+                        stroke={stroke}
+                    />
+                );
+            })
+        }
+
+        if (!node.children) {
+            return newLines
         }
 
         if (node.meta?.merged) {
@@ -62,7 +89,7 @@ const SyntaxTreeLines = () => {
             const childStartX = childRectStart.left + canvas.scrollLeft - canvasRect.left
             const childEndX = childRectEnd.left + childRectEnd.width + canvas.scrollLeft - canvasRect.left
             const childRectY = childRectStart.top + canvas.scrollTop - canvasRect.top
-            let stroke = activeTheme.lines
+
             // newLines.push(
             //     <line
             //         key={firstChild.id}
@@ -98,7 +125,7 @@ const SyntaxTreeLines = () => {
             //     </line>)
             const points = `${parentCenterX},${parentBottomY},${childStartX},${childRectY},${childEndX},${childRectY}`
             newLines.push(
-            <polygon points={points} fill="transparent" stroke={stroke} stroke-width="3"/>)
+            <polygon key={`polygon-${node.id}`} points={points} fill="transparent" stroke={stroke} stroke-width="2.5"/>)
                 
             node.children.forEach((child: TreeNode) => {
                 newLines.push(...(renderTreeLines(child, parentRect) || [])); // Ensures an array
@@ -118,7 +145,7 @@ const SyntaxTreeLines = () => {
                 x2={childCenterX}
                 y2={childTopY}
                 stroke={stroke} 
-                strokeWidth="3"
+                strokeWidth="2.5"
                 strokeOpacity="1">
             </line>
             )
