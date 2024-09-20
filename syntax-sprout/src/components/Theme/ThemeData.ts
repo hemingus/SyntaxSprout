@@ -20,8 +20,17 @@ export const DefaultTheme: Theme = {
 export const PlainTheme: Theme = {
     name: "PlainTheme",
     root: "text-black font-bold border-black",
-    node: "text-blue-800 font-bold border-transparent",
+    node: "text-black font-bold border-transparent",
     leaf: "text-black font-bold border-transparent",
+    canvas: "bg-white",
+    lines: "black"
+}
+
+export const PlainColor: Theme = {
+    name: "PlainColor",
+    root: "text-black font-bold border-black",
+    node: "text-blue-600 font-bold border-transparent",
+    leaf: "text-red-500 font-bold border-transparent",
     canvas: "bg-white",
     lines: "black"
 }
@@ -47,6 +56,7 @@ export const PurpleMagic: Theme = {
 export const Themes: Theme[] = [
     DefaultTheme,
     PlainTheme,
+    PlainColor,
     PinkCraze,
     PurpleMagic
 ]

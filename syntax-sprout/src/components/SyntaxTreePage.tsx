@@ -17,7 +17,7 @@ const SyntaxTreePage = () => {
         return (
             <div className="my-[4svh] mx-[4svw] h-[90svh] flex flex-col justify-center items-center
             bg-[url('./assets/vines_waterfall_01.png')] bg-center bg-no-repeat">
-                <div className="flex flex-col justify-center items-center p-5 gap-5 w-fit relative 
+                <div className="flex flex-col justify-center items-center p-5 gap-2 w-fit relative 
                 lg:w-1/2 md:w-3/4 bg-gradient-to-tr from-slate-900 via-emerald-900 to-slate-900
                 border-solid border-8 border-slate-700">
                     {!confirmed ? <>
