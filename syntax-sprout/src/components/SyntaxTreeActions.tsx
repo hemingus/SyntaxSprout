@@ -49,6 +49,27 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         setRoot(newRoot)
     }
 
+    function putArrow(): void {
+        if (selectedNodes.length >= 2) {
+            const arrowTargets = []
+            for (let i = 1; i < selectedNodes.length; i++) {
+                arrowTargets.push(selectedNodes[i].id)
+            }
+            selectedNodes[0].setMeta({...selectedNodes[0].meta, arrows: arrowTargets})
+            refreshRoot()
+            setSelectedNodes([])
+        }   
+    }
+
+    function removeArrow(): void {
+        if (selectedNodes.length == 1) {
+            const newMeta = {...selectedNodes[0].meta, arrows: undefined}
+            selectedNodes[0].setMeta(newMeta)
+            refreshRoot()
+            setSelectedNodes([])
+        }
+    }
+
     function mergeLines(): void {
         selectedNodes.forEach(node => {node.meta?.merged ? node.setMeta({merged: !node.meta!.merged}) : node.setMeta({merged: true})})
         refreshRoot()
@@ -121,10 +142,12 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         {active &&
         <div style={{top: posY, left: posX}} className="node-options"
         onMouseLeave={handleClose} onClick={handleClose}>
-            <span className="option-block" onClick={() => setShowNewNodeInput(true)}>Generate new parent node from selected</span>
-            <span className="option-block" onClick={() => {deleteSelectedNodes()}}>Delete selected nodes</span>
-            <span className="option-block" onClick={() => {setEditing(true); setShowNewNodeInput(true)}}>Edit selected nodes</span>
+            <span className="option-block" onClick={() => setShowNewNodeInput(true)}>Generate new parent node from selected (alt + w)</span>
+            <span className="option-block" onClick={() => {deleteSelectedNodes()}}>Delete selected nodes (alt + x)</span>
+            <span className="option-block" onClick={() => {setEditing(true); setShowNewNodeInput(true)}}>Edit selected nodes (alt + q)</span>
             <span className="option-block" onClick={() => mergeLines()}>Merge/Unmerge children</span>
+            {selectedNodes.length >= 2 ? <span className="option-block" onClick={() => putArrow()}>Put Arrow</span> :
+            <span className="option-block" onClick={() => removeArrow()}>Remove Arrow</span>}
         </div>}
         </>
     )
