@@ -1,7 +1,7 @@
-import SyntaxTreeCanvas from "./SyntaxTreeCanvas/SyntaxTreeCanvas"
+import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas/SyntaxTreeCanvas"
 import { useState, useContext } from 'react'
 import { TreeNode } from './TreeNode'
-import SyntaxTreeContext from "./SyntaxTreeContext"
+import SyntaxTreeContext from "./SyntaxTree/SyntaxTreeContext"
 import { ThemeProvider } from "./Theme/ThemeContext"
 import { SettingsProvider } from "./Settings/SettingsContex"
 

@@ -1,7 +1,7 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
 import { useContext } from 'react'
-import { TreeNode } from './TreeNode'
-import Tooltip from '../utils/Tooltip'
+import { TreeNode } from '../TreeNode'
+import Tooltip from '../../utils/Tooltip'
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!

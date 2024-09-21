@@ -1,5 +1,5 @@
 import SyntaxTreePage from './SyntaxTreePage'
-import { SyntaxTreeProvider } from "./SyntaxTreeContext"
+import { SyntaxTreeProvider } from "./SyntaxTree/SyntaxTreeContext"
 import { useState } from 'react'
 
 const MainMenu : React.FC = () => {
