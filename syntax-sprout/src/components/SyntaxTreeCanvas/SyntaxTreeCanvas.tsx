@@ -65,7 +65,7 @@ const SyntaxTreeCanvas : React.FC = () => {
             </div>
             
             {/** The canvas for the syntax tree */}
-            <div className="flex justify-center items-start overflow-x-auto relative">
+            <div className="flex justify-center items-start overflow-x-auto relative mb-28">
                 <div 
                 ref={syntaxTreeRef} 
                 onContextMenu={handleContextMenuNode} 
@@ -81,11 +81,11 @@ const SyntaxTreeCanvas : React.FC = () => {
 
             
 
-            <ul>
+            {/* <ul>
                 {selectedNodes.map((node, index) => <li key={index} style={{color: "white", listStyle: "none"}}>
                     {`${index+1}: Node name: ${node.label} Node id: ${node.id} - Parent name: ${node.parent!.label} Parent id: ${node.parent!.id}`}
                 </li>)}
-            </ul>
+            </ul> */}
             </>
         )
     }

@@ -21,13 +21,13 @@ const SyntaxTreePage = () => {
                 lg:w-1/2 md:w-3/4 bg-gradient-to-tr from-slate-900 via-emerald-900 to-slate-900
                 border-solid border-8 border-slate-700">
                     {!confirmed ? <>
-                    <label className="text-xl text-slate-300 font-black">Input Name: </label>
+                    <label className="text-xl text-slate-300 font-bold">Input Name: </label>
                     <input className="w-full font-sans text-xl text-white bg-black" 
                     onChange={(e) => setTreeName(e.target.value)}/> </> :
                     <h2 className="w-full font-sans text-2xl text-white bg-black">Name: <span className="text-green-500">{treeName}</span></h2>}
-                    <h3 className="w-full p-1 text-white bg-gray-600 text-2xl">{"Sentence: "}<span className="text-yellow-400">{sentence}</span></h3>
+                    <h3 className="w-full p-1 text-white bg-gray-600 text-2xl text-center">{"Sentence: "}<span className="text-yellow-400">{sentence}</span></h3>
                     {!confirmed ? <>
-                    <label className="text-xl text-slate-300 font-black">Input Sentence: </label> 
+                    <label className="text-xl text-slate-300 font-bold">Input Sentence: </label> 
                     <input
                         autoCorrect="off"
                         className="w-full font-sans text-xl text-white bg-black"

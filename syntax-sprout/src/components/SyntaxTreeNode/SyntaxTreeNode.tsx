@@ -14,6 +14,15 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     const {activeTheme} = useTheme()
     const {setting} = useTreeSetting()
 
+    function handleFreeSelectNode(): void {
+        if (selectedNodes.includes(node)) {
+            setSelectedNodes(selectedNodes.filter(n => n !== node))
+        } else {
+            setSelectedNodes([...selectedNodes, node])
+        }
+        
+    }
+
     function handleSelectNode(): void {
         if (node.parent && node.parent.children) {
             const highestSelectedIndex = node.parent.children.indexOf(selectedNodes[selectedNodes.length -1]) 
@@ -65,11 +74,11 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
         return (
             <div className={`relative h-full w-full flex flex-col justify-start items-center ${setting.yGap}`}> 
                 <span className={`relative block w-fit z-[3] px-[4px] pb-[2px]
-                ${setting.nodeSize} text-center cursor-pointer 
+                ${setting.nodeSize} text-center cursor-pointer
                 border-solid rounded-[8px] border-[3px] hover:border-white hover:shadow-[0_0_5px_5px_black] ${activeTheme.node}`}
                 style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
                 id={node.id} 
-                onClick={(e) => {e.stopPropagation(); handleSelectNode();}}>
+                onClick={(e) => {e.stopPropagation(); handleFreeSelectNode();}}>
                     {node.label}
                 </span>
                 {node.children && returnChildren()}
@@ -82,9 +91,9 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
             className={`relative block w-fit z-[3] px-[4px] pb-[2px]
-                ${setting.nodeSize} text-center cursor-pointer 
+                ${setting.nodeSize} text-center cursor-pointer
                 border-solid rounded-[8px] border-[3px] hover:border-white hover:shadow-[0_0_5px_5px_black] ${activeTheme.leaf}`}
-            onClick={(e) => {e.stopPropagation(); handleSelectNode();}}>
+            onClick={(e) => {e.stopPropagation(); handleFreeSelectNode();}}>
                 {node.label}
             </span>
     )

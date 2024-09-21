@@ -147,7 +147,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             <span className="option-block" onClick={() => {setEditing(true); setShowNewNodeInput(true)}}>Edit selected nodes (alt + q)</span>
             <span className="option-block" onClick={() => mergeLines()}>Merge/Unmerge children</span>
             {selectedNodes.length >= 2 ? <span className="option-block" onClick={() => putArrow()}>Put Arrow</span> :
-            <span className="option-block" onClick={() => removeArrow()}>Remove Arrow</span>}
+            <span className="option-block" onClick={() => removeArrow()}>Remove arrows</span>}
         </div>}
         </>
     )

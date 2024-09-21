@@ -13,17 +13,16 @@ const CurvedArrow = ({startX, startY, endX, endY, controlX, controlY, stroke}: C
     return (
         <>
             <defs>
-                {/* Define an arrowhead marker */}
                 <marker
                 id="arrowhead"
-                markerWidth="10"
-                markerHeight="7"
-                refX="10"
-                refY="3.5"
+                markerWidth="6"
+                markerHeight="6"
+                refX="5"
+                refY="3"
                 orient="auto"
                 markerUnits="strokeWidth"
                 >
-                <polygon points="0 0, 10 3.5, 0 7" fill={stroke} />
+                <path d="M 0 0 L 6 3 L 0 6 Z" fill={stroke} />
                 </marker>
             </defs>
             <path

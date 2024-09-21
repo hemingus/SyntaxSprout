@@ -210,17 +210,12 @@ export class TreeNode implements TreeNodeMethods {
     }
 
     generateParentFromChildren(nodes: TreeNode[], label: string): void {
-        
         const oldParent = nodes[0].parent!
         const newParent = new TreeNode(label, nodes, oldParent)
         const newParentIndex = oldParent.children!.indexOf(nodes[0])
-        if (newParentIndex) console.log(newParentIndex.toString)
-        console.log(`newParentIndex`)
         nodes.forEach(node => {
             node.parent = newParent
         })
-        console.log(`old parent: ${oldParent.label}`)
-        console.log(`new parent: ${newParent.label}`)
         newParent.setChildren(nodes)
         
         oldParent.children = oldParent.children!.filter(child => !nodes.includes(child))

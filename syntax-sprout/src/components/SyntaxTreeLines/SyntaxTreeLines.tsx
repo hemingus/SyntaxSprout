@@ -41,7 +41,9 @@ const SyntaxTreeLines = () => {
 
     function renderTreeLines(node: TreeNode, parentNodeRect: DOMRect | null) {
         const newLines: JSX.Element[] = []
-        let stroke = activeTheme.lines
+        const newArrows: JSX.Element[] = []
+        let lineStroke = activeTheme.lines
+        let arrowStroke = activeTheme.arrows
 
         const canvas = document.getElementById("syntax-tree-canvas")!
         const canvasRect: DOMRect = canvas?.getBoundingClientRect()!
@@ -58,10 +60,17 @@ const SyntaxTreeLines = () => {
                 const targetRect = document.getElementById(targetId)?.getBoundingClientRect()!
                 const targetCenterX = targetRect.left + targetRect.width/2 + canvas.scrollLeft - canvas.offsetLeft
                 const targetBottomY = targetRect.top + targetRect.height + canvas.scrollTop - canvasRect.top
-                const controlX = (parentCenterX + targetCenterX) / 2; // Example control point calculation
-                const controlY = canvasRect.height; // Adjust this for the curvature height
-    
-                newLines.push(
+                
+                
+                const controlX = parentBottomY === targetBottomY ?
+                    (parentCenterX + targetCenterX) / 2
+                        : parentBottomY < targetBottomY ?
+                            parentCenterX           
+                                : targetCenterX
+                const controlY = parentBottomY == targetBottomY ? parentBottomY + 40 
+                    : Math.min(Math.abs(parentCenterX - targetCenterX)  + (parentBottomY + targetBottomY)/2, canvasRect.height)
+                
+                newArrows.push(
                     <CurvedArrow
                         key={`${node.id + targetId}`}
                         startX={parentCenterX}
@@ -70,14 +79,14 @@ const SyntaxTreeLines = () => {
                         endY={targetBottomY}
                         controlX={controlX}
                         controlY={controlY}
-                        stroke={stroke}
+                        stroke={arrowStroke}
                     />
                 );
             })
         }
 
         if (!node.children) {
-            return newLines
+            return [...newLines, ...newArrows];
         }
 
         if (node.meta?.merged) {
@@ -90,42 +99,9 @@ const SyntaxTreeLines = () => {
             const childEndX = childRectEnd.left + childRectEnd.width + canvas.scrollLeft - canvasRect.left
             const childRectY = childRectStart.top + canvas.scrollTop - canvasRect.top
 
-            // newLines.push(
-            //     <line
-            //         key={firstChild.id}
-            //         x1={parentCenterX}
-            //         y1={parentBottomY}
-            //         x2={childStartX}
-            //         y2={childRectY}
-            //         stroke={stroke} 
-            //         strokeWidth="3"
-            //         strokeOpacity="1">
-            //     </line>)
-            // newLines.push(
-            //     <line
-            //         key={lastChild.id}
-            //         x1={parentCenterX}
-            //         y1={parentBottomY}
-            //         x2={childEndX}
-            //         y2={childRectY}
-            //         stroke={stroke} 
-            //         strokeWidth="3"
-            //         strokeOpacity="1">
-            //     </line>)
-            // newLines.push(
-            //     <line
-            //         key={firstChild.id + lastChild.id}
-            //         x1={childStartX}
-            //         y1={childRectY}
-            //         x2={childEndX}
-            //         y2={childRectY}
-            //         stroke={stroke} 
-            //         strokeWidth="2"
-            //         strokeOpacity="1">
-            //     </line>)
             const points = `${parentCenterX},${parentBottomY},${childStartX},${childRectY},${childEndX},${childRectY}`
             newLines.push(
-            <polygon key={`polygon-${node.id}`} points={points} fill="transparent" stroke={stroke} stroke-width="2.5"/>)
+            <polygon key={`polygon-${node.id}`} points={points} fill="transparent" stroke={lineStroke} stroke-width="2.5"/>)
                 
             node.children.forEach((child: TreeNode) => {
                 newLines.push(...(renderTreeLines(child, parentRect) || [])); // Ensures an array
@@ -152,7 +128,7 @@ const SyntaxTreeLines = () => {
         newLines.push(...renderTreeLines(child, parentRect))
         }); }
 
-        return newLines
+        return [...newLines, ...newArrows]
     }
 
     return (
