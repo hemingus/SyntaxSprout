@@ -19,7 +19,6 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
         } else {
             setSelectedNodes([...selectedNodes, node])
         }
-        
     }
 
     function handleSelectNode(): void {
@@ -45,7 +44,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
 
     const returnChildren = () => {
         return (
-            <div className={`relative flex flex-row justify-center items-start m-auto ${setting.xGap}`}>
+            <div className={`relative flex flex-row justify-center items-start m-auto ${node.meta?.merged ? "gap-0" : setting.xGap}`}>
                 {node.children!.map((child) => ( 
                     <SyntaxTreeNode key={child.id} node={child} />
                 ))}
@@ -57,12 +56,11 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     if (!node.parent) 
         return (
             <div className={`relative h-full w-full flex flex-col justify-start items-center ${setting.yGap}`}>
-                <span 
-                id={node.id} 
-                className={`relative block min-w-min min-h-min w-[36px] h-[36px] 
-                text-[24px] text-center p-[3px] border-solid border-[3px]
-                cursor-pointer rounded-full self-center 
-                ${activeTheme.root}`}>
+                <span className={`relative block w-fit z-[3] px-[4px] pb-[2px]
+                ${setting.nodeSize} text-center cursor-pointer
+                border-solid rounded-[8px] border-[3px] hover:border-white hover:shadow-[0_0_5px_5px_black]
+                ${activeTheme.node}`}
+                id={node.id}>
                     {node.label}
                 </span>
                 {node.children && returnChildren()}

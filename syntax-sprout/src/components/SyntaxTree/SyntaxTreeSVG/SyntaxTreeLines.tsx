@@ -132,7 +132,8 @@ const SyntaxTreeLines = () => {
     }
 
     return (
-        <svg className="tree-lines" preserveAspectRatio="xMidYMid meet">
+        <svg className="absolute w-full h-full top-0 left-0 pointer-events-none overflow-visible z-10" 
+            preserveAspectRatio="xMidYMid meet">
             {lines}
         </svg>  
     ) 

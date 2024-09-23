@@ -24,7 +24,6 @@ const SyntaxTreeCanvas : React.FC = () => {
         event.preventDefault()
         setPosition({ x: event.clientX, y: event.clientY });
         setShowActions(true)
-        console.log(showActions)
     }
 
     function onCloseActionMenu(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
@@ -37,13 +36,13 @@ const SyntaxTreeCanvas : React.FC = () => {
             <>
             <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
             <div className="flex flex-col justify-center items-center">
-            <div className="canvas-container flex flex-col justify-center items-center w-full solid bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900">
+            <div className="flex justify-center flex-col items-center overflow-x-auto relative w-full solid bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900">
                 <div className="flex flex-row justify-center items-center">
                     <div className="flex flex-col">
                         <button 
                             className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
                             onClick={() => setConfirmed(false)}>
-                                Change sentence
+                                New sentence
                         </button>
                         <button 
                             className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"

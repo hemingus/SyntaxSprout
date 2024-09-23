@@ -122,7 +122,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         return ( 
             <div className="new-node-input" onClick={() => setShowNewNodeInput(false)}>
                 <label>Enter label: </label>
-                <input
+                <input className="w-auto max-w-[80vw] bg-black text-lightblue text-2xl"
                 ref={inputRef}
                 type="text"
                 onChange={(e) => setNewNodeText(e.currentTarget.value)} 
@@ -141,23 +141,37 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         {showNewNodeInput && newNodeInput()} 
         {active &&
         <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} className="flex flex-col absolute left-[30px] bg-slate-500 z-20"
-        onMouseLeave={handleClose} onClick={handleClose}>
+            onMouseLeave={handleClose} onClick={handleClose}
+        >
             <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-            onClick={() => setShowNewNodeInput(true)}>Generate new parent node from selected (alt + w)</div>
+                onClick={() => setShowNewNodeInput(true)}>
+                Generate new parent node from selected (alt + w)
+            </div>
 
             <div className=" text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-            onClick={() => {deleteSelectedNodes()}}>Delete selected nodes (alt + x)</div>
+                onClick={() => {deleteSelectedNodes()}}>
+                Delete selected nodes (alt + x)
+            </div>
 
             <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-            onClick={() => {setEditing(true); setShowNewNodeInput(true)}}>Edit selected nodes (alt + q)</div>
+                onClick={() => {setEditing(true); setShowNewNodeInput(true)}}>
+                Edit selected nodes (alt + q)
+            </div>
 
             <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-            onClick={() => mergeLines()}>Merge/Unmerge children</div>
+                onClick={() => mergeLines()}>
+                Merge/Unmerge children
+            </div>
 
-            {selectedNodes.length >= 2 ? <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-            onClick={() => putArrow()}>Put Arrow</div> :
-            <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300"
-            onClick={() => removeArrow()}>Remove arrows</div>}
+            {selectedNodes.length >= 2 ? 
+                <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
+                    onClick={() => putArrow()}>
+                        Put Arrow
+                </div> :
+                <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300"
+                    onClick={() => removeArrow()}>
+                    Remove arrows
+                </div>}
         </div>}
         </>
     )
