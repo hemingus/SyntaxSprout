@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useRef, useContext } from 'react'
 import SyntaxTreeNode from '../SyntaxTreeNode'
-import SyntaxTreePage from '../../SyntaxTreePage'
+import SyntaxTreePage from '../../SyntaxTreeGenerator'
 import SyntaxTreeActions from '../SyntaxTreeActions'
 import SyntaxTreeContext from '../SyntaxTreeContext'
 import './SyntaxTreeCanvas.css'
@@ -11,11 +11,12 @@ import ThemeSettings from '../../Theme/ThemeSettings'
 import { useTheme } from '../../Theme/ThemeContext'
 import MySyntaxTrees from '../MySyntaxTrees'
 import TreeSettings from '../../Settings/TreeSettings'
+import SyntaxTreeGenerator from '../../SyntaxTreeGenerator'
 
 const SyntaxTreeCanvas : React.FC = () => {
-    const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
+    const {root, setRoot, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const {activeTheme} = useTheme()
-    const [confirmed, setConfirmed] = useState(true)
+    const [isGenerating, setIsGenerating] = useState(true)
     const [showActions, setShowActions] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const syntaxTreeRef = useRef<HTMLDivElement>(null);
@@ -33,6 +34,7 @@ const SyntaxTreeCanvas : React.FC = () => {
 
     const syntaxTree = () => {
         return (
+            isGenerating ? <SyntaxTreeGenerator /> :
             <>
             <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
             <div className="flex flex-col justify-center items-center">
@@ -41,7 +43,7 @@ const SyntaxTreeCanvas : React.FC = () => {
                     <div className="flex flex-col">
                         <button 
                             className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
-                            onClick={() => setConfirmed(false)}>
+                            onClick={() => setIsGenerating(true)}>
                                 New sentence
                         </button>
                         <button 
@@ -90,7 +92,7 @@ const SyntaxTreeCanvas : React.FC = () => {
     }
 
     const content = () => {
-        if (confirmed) {
+        if (isGenerating) {
             return (
                 <>
                     {syntaxTree()}    

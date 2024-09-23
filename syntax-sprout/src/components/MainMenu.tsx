@@ -1,5 +1,7 @@
-import SyntaxTreePage from './SyntaxTreePage'
+import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas/SyntaxTreeCanvas"
 import { SyntaxTreeProvider } from "./SyntaxTree/SyntaxTreeContext"
+import { SettingsProvider } from "./Settings/SettingsContex"
+import { ThemeProvider } from "./Theme/ThemeContext"
 import { useState } from 'react'
 
 const MainMenu : React.FC = () => {
@@ -8,7 +10,11 @@ const MainMenu : React.FC = () => {
     if (showSyntaxTree) {
         return (
             <SyntaxTreeProvider>
-                <SyntaxTreePage />
+                <SettingsProvider>
+                    <ThemeProvider>
+                        <SyntaxTreeCanvas/>
+                    </ThemeProvider>
+                </SettingsProvider>
             </SyntaxTreeProvider>
         )
     }
