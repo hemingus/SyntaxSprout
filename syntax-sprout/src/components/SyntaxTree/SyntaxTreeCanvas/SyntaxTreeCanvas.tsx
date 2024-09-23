@@ -1,6 +1,6 @@
 import { useState, useRef, useContext } from 'react'
 import SyntaxTreeNode from '../SyntaxTreeNode'
-import SyntaxTreePage from '../../SyntaxTreeGenerator'
+import SyntaxTreePage from '../SyntaxTreeGenerator'
 import SyntaxTreeActions from '../SyntaxTreeActions'
 import SyntaxTreeContext from '../SyntaxTreeContext'
 import './SyntaxTreeCanvas.css'
@@ -11,7 +11,7 @@ import ThemeSettings from '../../Theme/ThemeSettings'
 import { useTheme } from '../../Theme/ThemeContext'
 import MySyntaxTrees from '../MySyntaxTrees'
 import TreeSettings from '../../Settings/TreeSettings'
-import SyntaxTreeGenerator from '../../SyntaxTreeGenerator'
+import SyntaxTreeGenerator from '../SyntaxTreeGenerator'
 
 const SyntaxTreeCanvas : React.FC = () => {
     const {root, setRoot, setSelectedNodes} = useContext(SyntaxTreeContext)!

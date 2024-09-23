@@ -1,10 +1,10 @@
-import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas/SyntaxTreeCanvas"
+import SyntaxTreeCanvas from "./SyntaxTreeCanvas/SyntaxTreeCanvas"
 import { useState, useEffect, useRef, useContext } from 'react'
-import { TreeNode } from './TreeNode'
-import SyntaxTreeContext from "./SyntaxTree/SyntaxTreeContext"
-import { ThemeProvider } from "./Theme/ThemeContext"
-import { SettingsProvider } from "./Settings/SettingsContex"
-import { SyntaxTreeProvider } from "./SyntaxTree/SyntaxTreeContext"
+import { TreeNode } from '../TreeNode'
+import SyntaxTreeContext from "./SyntaxTreeContext"
+import { ThemeProvider } from "../Theme/ThemeContext"
+import { SettingsProvider } from "../Settings/SettingsContex"
+import { SyntaxTreeProvider } from "./SyntaxTreeContext"
 
 const SyntaxTreeGenerator = () => {
     const [treeName, setTreeName] = useState<string>("")
@@ -114,13 +114,7 @@ const SyntaxTreeGenerator = () => {
     
     if (!isGenerating) {
         return (
-            <SyntaxTreeProvider>
-                <SettingsProvider>
-                    <ThemeProvider>
-                        <SyntaxTreeCanvas/>
-                    </ThemeProvider>
-                </SettingsProvider>
-            </SyntaxTreeProvider>
+            <SyntaxTreeCanvas />
         )
     }
     return sentenceGenerator()

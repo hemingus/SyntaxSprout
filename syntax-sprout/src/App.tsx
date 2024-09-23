@@ -1,4 +1,7 @@
 import MainMenu from './components/MainMenu'
+import { SyntaxTreeProvider } from './components/SyntaxTree/SyntaxTreeContext'
+import { SettingsProvider } from './components/Settings/SettingsContex'
+import { ThemeProvider } from './components/Theme/ThemeContext'
 
 function App() {
     return (
@@ -8,8 +11,14 @@ function App() {
                 text-[40px] text-center text-green-800 [-webkit-text-stroke:2px_yellowgreen] shadow-md shadow-green-500">  
                     Syntax Sprout
                 </h1>
-            </div> 
-            <MainMenu />
+            </div>
+            <SyntaxTreeProvider>
+                <SettingsProvider>
+                    <ThemeProvider>
+                        <MainMenu />
+                    </ThemeProvider>
+                </SettingsProvider>
+            </SyntaxTreeProvider> 
         </div>
     )
 }
