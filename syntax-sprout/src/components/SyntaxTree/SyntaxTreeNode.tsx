@@ -91,9 +91,9 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
             id={node.id} 
             className={`relative block w-fit z-3 px-[4px] pb-[2px]
-                ${setting.nodeSize} text-center cursor-pointer
-                border-solid rounded-[8px] border-[3px] ${activeTheme.leaf}`}
-            onClick={(e) => {e.stopPropagation(); handleFreeSelectNode();}}>
+            ${setting.nodeSize} text-center cursor-pointer
+            border-solid rounded-[8px] border-[3px] ${activeTheme.leaf}`}
+            onClick={(e) => {e.stopPropagation(); e.ctrlKey ? handleSelectNode() : handleFreeSelectNode();}}>
                 {node.label}
             </span>
     )

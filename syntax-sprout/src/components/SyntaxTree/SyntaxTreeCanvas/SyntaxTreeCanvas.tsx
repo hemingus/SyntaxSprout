@@ -80,11 +80,11 @@ const SyntaxTreeCanvas : React.FC = () => {
 
             
 
-            <ul>
+            {/* <ul>
                 {selectedNodes.map((node, index) => <li key={index} style={{color: "white", listStyle: "none"}}>
                     {`${index+1}: Node name: ${node.label} Node id: ${node.id} - Parent name: ${node.parent!.label} Parent id: ${node.parent!.id}`}
                 </li>)}
-            </ul>
+            </ul> */}
             </>
         )
     }

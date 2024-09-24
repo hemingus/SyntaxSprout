@@ -139,7 +139,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     return (
         <>
-        {showNewNodeInput && <NewNodeInput />}
+        {showNewNodeInput && NewNodeInput()} 
         {active &&
         <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} className="flex flex-col absolute left-[30px] bg-slate-500 z-40"
             onMouseLeave={handleClose} onClick={handleClose}
