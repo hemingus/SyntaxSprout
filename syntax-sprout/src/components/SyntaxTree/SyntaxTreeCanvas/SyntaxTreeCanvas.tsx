@@ -1,6 +1,5 @@
 import { useState, useRef, useContext } from 'react'
 import SyntaxTreeNode from '../SyntaxTreeNode'
-import SyntaxTreePage from '../SyntaxTreeGenerator'
 import SyntaxTreeActions from '../SyntaxTreeActions'
 import SyntaxTreeContext from '../SyntaxTreeContext'
 import './SyntaxTreeCanvas.css'
@@ -14,9 +13,9 @@ import TreeSettings from '../../Settings/TreeSettings'
 import SyntaxTreeGenerator from '../SyntaxTreeGenerator'
 
 const SyntaxTreeCanvas : React.FC = () => {
-    const {root, setRoot, setSelectedNodes} = useContext(SyntaxTreeContext)!
+    const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const {activeTheme} = useTheme()
-    const [isGenerating, setIsGenerating] = useState(true)
+    const [isGenerating, setIsGenerating] = useState(false)
     const [showActions, setShowActions] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const syntaxTreeRef = useRef<HTMLDivElement>(null);
@@ -34,7 +33,6 @@ const SyntaxTreeCanvas : React.FC = () => {
 
     const syntaxTree = () => {
         return (
-            isGenerating ? <SyntaxTreeGenerator /> :
             <>
             <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
             <div className="flex flex-col justify-center items-center">
@@ -71,7 +69,7 @@ const SyntaxTreeCanvas : React.FC = () => {
                 ref={syntaxTreeRef} 
                 onContextMenu={handleContextMenuNode} 
                 id="syntax-tree-canvas" 
-                className={`canvas ${activeTheme.canvas}`}
+                className={`flex justify-start flex-col w-fit h-auto overflow-auto p-10 relative origin-top-left ${activeTheme.canvas}`}
                 onClick={() => setSelectedNodes([])}>  
                     <SyntaxTreeNode node={root} />  
                     <SyntaxTreeLines />
@@ -82,24 +80,17 @@ const SyntaxTreeCanvas : React.FC = () => {
 
             
 
-            {/* <ul>
+            <ul>
                 {selectedNodes.map((node, index) => <li key={index} style={{color: "white", listStyle: "none"}}>
                     {`${index+1}: Node name: ${node.label} Node id: ${node.id} - Parent name: ${node.parent!.label} Parent id: ${node.parent!.id}`}
                 </li>)}
-            </ul> */}
+            </ul>
             </>
         )
     }
 
     const content = () => {
-        if (isGenerating) {
-            return (
-                <>
-                    {syntaxTree()}    
-                </>
-                )
-        }
-        return <SyntaxTreePage />
+        return isGenerating ? <SyntaxTreeGenerator /> : syntaxTree()
     }
 
     return (

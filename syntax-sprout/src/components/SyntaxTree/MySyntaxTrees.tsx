@@ -41,7 +41,7 @@ const MySyntaxTrees = () => {
                 key={tree.id}
                 onClick={() => loadSyntaxTree(tree)}
                 >
-                    <span className="text-yellow-400">{`${index+1}.`}</span> {tree.meta?.name! ? tree.meta.name : tree.id}
+                    <span className="text-yellow-400">{`${index+1}.`}</span> {tree.meta?.name! ? tree.meta.name : "Syntax Tree (no name)"}
                     <Tooltip text="delete">
                         <span
                             className="ml-4 p-1 rounded cursor-pointer text-xl bg-transparent text-white"

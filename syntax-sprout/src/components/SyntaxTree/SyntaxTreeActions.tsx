@@ -118,11 +118,12 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         }
     }  
 
-    const newNodeInput = () => {
+    const NewNodeInput = () => {
         return ( 
-            <div className="new-node-input" onClick={() => setShowNewNodeInput(false)}>
+            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-20 text-white text-4xl bg-black/50" 
+                onClick={() => setShowNewNodeInput(false)}>
                 <label>Enter label: </label>
-                <input className="w-auto max-w-[80vw] bg-black text-lightblue text-2xl"
+                <input className="w-auto max-w-[80vw] bg-black text-lightblue text-4xl"
                 ref={inputRef}
                 type="text"
                 onChange={(e) => setNewNodeText(e.currentTarget.value)} 
@@ -138,9 +139,9 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     return (
         <>
-        {showNewNodeInput && newNodeInput()} 
+        {showNewNodeInput && <NewNodeInput />}
         {active &&
-        <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} className="flex flex-col absolute left-[30px] bg-slate-500 z-20"
+        <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} className="flex flex-col absolute left-[30px] bg-slate-500 z-40"
             onMouseLeave={handleClose} onClick={handleClose}
         >
             <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
