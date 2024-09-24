@@ -42,7 +42,7 @@ const SyntaxTreeCanvas : React.FC = () => {
                         <button 
                             className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500" 
                             onClick={() => setIsGenerating(true)}>
-                                New sentence
+                                Create new
                         </button>
                         <button 
                             className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"

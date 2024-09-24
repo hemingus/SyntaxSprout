@@ -16,9 +16,9 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(() => {
-        if (inputRef.current) {
-          inputRef.current.focus();
-          {handleClose}
+        if (showNewNodeInput && inputRef.current) {
+            inputRef.current.focus();
+            {handleClose}
         }
       }, [showNewNodeInput]);
     
@@ -120,15 +120,15 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     const NewNodeInput = () => {
         return ( 
-            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-20 text-white text-4xl bg-black/50" 
+            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-50 text-white text-4xl bg-black/50" 
                 onClick={() => setShowNewNodeInput(false)}>
                 <label>Enter label: </label>
-                <input className="w-auto max-w-[80vw] bg-black text-lightblue text-4xl"
-                ref={inputRef}
-                type="text"
-                onChange={(e) => setNewNodeText(e.currentTarget.value)} 
-                onKeyDown={editing ? updateNodeLabel : insertNewNode}>
-                </input>
+                <input className="w-auto max-w-[80vw] bg-black text-blue-300 text-4xl"
+                    ref={inputRef}
+                    type="text"
+                    onChange={(e) => setNewNodeText(e.currentTarget.value)} 
+                    onKeyDown={editing ? updateNodeLabel : insertNewNode}
+                />
             </div>
         )
     }
@@ -139,7 +139,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     return (
         <>
-        {showNewNodeInput && NewNodeInput()} 
+        {showNewNodeInput && <NewNodeInput />}
         {active &&
         <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} className="flex flex-col absolute left-[30px] bg-slate-500 z-40"
             onMouseLeave={handleClose} onClick={handleClose}

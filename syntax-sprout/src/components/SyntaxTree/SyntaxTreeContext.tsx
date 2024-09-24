@@ -17,7 +17,7 @@ interface SyntaxTreeProviderProps {
 const SyntaxTreeContext = createContext<SyntaxTreeContextProps | undefined>(undefined);
 
 export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children }) => {
-    const [root, setRoot] = useState<TreeNode>(new TreeNode("S", []))
+    const [root, setRoot] = useState<TreeNode>(new TreeNode("No tree to display", []))
     const [selectedNodes, setSelectedNodes] = useState<TreeNode[]>([])
     const [savedTrees, setSavedTrees] = useState<TreeNode[]>([])
 
