@@ -61,7 +61,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
                 ${setting.nodeSize} text-center cursor-pointer
                 border-solid rounded-[8px] border-[3px]
                 ${activeTheme.node}`}
-                style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
+                style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black", zIndex: 30} : {}}
                 id={node.id}
                 onClick={(e) => {e.stopPropagation(); e.ctrlKey ? handleSelectNode() : handleFreeSelectNode();}}>
                     {node.label}
@@ -76,7 +76,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
                 <span className={`relative block w-fit z-3 px-[4px] pb-[2px]
                 ${setting.nodeSize} text-center cursor-pointer
                 border-solid rounded-[8px] border-[3px] ${activeTheme.node}`}
-                style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
+                style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black", zIndex: 30} : {}}
                 id={node.id} 
                 onClick={(e) => {e.stopPropagation(); e.ctrlKey ? handleSelectNode() : handleFreeSelectNode();}}>
                     {node.label}
@@ -88,7 +88,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     else 
         return (  
             <span 
-            style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black"} : {}}
+            style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black", zIndex: 30} : {}}
             id={node.id} 
             className={`relative block w-fit z-3 px-[4px] pb-[2px]
             ${setting.nodeSize} text-center cursor-pointer
