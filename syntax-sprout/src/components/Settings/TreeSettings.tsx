@@ -6,8 +6,7 @@ const TreeSettings = () => {
     const {setting, setSetting} = useTreeSetting()
 
     useEffect(() => {
-        console.log(setting);
-    }, [setting]);
+    }, [setting])
 
     function handleNodeSize(size: string) {
         const newSize = size
@@ -38,9 +37,9 @@ const TreeSettings = () => {
     } 
 
     return (
-        <div className="m-4">
-            <div className="flex flex-row justify-start items-center">
-                <label className="text-white mr-1">Size:</label>
+        <div className="border-solid border-slate-400 rounded-2xl p-4">
+            <div className="w-fit flex flex-row justify-between items-center">
+                <label className="w-14 text-white mr-1">Size:</label>
                 {nodeSizeOptions.map((size: string, index: number) => (
                 <li
                     onClick={() => handleNodeSize(size)} 
@@ -55,8 +54,8 @@ const TreeSettings = () => {
                 </li>
                 ))}
             </div>
-            <div className="flex flex-row justify-start items-center">
-                <label className="text-white mr-1">Width:</label>
+            <div className="w-fit flex flex-row justify-between items-center">
+                <label className="w-14 text-white mr-1">Width:</label>
                 {xGapOptions.map((gap: string, index: number) => (
                 <li
                     onClick={() => handleXgap(gap)} 
@@ -71,8 +70,8 @@ const TreeSettings = () => {
                 </li>
                 ))}
             </div>
-            <div className="flex flex-row justify-start items-center">
-                <label className="text-white mr-1">Height:</label>
+            <div className="w-fit flex flex-row justify-between items-center">
+                <label className="w-14 text-white mr-1">Height:</label>
                 {yGapOptions.map((gap: string, index: number) => (
                 <li
                     onClick={() => handleYgap(gap)} 
@@ -87,7 +86,6 @@ const TreeSettings = () => {
                 </li>
                 ))}
             </div>
-            <p className="text-white">{JSON.stringify(setting)}</p>
         </div>
     )
 }
