@@ -41,8 +41,9 @@ const SyntaxTreeGenerator = () => {
 
     const sentenceGenerator = () => {
         return (
-            <div className="my-[4svh] mx-[4svw] h-[90svh] flex flex-col justify-center items-center
+            <div className="my-[4svh] mx-[4svw] h-[90svh] flex flex-col justify-start items-center
             bg-[url('./assets/vines_waterfall_01.png')] bg-center bg-no-repeat">
+                <h1 className="text-center text-white bg-gradient-to-b from-transparent rounded-full to-canvas-green w-fit p-2">New Tree</h1>
                 <div className="flex flex-col justify-center items-center p-5 w-fit relative 
                 lg:w-1/2 md:w-3/4 bg-gradient-to-tr from-slate-900 via-emerald-900 to-slate-900
                 border-solid border-8 border-slate-700">
