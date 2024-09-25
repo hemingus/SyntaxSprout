@@ -1,4 +1,4 @@
-import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas/SyntaxTreeCanvas"
+import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas"
 import { useState } from 'react'
 
 const MainMenu : React.FC = () => {

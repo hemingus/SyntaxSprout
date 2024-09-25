@@ -3,6 +3,7 @@ import { useState, useContext } from 'react'
 import { TreeNode } from '../TreeNode'
 import Tooltip from '../../utils/Tooltip'
 import ConfirmationDialog from '../ConfirmationDialog';
+import ButtonWithConfirmation from '../ButtonWithConfirmation';
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!
@@ -40,17 +41,22 @@ const MySyntaxTrees = () => {
                     : "bg-gradient-to-b from-slate-800 to-slate-500"}
                 text-white text-lg font-semibold
                 cursor-pointer 
-                hover:bg-gradient-to-b hover:text-lime-400`}
+                hover:bg-gradient-to-b hover:text-yellow-400`}
                 key={tree.id}
                 onClick={() => loadSyntaxTree(tree)}
-                >
-                    <span className="text-yellow-400">{`${index+1}.`}</span> {tree.meta?.name! ? tree.meta.name : "Syntax Tree (no name)"}
-                    <Tooltip text="delete">
-                        <span
-                            className="ml-4 p-1 rounded cursor-pointer text-xl bg-transparent text-white"
-                            onClick={(e) => {e.stopPropagation(); deleteSyntaxTree(tree, index)}}
-                            >❌</span>
-                    </Tooltip>
+                >      
+                    <span className="text-yellow-400" >                           
+                        {`${index+1}. `}
+                    </span>
+                    {tree.meta?.name! ? tree.meta.name : "Syntax Tree (no name)"}
+                    
+                    <ButtonWithConfirmation
+                        action={() => deleteSyntaxTree(tree, index)}
+                        buttonText="❌"
+                        confirmationMessage={`Are you sure you want to delete "${tree.meta?.name || "this syntax tree"}"?`}
+                        className="ml-4 p-1 rounded cursor-pointer text-xl bg-transparent text-white"
+                        tooltip="delete"
+                    />
                 </li>
             ))}
         </ul>

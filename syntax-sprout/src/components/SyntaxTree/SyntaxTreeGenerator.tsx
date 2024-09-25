@@ -1,4 +1,4 @@
-import SyntaxTreeCanvas from "./SyntaxTreeCanvas/SyntaxTreeCanvas"
+import SyntaxTreeCanvas from "./SyntaxTreeCanvas"
 import { useState, useEffect, useRef, useContext } from 'react'
 import { TreeNode } from '../TreeNode'
 import SyntaxTreeContext from "./SyntaxTreeContext"
