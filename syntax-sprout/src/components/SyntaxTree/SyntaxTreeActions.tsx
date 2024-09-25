@@ -11,16 +11,7 @@ interface SyntaxTreeActionProps {
 const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps) => {
     const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const [showNewNodeInput, setShowNewNodeInput] = useState(false)
-    const [newNodeText, setNewNodeText] = useState("")
     const [editing, setEditing] = useState(false)
-    const inputRef = useRef<HTMLInputElement>(null)
-
-    useEffect(() => {
-        if (showNewNodeInput && inputRef.current) {
-            inputRef.current.focus();
-            {handleClose}
-        }
-      }, [showNewNodeInput]);
     
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -77,57 +68,69 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     }
 
     function deleteSelectedNodes() {
-        selectedNodes.forEach(node => {node.children ? root.deleteNodeById(node.id) : {}})
+        selectedNodes.forEach(node => root.deleteNodeById(node.id))
         refreshRoot()
         setSelectedNodes([])
         setShowNewNodeInput(false)
     }
 
-    function editSelectedNodes() {
-        selectedNodes.forEach(node => node.children ? node.setLabel(newNodeText) : {})
+    function editSelectedNodes(text: string) {
+        selectedNodes.forEach(node => node.children ? node.setLabel(text) : {})
         refreshRoot()
         setSelectedNodes([])
         setShowNewNodeInput(false)
     }
 
-    // adding a new node to the syntax tree, updating its structure.
-    const insertNewNode = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            if (selectedNodes.length >= 1) {
-                const newRoot = root.clone()
-                newRoot.generateParentFromChildren(selectedNodes, newNodeText)
-                setSelectedNodes([])
-                setRoot(newRoot)
-            }
-            setShowNewNodeInput(false)
-        } else if (event.key === "Escape") {
-            setShowNewNodeInput(false)
+    function insertNewNode(text: string) {
+        console.log("newLabel")
+        if (selectedNodes.length >= 1) {
+            const newRoot = root.clone()
+            newRoot.generateParentFromChildren(selectedNodes, text)
+            setSelectedNodes([])
+            setRoot(newRoot)
         }
+        setShowNewNodeInput(false)
     }
 
-    // updating label of selected nodes.
-    function updateNodeLabel(event: React.KeyboardEvent<HTMLInputElement>) {
-        if (event.key === "Enter") {
-            if (selectedNodes.length >= 1) {
-                editSelectedNodes()
-            }
-            setShowNewNodeInput(false)
-            setEditing(false)
-        } else if (event.key === "Escape") {
-            setShowNewNodeInput(false)
+    function updateNodeLabel(text: string) {
+        console.log("updateLabel")
+        if (selectedNodes.length >= 1) {
+            editSelectedNodes(text)
         }
+        setShowNewNodeInput(false)
+        setEditing(false)
     }  
 
+    // Input component
     const NewNodeInput = () => {
-        return ( 
-            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-50 text-white text-4xl bg-black/50" 
+        const inputRef = useRef<HTMLInputElement>(null)
+        const [newNodeText, setNewNodeText] = useState("")
+
+        useEffect(() => {
+            if (inputRef.current) inputRef.current.focus()
+        }, [])
+
+        const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+            if (event.key === 'Enter') {
+                editing ? updateNodeLabel(newNodeText) : insertNewNode(newNodeText)
+                setShowNewNodeInput(false)
+            } else if (event.key === 'Escape') {
+                setShowNewNodeInput(false)
+            }
+        }
+
+        return (
+            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-20 text-white text-4xl bg-black/50"
                 onClick={() => setShowNewNodeInput(false)}>
-                <label>Enter label: </label>
+                <label>{editing ? 'Edit Node:' : 'New Node:'}</label>
                 <input className="w-auto max-w-[80vw] bg-black text-blue-300 text-4xl"
+                    autoComplete="off"
+                    spellCheck="false"
+                    placeholder="Enter label..."
                     ref={inputRef}
-                    type="text"
-                    onChange={(e) => setNewNodeText(e.currentTarget.value)} 
-                    onKeyDown={editing ? updateNodeLabel : insertNewNode}
+                    value={newNodeText}
+                    onChange={(e) => setNewNodeText(e.currentTarget.value)}
+                    onKeyDown={handleInputKeyDown}
                 />
             </div>
         )
