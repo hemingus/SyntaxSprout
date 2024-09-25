@@ -1,13 +1,10 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { TreeNode } from '../TreeNode'
-import Tooltip from '../../utils/Tooltip'
-import ConfirmationDialog from '../ConfirmationDialog';
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!
-    const [dialogVisible, setDialogVisible] = useState(false)
 
     function duplicateSyntaxTree() {
         const newTree = root.deepClone()
@@ -29,7 +26,6 @@ const MySyntaxTrees = () => {
 
     function clearAll() {
         setSavedTrees([])
-        setDialogVisible(false)
     }
 
     function savedTreesList() {
@@ -69,15 +65,13 @@ const MySyntaxTrees = () => {
                 <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={duplicateSyntaxTree}>Duplicate Current Tree</button>
-                <button 
+                <ButtonWithConfirmation
+                    action={() => clearAll()}
+                    buttonText="Delete all ❌"
+                    confirmationMessage="Are you sure you want to delete all trees?"
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                    onClick={() => setDialogVisible(true)}>Clear All</button>
-                <ConfirmationDialog
-                        message="Are you sure you want to delete all trees?"
-                        isVisible={dialogVisible}
-                        onConfirm={clearAll}
-                        onCancel={() => setDialogVisible(false)}
-                    />
+                    tooltip="Delete ALL"
+                />
             </div>
                 {savedTrees && savedTreesList()}
             
