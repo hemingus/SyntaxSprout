@@ -4,9 +4,10 @@ import { dataURLToBlob } from "../utils/DataConvertion";
 
 interface HtmlToImageButtonProps {
     element: HTMLElement | null
+    imageName: string
 }
 
-const HtmlToImageButton = ({element}: HtmlToImageButtonProps) => {
+const HtmlToImageButton = ({element, imageName}: HtmlToImageButtonProps) => {
 
     const handleDownload = (): void => {
         if (element) {
@@ -22,7 +23,7 @@ const HtmlToImageButton = ({element}: HtmlToImageButtonProps) => {
                 htmlToImage.toPng(element as HTMLElement, { pixelRatio: 2 }) // Increase pixel ratio for better quality
                     .then((dataUrl: string) => {
                         const blob = dataURLToBlob(dataUrl);
-                        saveAs(blob, 'syntax-tree.png');
+                        saveAs(blob, `${imageName}.png`);
                         element!.style.overflow = originalOverflow;
                     })
                     .catch((error: Error) => {

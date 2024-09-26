@@ -53,7 +53,7 @@ const SyntaxTreeCanvas : React.FC = () => {
                             onClick={() => setRoot(bigTree)}>
                                 Test big tree
                         </button>
-                        <HtmlToImageButton element={syntaxTreeRef.current} />
+                        <HtmlToImageButton element={syntaxTreeRef.current} imageName={root.meta?.name ? root.meta.name : "(no name)"}/>
                     </div>
                     <ThemeSettings />
                     <TreeSettings />
