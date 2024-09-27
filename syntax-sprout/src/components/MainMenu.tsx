@@ -1,4 +1,4 @@
-import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas"
+import Dashboard from "./Dashboard"
 import { useState } from 'react'
 
 const MainMenu : React.FC = () => {
@@ -6,7 +6,7 @@ const MainMenu : React.FC = () => {
     
     if (showSyntaxTree) {
         return (
-            <SyntaxTreeCanvas />
+            <Dashboard />
         )
     }
 

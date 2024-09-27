@@ -3,6 +3,7 @@ import { useState, useRef, useEffect, useContext } from 'react'
 import { TreeNode } from '../TreeNode'
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
 import Tooltip from '../../utils/Tooltip';
+import { expectedTree, bigTree } from '../../testcases/TestRoots'
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!
@@ -107,6 +108,16 @@ const MySyntaxTrees = () => {
     return (
         <div className="flex flex-col justify-center items-center">
             <div className="flex flex-row justify-center items-center gap-2">
+                <button 
+                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                    onClick={() => setRoot(expectedTree)}>
+                    Test expected tree
+                </button>
+                <button 
+                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                    onClick={() => setRoot(bigTree)}>
+                        Test big tree
+                </button>
                 <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={duplicateSyntaxTree}>Duplicate Current Tree 🗐</button>
