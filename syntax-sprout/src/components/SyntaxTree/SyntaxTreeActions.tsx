@@ -12,10 +12,9 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const [showNewNodeInput, setShowNewNodeInput] = useState(false)
     const [editing, setEditing] = useState(false)
-    
+
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-
             if (selectedNodes.length >= 1) {
                 if (event.altKey && event.key === 'x') {
                     deleteSelectedNodes()
@@ -81,9 +80,39 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         setShowNewNodeInput(false)
     }
 
+    function selectedNodesHasSameParent(): boolean {
+        if (selectedNodes.length < 1) {
+            return false
+        }
+        const parentId = selectedNodes[0].parent?.id
+        selectedNodes.forEach((node) => {if (node.parent!.id !== parentId) return false})
+        return true
+    }
+
+    function selectedNodesAreAdjacent(): boolean {
+        if (!selectedNodesHasSameParent()) {
+            return false
+        }
+        let indexLow = selectedNodes[0].parent!.children!.length-1
+        let indexHigh = 0
+        for (let i = 0; i < selectedNodes[0].parent!.children!.length -1; i++) {
+            let nodeIndex = selectedNodes[0].parent!.children!.indexOf(selectedNodes[i])
+            if (nodeIndex > indexHigh) {
+                indexHigh = nodeIndex
+            }
+            if (nodeIndex >= 0 && nodeIndex < indexLow) {
+                indexLow = nodeIndex
+            }
+        }
+        // if difference between highest and lowest index in the children array 
+        // is equal to steps apart (number of selected nodes -1) then the selected nodes must be adjacent
+        return indexHigh - indexLow === selectedNodes.length-1
+    }
+
     function insertNewNode(text: string) {
-        console.log("newLabel")
-        if (selectedNodes.length >= 1) {
+        if (selectedNodesAreAdjacent()) {
+            selectedNodes.sort((a, b) => a.parent!.children!.indexOf(a) - b.parent!.children!.indexOf(b))
+            console.log(selectedNodes)
             const newRoot = root.clone()
             newRoot.generateParentFromChildren(selectedNodes, text)
             setSelectedNodes([])
@@ -126,7 +155,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                 <input className="w-auto max-w-[80vw] bg-black text-blue-300 text-4xl"
                     autoComplete="off"
                     spellCheck="false"
-                    placeholder="Enter label..."
+                    placeholder="enter label..."
                     ref={inputRef}
                     value={newNodeText}
                     onChange={(e) => setNewNodeText(e.currentTarget.value)}
