@@ -5,10 +5,10 @@ import SyntaxTreeContext from './SyntaxTreeContext'
 import { expectedTree, bigTree } from '../../testcases/TestRoots'
 import HtmlToImageButton from '../HtmlToImageButton'
 import SyntaxTreeLines from './SyntaxTreeSVG/SyntaxTreeLines'
-import ThemeSettings from '../Theme/ThemeSettings'
-import { useTheme } from '../Theme/ThemeContext'
+import ThemeSettings from './Theme/ThemeSettings'
+import { useTheme } from './Theme/ThemeContext'
 import MySyntaxTrees from './MySyntaxTrees'
-import TreeSettings from '../Settings/TreeSettings'
+import TreeSettings from './Settings/TreeSettings'
 import SyntaxTreeGenerator from './SyntaxTreeGenerator'
 
 const SyntaxTreeCanvas : React.FC = () => {

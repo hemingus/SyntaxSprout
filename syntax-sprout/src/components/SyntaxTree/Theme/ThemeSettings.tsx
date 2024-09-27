@@ -1,5 +1,5 @@
 import { Theme, Themes } from './ThemeData'
-import { useTheme } from '../Theme/ThemeContext'
+import { useTheme } from './ThemeContext'
 
 
 const ThemeSettings = () => {

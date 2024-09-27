@@ -1,7 +1,7 @@
 import MainMenu from './components/MainMenu'
 import { SyntaxTreeProvider } from './components/SyntaxTree/SyntaxTreeContext'
-import { SettingsProvider } from './components/Settings/SettingsContex'
-import { ThemeProvider } from './components/Theme/ThemeContext'
+import { SettingsProvider } from './components/SyntaxTree/Settings/SettingsContex'
+import { ThemeProvider } from './components/SyntaxTree/Theme/ThemeContext'
 
 function App() {
     return (

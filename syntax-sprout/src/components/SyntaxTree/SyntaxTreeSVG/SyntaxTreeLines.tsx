@@ -1,8 +1,8 @@
 import { useState, useLayoutEffect, useContext } from 'react'
 import SyntaxTreeContext from '../SyntaxTreeContext'
 import { TreeNode } from '../../TreeNode'
-import { useTheme } from '../../Theme/ThemeContext'
-import { useTreeSetting } from '../../Settings/SettingsContex'
+import { useTheme } from '../Theme/ThemeContext'
+import { useTreeSetting } from '../Settings/SettingsContex'
 import CurvedArrow from './CurvedArrow'
 
 const SyntaxTreeLines = () => {
