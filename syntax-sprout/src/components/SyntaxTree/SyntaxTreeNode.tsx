@@ -4,6 +4,7 @@ import { TreeNode } from '../TreeNode'
 import { useTheme } from '../Theme/ThemeContext';
 import { useTreeSetting } from '../Settings/SettingsContex';
 import './../../index.css'
+import Tooltip from '../../utils/Tooltip';
 
 interface SyntaxTreeNodeProps {
     node: TreeNode
@@ -57,6 +58,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     if (!node.parent) 
         return (
             <div className={`relative h-full w-full flex flex-col justify-start items-center ${setting.yGap}`}>
+                <Tooltip text="🌱root">
                 <span className={`relative block w-fit z-3 px-[4px] pb-[2px]
                 ${setting.nodeSize} text-center cursor-pointer
                 border-solid rounded-[8px] border-[3px]
@@ -66,6 +68,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
                 onClick={(e) => {e.stopPropagation(); e.ctrlKey ? handleSelectNode() : handleFreeSelectNode();}}>
                     {node.label}
                 </span>
+                </Tooltip>
                 {node.children && returnChildren()}
             </div>
         )
