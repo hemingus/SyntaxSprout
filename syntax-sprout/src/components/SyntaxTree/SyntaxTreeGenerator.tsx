@@ -1,7 +1,7 @@
-import SyntaxTreeCanvas from "./SyntaxTreeCanvas"
 import { useState, useEffect, useRef, useContext } from 'react'
 import { TreeNode } from '../TreeNode'
 import SyntaxTreeContext from "./SyntaxTreeContext"
+import Dashboard from "../Dashboard"
 
 const SyntaxTreeGenerator = () => {
     const [treeName, setTreeName] = useState<string>("")
@@ -110,7 +110,7 @@ const SyntaxTreeGenerator = () => {
         return sentenceGenerator()
     }
     else return (
-        <SyntaxTreeCanvas />
+        <Dashboard />
     )
 
 }
