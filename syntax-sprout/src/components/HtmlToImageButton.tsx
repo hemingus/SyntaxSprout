@@ -35,10 +35,10 @@ const HtmlToImageButton = ({element, imageName}: HtmlToImageButtonProps) => {
     };
 
     return (
-        <button 
-            className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+        <button className="cursor-pointer p-4 text-xl bg-gradient-to-br from-emerald-500 to-slate-700 rounded-full 
+        text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
             onClick={handleDownload}>
-                Download as image
+                📷 Download as image ⤓
         </button>
     )
 }

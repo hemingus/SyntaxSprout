@@ -58,7 +58,7 @@ const SyntaxTreeGenerator = () => {
                 <h1 className="text-center text-white bg-gradient-to-b from-transparent rounded-full to-canvas-green w-fit p-2">New Tree</h1>
                 <div className="flex flex-col justify-center items-center p-5 w-fit relative 
                 lg:w-1/2 md:w-3/4 bg-gradient-to-tr from-slate-900 via-emerald-900 to-slate-900
-                border-solid border-8 border-slate-700 rounded-2xl">
+                border-solid border-8 border-slate-700">
                     <div className="w-full m-2 flex flex-col justify-center items-center gap-4"
                         onKeyDown={handleKeyDown}>
                         <label className="text-xl text-slate-300 font-bold">Tree Name: </label>
@@ -97,8 +97,16 @@ const SyntaxTreeGenerator = () => {
                             onChange={(e) => setSentence(e.target.value)}  
                         />
                     </div>
-                    <button className="mt-4 text-xl text-gray-300 bg-slate-800 cursor-pointer hover:text-lime-400"
-                    onClick={() => {generateSyntaxTree()}}>Generate Syntax Tree</button>
+                    <button className="mt-4 p-1 text-xl text-gray-300 bg-slate-800 cursor-pointer 
+                    hover:text-white hover:bg-slate-700 hover:shadow-[0_0_20px_1px_green]"
+                        onClick={() => {generateSyntaxTree()}}>
+                        Generate Syntax Tree
+                    </button>
+                    <button className="mt-8 text-xl text-gray-400 bg-slate-800 cursor-pointer 
+                    hover:text-gray-300 hover:bg-slate-700"
+                        onClick={() => {setIsGenerating(false)}}>
+                        Cancel
+                    </button>
                 </div>
             </div>
         )

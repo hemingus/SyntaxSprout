@@ -7,12 +7,11 @@ import { useTheme } from './Theme/ThemeContext'
 
 
 const SyntaxTreeCanvas : React.FC = () => {
-    const {root, setSelectedNodes} = useContext(SyntaxTreeContext)!
+    const {root, setSelectedNodes, syntaxTreeRef} = useContext(SyntaxTreeContext)!
     const {activeTheme} = useTheme()
     const [showActions, setShowActions] = useState(false)
     const [position, setPosition] = useState({ x: 0, y: 0 })
-    const syntaxTreeRef = useRef<HTMLDivElement>(null);
-
+    
     function handleContextMenuNode(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
         event.preventDefault()
         setPosition({ x: event.clientX, y: event.clientY });

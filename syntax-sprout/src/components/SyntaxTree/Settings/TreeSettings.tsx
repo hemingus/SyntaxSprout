@@ -38,6 +38,7 @@ const TreeSettings = () => {
 
     return (
         <div className="border-solid border-slate-400 rounded-2xl p-4">
+            <h2 className="text-white m-0">Tree layout</h2>
             <div className="w-fit flex flex-row justify-between items-center">
                 <label className="w-14 text-white mr-1">Size:</label>
                 {nodeSizeOptions.map((size: string, index: number) => (

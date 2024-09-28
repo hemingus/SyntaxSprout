@@ -1,7 +1,8 @@
-import { useState, useEffect, createContext, ReactNode, SetStateAction, Dispatch } from 'react'
+import { useState, useRef, useEffect, createContext, ReactNode, SetStateAction, Dispatch } from 'react'
 import { TreeNode } from '../TreeNode' 
 
 interface SyntaxTreeContextProps {
+    syntaxTreeRef: React.RefObject<HTMLDivElement>
     root: TreeNode
     setRoot: Dispatch<SetStateAction<TreeNode>>
     selectedNodes: TreeNode[]
@@ -17,6 +18,7 @@ interface SyntaxTreeProviderProps {
 const SyntaxTreeContext = createContext<SyntaxTreeContextProps | undefined>(undefined);
 
 export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children }) => {
+    const syntaxTreeRef = useRef<HTMLDivElement>(null);
     const [root, setRoot] = useState<TreeNode>(new TreeNode("No tree to display", []))
     const [selectedNodes, setSelectedNodes] = useState<TreeNode[]>([])
     const [savedTrees, setSavedTrees] = useState<TreeNode[]>([])
@@ -67,6 +69,7 @@ export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children
     }, [savedTrees]);
 
     const contextValue: SyntaxTreeContextProps = {
+        syntaxTreeRef,
         root, 
         setRoot,
         selectedNodes,

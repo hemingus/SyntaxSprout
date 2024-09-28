@@ -74,7 +74,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     }
 
     function editSelectedNodes(text: string) {
-        selectedNodes.forEach(node => node.children ? node.setLabel(text) : {})
+        selectedNodes.forEach(node => node.setLabel(text))
         refreshRoot()
         setSelectedNodes([])
         setShowNewNodeInput(false)
@@ -95,7 +95,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         }
         let indexLow = selectedNodes[0].parent!.children!.length-1
         let indexHigh = 0
-        for (let i = 0; i < selectedNodes[0].parent!.children!.length -1; i++) {
+        for (let i = 0; i < selectedNodes[0].parent!.children!.length; i++) {
             let nodeIndex = selectedNodes[0].parent!.children!.indexOf(selectedNodes[i])
             if (nodeIndex > indexHigh) {
                 indexHigh = nodeIndex
@@ -111,6 +111,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     function insertNewNode(text: string) {
         if (selectedNodesAreAdjacent()) {
+            console.log("true")
             selectedNodes.sort((a, b) => a.parent!.children!.indexOf(a) - b.parent!.children!.indexOf(b))
             console.log(selectedNodes)
             const newRoot = root.clone()
@@ -149,7 +150,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         }
 
         return (
-            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-20 text-white text-4xl bg-black/50"
+            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-50 text-white text-4xl bg-black/50"
                 onClick={() => setShowNewNodeInput(false)}>
                 <label>{editing ? 'Edit Node:' : 'New Node:'}</label>
                 <input className="w-auto max-w-[80vw] bg-black text-blue-300 text-4xl"
