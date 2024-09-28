@@ -16,7 +16,7 @@ const Dashboard = () => {
         return (
         <>
             <div className="flex flex-col justify-center items-center">
-                <div className="flex justify-center flex-col items-center overflow-x-auto relative w-full solid 
+                <div className="w-full flex justify-center flex-col items-center overflow-x-auto relative solid 
                 bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900">
                     <div className="flex flex-row justify-center items-center">
                         <div className="flex flex-col gap-4">
@@ -31,6 +31,7 @@ const Dashboard = () => {
                         <div className="flex flex-row border-solid border-slate-400 rounded-2xl p-1">
                             <TreeSettings />
                             <ThemeSettings />
+                            
                         </div>
                     </div>
                     <MySyntaxTrees />

@@ -27,12 +27,12 @@ const SyntaxTreeCanvas : React.FC = () => {
         <>         
         <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
         {/** The canvas for the syntax tree */}
-        <div className="flex justify-center items-start overflow-x-auto relative mb-28">
+        <div className="w-full flex justify-center overflow-auto items-start relative mb-28">
             <div 
             ref={syntaxTreeRef} 
             onContextMenu={handleContextMenuNode} 
             id="syntax-tree-canvas" 
-            className={`flex justify-start flex-col w-fit h-auto overflow-auto p-10 relative origin-top-left ${activeTheme.canvas}`}
+            className={`box-border w-fit h-auto overflow-auto p-10 relative origin-top-left ${activeTheme.canvas}`}
             onClick={() => setSelectedNodes([])}>  
                 <SyntaxTreeNode node={root} />  
                 <SyntaxTreeLines />

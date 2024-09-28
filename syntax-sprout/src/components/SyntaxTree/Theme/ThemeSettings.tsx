@@ -8,7 +8,7 @@ const ThemeSettings = () => {
     return (
         
         <div className="p-4">
-            <h2 className="text-white m-0">Theme</h2>
+            <h2 className="text-white m-0">Theme 🎨🖌️</h2>
             {Themes.map((theme: Theme) => (
             <li
                 onClick={() => setActiveTheme(theme)} 

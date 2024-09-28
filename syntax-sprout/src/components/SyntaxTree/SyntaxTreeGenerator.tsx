@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useContext } from 'react'
-import { TreeNode } from '../TreeNode'
+import { TreeNode } from './TreeNode'
 import SyntaxTreeContext from "./SyntaxTreeContext"
 import Dashboard from "../Dashboard"
 

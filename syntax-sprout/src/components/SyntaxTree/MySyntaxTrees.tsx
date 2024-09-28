@@ -1,6 +1,6 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
 import { useState, useRef, useEffect, useContext } from 'react'
-import { TreeNode } from '../TreeNode'
+import { TreeNode } from './TreeNode'
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
 import Tooltip from '../../utils/Tooltip';
 import { expectedTree, bigTree } from '../../testcases/TestRoots'

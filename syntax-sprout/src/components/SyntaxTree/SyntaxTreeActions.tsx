@@ -26,6 +26,9 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                     setEditing(true)
                     setShowNewNodeInput(true)
                 }
+                else if (event.altKey && event.key === 'a') {
+                    putArrow()
+                }
             }
         }
         document.addEventListener('keydown', handleKeyDown)
@@ -52,12 +55,9 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     }
 
     function removeArrow(): void {
-        if (selectedNodes.length == 1) {
-            const newMeta = {...selectedNodes[0].meta, arrows: undefined}
-            selectedNodes[0].setMeta(newMeta)
-            refreshRoot()
-            setSelectedNodes([])
-        }
+        selectedNodes.forEach((node) => node.setMeta({...node.meta, arrows: undefined}))
+        refreshRoot()
+        setSelectedNodes([])     
     }
 
     function mergeLines(): void {
@@ -97,6 +97,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         let indexHigh = 0
         for (let i = 0; i < selectedNodes[0].parent!.children!.length; i++) {
             let nodeIndex = selectedNodes[0].parent!.children!.indexOf(selectedNodes[i])
+            console.log(`nodeIndex: ${nodeIndex}`)
             if (nodeIndex > indexHigh) {
                 indexHigh = nodeIndex
             }
@@ -106,7 +107,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         }
         // if difference between highest and lowest index in the children array 
         // is equal to steps apart (number of selected nodes -1) then the selected nodes must be adjacent
-        return indexHigh - indexLow === selectedNodes.length-1
+        return (indexHigh - indexLow === selectedNodes.length-1)
     }
 
     function insertNewNode(text: string) {
@@ -143,7 +144,6 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
             if (event.key === 'Enter') {
                 editing ? updateNodeLabel(newNodeText) : insertNewNode(newNodeText)
-                setShowNewNodeInput(false)
             } else if (event.key === 'Escape') {
                 setShowNewNodeInput(false)
             }
@@ -194,18 +194,18 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
             <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
                 onClick={() => mergeLines()}>
-                Merge/Unmerge children
+                Merge / Unmerge children
             </div>
 
-            {selectedNodes.length >= 2 ? 
+            {selectedNodes.length >= 2 && 
                 <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
                     onClick={() => putArrow()}>
                         Put Arrow
-                </div> :
-                <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300"
-                    onClick={() => removeArrow()}>
-                    Remove arrows
                 </div>}
+            <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300"
+                onClick={() => removeArrow()}>
+                Remove arrow
+            </div>
         </div>}
         </>
     )

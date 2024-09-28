@@ -1,4 +1,4 @@
-import { TreeNode } from '../components/TreeNode'
+import { TreeNode } from '../components/SyntaxTree/TreeNode'
 
 var and4 = new TreeNode("we_are_the_words_we_are_the_children")
 var and3 = new TreeNode("we_are_the_words_we_are_the_children", [and4])
