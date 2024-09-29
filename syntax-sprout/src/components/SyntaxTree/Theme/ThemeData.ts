@@ -19,8 +19,8 @@ export const DefaultTheme: Theme = {
     arrows: "#50EE70"
 }
 
-export const PlainTheme: Theme = {
-    name: "PlainTheme",
+export const PlainBlack: Theme = {
+    name: "PlainBlack",
     root: "text-black font-bold border-black hover:shadow-[0_0_5px_5px_black] hover:z-30 hover:border-white",
     node: "text-black font-bold border-transparent hover:shadow-[0_0_5px_5px_black] hover:z-30 hover:border-white",
     leaf: "text-black font-bold border-transparent hover:shadow-[0_0_5px_5px_black] hover:z-30 hover:border-white",
@@ -32,8 +32,8 @@ export const PlainTheme: Theme = {
 export const PlainColor: Theme = {
     name: "PlainColor",
     root: "text-black font-bold border-black hover:shadow-[0_0_5px_5px_black] hover:z-30 hover:border-white",
-    node: "text-blue-600 font-bold border-transparent hover:shadow-[0_0_5px_5px_black] hover:z-30 hover:border-white",
-    leaf: "text-red-500 font-bold border-transparent hover:shadow-[0_0_5px_5px_black] hover:z-30 hover:border-white",
+    node: "text-blue-700 font-bold border-transparent hover:shadow-[0_0_5px_5px_black] hover:z-30 hover:border-white",
+    leaf: "text-green-600 font-bold border-transparent hover:shadow-[0_0_5px_5px_black] hover:z-30 hover:border-white",
     canvas: "bg-white",
     lines: "black",
     arrows: "black"
@@ -71,7 +71,7 @@ export const BlueDream: Theme = {
 
 export const Themes: Theme[] = [
     DefaultTheme,
-    PlainTheme,
+    PlainBlack,
     PlainColor,
     PinkCraze,
     PurpleMagic,

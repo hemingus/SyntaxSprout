@@ -18,13 +18,12 @@ const MainMenu : React.FC = () => {
                 <p className="text-white text-2xl">
                     Welcome to Syntax Sprout!
                     <br/> If you are analyzing sentences and are looking to construct a syntax tree, 
-                    <br/> here is a neat tool to help you accomplish that.
-                    <br/> Enter your sentence and start building!
+                    <br/> here is a neat tool to help you accomplish that!
                 </p>
                 <button 
                     className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white" 
                     onClick={() => setShowSyntaxTree(true)}>
-                        Start building! ⏵
+                        Get started ⏵
                 </button>
             </div>
         </div>

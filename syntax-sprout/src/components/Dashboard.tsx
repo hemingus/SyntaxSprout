@@ -18,10 +18,10 @@ const Dashboard = () => {
             <div className="flex flex-col justify-center items-center">
                 <div className="w-full flex justify-center flex-col items-center overflow-x-auto relative solid 
                 bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900">
-                    <div className="flex flex-row justify-center items-center">
+                    <div className="flex flex-row justify-center items-center flex-wrap">
                         <div className="flex flex-col gap-4">
                             <button 
-                                className="cursor-pointer p-4 text-xl bg-gradient-to-br from-emerald-500 to-slate-700 rounded-full 
+                                className="cursor-pointer p-4 text-xl bg-gradient-to-br from-emerald-500 to-slate-700 rounded-[2rem]
                                 text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
                                 onClick={() => setIsGenerating(true)}>
                                     🎇 Create new 🎇
