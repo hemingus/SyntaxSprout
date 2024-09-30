@@ -1,5 +1,7 @@
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import SyntaxTreeContext from './SyntaxTreeContext'
+import { TreeNode } from './TreeNode'
+import InputCenter from '../InputCenter'
 
 interface SyntaxTreeActionProps {
     active: boolean
@@ -8,10 +10,22 @@ interface SyntaxTreeActionProps {
     onClose: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
+type InputAction = "editNode" | "generateFromChildren" | "addChild" | null
+
 const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps) => {
     const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
-    const [showNewNodeInput, setShowNewNodeInput] = useState(false)
-    const [editing, setEditing] = useState(false)
+    const [inputAction, setInputAction] = useState<InputAction>(null)
+
+    const showInput = () => {
+        switch (inputAction) {
+            case "editNode": 
+                return <InputCenter label="edit node" placeholder="enter label" isVisible={true} onConfirm={editSelectedNodes} onCancel={() => setInputAction(null)}/>
+            case "generateFromChildren":
+                return <InputCenter label="new node" placeholder="enter label" isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
+            case "addChild":
+                return <InputCenter label="new node" placeholder="enter label" isVisible={true} onConfirm={addChildToNodes} onCancel={() => setInputAction(null)}/>
+        }
+    }
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -20,14 +34,13 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                     deleteSelectedNodes()
                 } 
                 else if (event.altKey && event.key === 'w') {
-                    setShowNewNodeInput(true)
+                    setInputAction("generateFromChildren")
                 }
                 else if (event.altKey && event.key === 'q') {
-                    setEditing(true)
-                    setShowNewNodeInput(true)
+                    setInputAction("editNode")
                 }
                 else if (event.altKey && event.key === 'a') {
-                    putArrow()
+                    setInputAction("addChild")
                 }
             }
         }
@@ -68,17 +81,21 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     }
 
     function deleteSelectedNodes() {
-        selectedNodes.forEach(node => root.deleteNodeById(node.id))
+        selectedNodes.forEach(node => {if (node.parent) root.deleteNodeById(node.id)})
         refreshRoot()
         setSelectedNodes([])
-        setShowNewNodeInput(false)
     }
 
     function editSelectedNodes(text: string) {
         selectedNodes.forEach(node => node.setLabel(text))
         refreshRoot()
         setSelectedNodes([])
-        setShowNewNodeInput(false)
+    }
+
+    function addChildToNodes(text: string) {
+        selectedNodes.forEach(node => node.addChild(new TreeNode(text, undefined, node)))
+        refreshRoot()
+        setSelectedNodes([])
     }
 
     function selectedNodesHasSameParent(): boolean {
@@ -121,7 +138,6 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             setSelectedNodes([])
             setRoot(newRoot)
         }
-        setShowNewNodeInput(false)
     }
 
     function updateNodeLabel(text: string) {
@@ -129,43 +145,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         if (selectedNodes.length >= 1) {
             editSelectedNodes(text)
         }
-        setShowNewNodeInput(false)
-        setEditing(false)
     }  
-
-    // Input component
-    const NewNodeInput = () => {
-        const inputRef = useRef<HTMLInputElement>(null)
-        const [newNodeText, setNewNodeText] = useState("")
-
-        useEffect(() => {
-            if (inputRef.current) inputRef.current.focus()
-        }, [])
-
-        const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-            if (event.key === 'Enter') {
-                editing ? updateNodeLabel(newNodeText) : insertNewNode(newNodeText)
-            } else if (event.key === 'Escape') {
-                setShowNewNodeInput(false)
-            }
-        }
-
-        return (
-            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-50 text-white text-4xl bg-black/50"
-                onClick={() => setShowNewNodeInput(false)}>
-                <label>{editing ? 'Edit Node:' : 'New Node:'}</label>
-                <input className="w-auto max-w-[80vw] bg-black text-blue-300 text-4xl"
-                    autoComplete="off"
-                    spellCheck="false"
-                    placeholder="enter label..."
-                    ref={inputRef}
-                    value={newNodeText}
-                    onChange={(e) => setNewNodeText(e.currentTarget.value)}
-                    onKeyDown={handleInputKeyDown}
-                />
-            </div>
-        )
-    }
 
     function handleClose(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
         onClose(event)
@@ -173,14 +153,20 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     return (
         <>
-        {showNewNodeInput && <NewNodeInput />}
+        {showInput()}
+        {/* {showNewNodeInput && <NewNodeInput />} */}
         {active &&
         <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} className="flex flex-col absolute left-[30px] bg-slate-500 z-40"
             onMouseLeave={handleClose} onClick={handleClose}
         >
             <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-                onClick={() => setShowNewNodeInput(true)}>
+                onClick={() => setInputAction("generateFromChildren")}>
                 Generate new parent node from selected (alt + w)
+            </div>
+
+            <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
+                onClick={() => setInputAction("addChild")}>
+                Add child node (alt + a)
             </div>
 
             <div className=" text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
@@ -189,7 +175,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             </div>
 
             <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-                onClick={() => {setEditing(true); setShowNewNodeInput(true)}}>
+                onClick={() => setInputAction("editNode")}>
                 Edit selected nodes (alt + q)
             </div>
 
