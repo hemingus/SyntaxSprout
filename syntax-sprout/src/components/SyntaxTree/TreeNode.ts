@@ -192,6 +192,7 @@ export class TreeNode implements TreeNodeMethods {
                 if (this.children) {
                     // Insert the children at the same index as the deleted node
                     this.parent.children?.splice(index, 0, ...this.children)
+                    
                     // Update parent reference for promoted children
                     for (const child of this.children) {
                         child.parent = this.parent
@@ -199,6 +200,7 @@ export class TreeNode implements TreeNodeMethods {
                 }
             }
         }
+        if (this.parent?.children?.length === 0) this.parent.children = undefined
     }
     
     deleteNodeById(id: string): void {
