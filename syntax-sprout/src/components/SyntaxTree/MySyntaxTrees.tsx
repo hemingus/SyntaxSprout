@@ -106,7 +106,7 @@ const MySyntaxTrees = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center appearGrow">
             <div className="flex flex-row justify-center items-center gap-2">
                 <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"

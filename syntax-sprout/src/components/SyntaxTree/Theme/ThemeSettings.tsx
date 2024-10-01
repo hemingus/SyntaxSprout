@@ -7,7 +7,7 @@ const ThemeSettings = () => {
 
     return (
         
-        <div className="p-4">
+        <div className="p-4 border-solid border-slate-400 rounded">
             <h2 className="text-white m-0">Theme 🎨🖌️</h2>
             {Themes.map((theme: Theme) => (
             <li

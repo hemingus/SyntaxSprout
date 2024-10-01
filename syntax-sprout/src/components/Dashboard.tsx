@@ -11,30 +11,58 @@ import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas"
 const Dashboard = () => {
     const {root, syntaxTreeRef} = useContext(SyntaxTreeContext)!
     const [isGenerating, setIsGenerating] = useState(false)
-    
+
+    const [showSettings, setShowSettings] = useState(false)
+    const [showMyTrees, setShowMyTrees] = useState(true)
+
     function dashboardContent() { 
         return (
         <>
             <div className="flex flex-col justify-center items-center">
                 <div className="w-full flex justify-center flex-col items-center overflow-x-auto relative solid 
-                bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900">
-                    <div className="flex flex-row justify-center items-center flex-wrap">
-                        <div className="flex flex-col gap-4">
-                            <button 
-                                className="cursor-pointer p-4 text-xl bg-gradient-to-br from-emerald-500 to-slate-700 rounded-[2rem]
-                                text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
-                                onClick={() => setIsGenerating(true)}>
-                                    🎇 Create new 🎇
+                bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900 gap-4">
+                    <div className="flex flex-row justify-center items-center flex-wrap gap-4 mt-4">
+                        <button 
+                            className="cursor-pointer p-4 text-xl bg-gradient-to-br from-emerald-500 to-slate-700 rounded-[2rem]
+                            text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
+                            onClick={() => setIsGenerating(true)}>
+                                🎇 Create new 🎇
+                        </button>
+                        <HtmlToImageButton element={syntaxTreeRef.current} imageName={root.meta?.name ? root.meta.name : "(no name)"}/>
+
+                    </div>
+                    {showSettings ?
+                        <div className="flex flex-col sm:flex-row border-solid border-slate-600 rounded appearGrow">
+                            <button className="cursor-pointer p-2 text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
+                            text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
+                                onClick={() => setShowSettings(false)}>
+                                Close
                             </button>
-                            <HtmlToImageButton element={syntaxTreeRef.current} imageName={root.meta?.name ? root.meta.name : "(no name)"}/>
-                        </div>
-                        <div className="flex flex-row border-solid border-slate-400 rounded-2xl p-1">
                             <TreeSettings />
                             <ThemeSettings />
-                            
-                        </div>
-                    </div>
-                    <MySyntaxTrees />
+                        </div> :
+                        <button 
+                            className="cursor-pointer p-2 text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
+                            text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
+                            onClick={() => setShowSettings(true)}>
+                                ⚙️ Settings ⚙️
+                        </button>
+                        }
+                    {showMyTrees ? 
+                    <>
+                        <button className="w-1/4 cursor-pointer text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
+                        text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
+                        onClick={() => setShowMyTrees(false)}>
+                            Hide
+                        </button>
+                        <MySyntaxTrees />
+                    </> :
+                    <button 
+                        className="cursor-pointer p-2 text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded mb-4
+                        text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
+                        onClick={() => setShowMyTrees(true)}>
+                            🌳 My Trees 🌳
+                    </button>}
                 </div>
                 
             </div>

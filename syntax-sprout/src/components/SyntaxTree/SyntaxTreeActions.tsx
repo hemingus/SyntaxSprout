@@ -19,11 +19,11 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     const showInput = () => {
         switch (inputAction) {
             case "editNode": 
-                return <InputCenter label="edit node" placeholder="enter label" isVisible={true} onConfirm={editSelectedNodes} onCancel={() => setInputAction(null)}/>
+                return <InputCenter label="Edit Node::" placeholder="Enter label..." isVisible={true} onConfirm={editSelectedNodes} onCancel={() => setInputAction(null)}/>
             case "generateFromChildren":
-                return <InputCenter label="new node" placeholder="enter label" isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
+                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
             case "addChild":
-                return <InputCenter label="new node" placeholder="enter label" isVisible={true} onConfirm={addChildToNodes} onCancel={() => setInputAction(null)}/>
+                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={addChildToNodes} onCancel={() => setInputAction(null)}/>
         }
     }
 
