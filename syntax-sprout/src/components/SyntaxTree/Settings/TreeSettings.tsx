@@ -9,29 +9,22 @@ const TreeSettings = () => {
     }, [setting])
 
     function handleNodeSize(size: string) {
-        const newSize = size
         const newSetting: TreeSetting = {
-            nodeSize: newSize,
-            xGap: setting.xGap,
-            yGap: setting.yGap
+            ...setting, nodeSize: size
         }
         setSetting(newSetting)
     }
 
     function handleXgap(newXgap: string) {
         const newSetting: TreeSetting = {
-            nodeSize: setting.nodeSize,
-            xGap: newXgap,
-            yGap: setting.yGap
+            ...setting, xGap: newXgap
         }
         setSetting(newSetting)
     } 
 
     function handleYgap(newYgap: string) {
         const newSetting: TreeSetting = {
-            nodeSize: setting.nodeSize,
-            xGap: setting.xGap,
-            yGap: newYgap
+            ...setting, yGap: newYgap
         }
         setSetting(newSetting)
     } 

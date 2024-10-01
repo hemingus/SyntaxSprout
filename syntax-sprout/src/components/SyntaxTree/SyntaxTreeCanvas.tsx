@@ -27,7 +27,7 @@ const SyntaxTreeCanvas : React.FC = () => {
         <>         
         <SyntaxTreeActions active={showActions} posX={position.x} posY={position.y} onClose={onCloseActionMenu} />
         {/** The canvas for the syntax tree */}
-        <div className="w-full flex justify-center overflow-auto items-start relative mb-28">
+        <div className="w-full flex justify-center overflow-auto items-start relative mb-48">
             <div 
             ref={syntaxTreeRef} 
             onContextMenu={handleContextMenuNode} 
