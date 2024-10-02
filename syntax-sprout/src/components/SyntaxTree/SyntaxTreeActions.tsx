@@ -15,17 +15,13 @@ type InputAction = "editNode" | "generateFromChildren" | "addChild" | null
 const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps) => {
     const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const [inputAction, setInputAction] = useState<InputAction>(null)
+    const [undoStack, setUndoStack] = useState<TreeNode[]>([]);
+    const [redoStack, setRedoStack] = useState<TreeNode[]>([]);
 
-    const showInput = () => {
-        switch (inputAction) {
-            case "editNode": 
-                return <InputCenter label="Edit Node::" placeholder="Enter label..." isVisible={true} onConfirm={editSelectedNodes} onCancel={() => setInputAction(null)}/>
-            case "generateFromChildren":
-                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
-            case "addChild":
-                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={addChildToNodes} onCancel={() => setInputAction(null)}/>
-        }
-    }
+    useEffect(() => {
+        setUndoStack([])
+        setRedoStack([])
+    }, [root.id])
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -42,7 +38,18 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                 else if (event.altKey && event.key === 'a') {
                     setInputAction("addChild")
                 }
+
             }
+            if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'z') {
+                redo()
+            }
+            else if ((event.ctrlKey || event.metaKey) && event.key === 'y') {
+                redo()
+            }
+            else if ((event.ctrlKey || event.metaKey) && event.key === 'z') {
+                undo()
+            }
+
         }
         document.addEventListener('keydown', handleKeyDown)
         return () => {
@@ -50,10 +57,41 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         }
     }, [selectedNodes])
 
-    function refreshRoot(): void {
-        const newRoot = root.clone()
-        setRoot(newRoot)
-    }
+    const deepCopyTree = (tree: TreeNode): TreeNode => {
+        return tree.deepCopy()
+    };
+
+    const updateRoot = (oldRoot: TreeNode) => {
+        setUndoStack([...undoStack, deepCopyTree(oldRoot)])
+        setRedoStack([])
+        setRoot(deepCopyTree(root))
+    };
+
+    // Undo function
+    const undo = () => {
+        console.log("undo")
+        if (undoStack.length > 0) {
+            const previousState = undoStack.pop()
+            if (previousState) {
+                setRedoStack([...redoStack, deepCopyTree(root)])
+                setRoot(previousState)
+                setUndoStack([...undoStack])
+            }
+        }
+    };
+
+    // Redo function
+    const redo = () => {
+        console.log("redo")
+        if (redoStack.length > 0) {
+            const nextState = redoStack.pop()
+            if (nextState) {
+                setUndoStack([...undoStack, deepCopyTree(root)])
+                setRoot(nextState)
+                setRedoStack([...redoStack])
+            }
+        }
+    };
 
     function putArrow(): void {
         if (selectedNodes.length >= 2) {
@@ -63,39 +101,38 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             }
             const arrowTargets = selectedNodes[0].meta?.arrows ? [...selectedNodes[0].meta!.arrows!, ...newTargets] : newTargets
             selectedNodes[0].setMeta({...selectedNodes[0].meta, arrows: arrowTargets})
-            refreshRoot()
-            setSelectedNodes([])
+            updateRoot(root)
         }   
     }
 
     function removeArrow(): void {
+        const oldRoot = deepCopyTree(root)
         selectedNodes.forEach((node) => node.setMeta({...node.meta, arrows: undefined}))
-        refreshRoot()
-        setSelectedNodes([])     
+        updateRoot(oldRoot)    
     }
 
     function mergeLines(): void {
+        const oldRoot = deepCopyTree(root)
         selectedNodes.forEach(node => {node.meta?.merged ? node.setMeta({merged: !node.meta!.merged}) : node.setMeta({merged: true})})
-        refreshRoot()
-        setSelectedNodes([])
+        updateRoot(oldRoot)
     }
 
     function deleteSelectedNodes() {
+        const oldRoot = deepCopyTree(root)
         selectedNodes.forEach(node => {if (node.parent) root.deleteNodeById(node.id)})
-        refreshRoot()
-        setSelectedNodes([])
+        updateRoot(oldRoot)
     }
 
     function editSelectedNodes(text: string) {
+        const oldRoot = deepCopyTree(root)
         selectedNodes.forEach(node => node.setLabel(text))
-        refreshRoot()
-        setSelectedNodes([])
+        updateRoot(oldRoot)
     }
 
     function addChildToNodes(text: string) {
+        const oldRoot = deepCopyTree(root)
         selectedNodes.forEach(node => node.addChild(new TreeNode(text, undefined, node)))
-        refreshRoot()
-        setSelectedNodes([])
+        updateRoot(oldRoot)
     }
 
     function selectedNodesHasSameParent(): boolean {
@@ -130,9 +167,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     function insertNewNode(text: string) {
         if (selectedNodesAreAdjacent()) {
-            console.log("true")
             selectedNodes.sort((a, b) => a.parent!.children!.indexOf(a) - b.parent!.children!.indexOf(b))
-            console.log(selectedNodes)
             const newRoot = root.clone()
             newRoot.generateParentFromChildren(selectedNodes, text)
             setSelectedNodes([])
@@ -140,21 +175,24 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         }
     }
 
-    function updateNodeLabel(text: string) {
-        console.log("updateLabel")
-        if (selectedNodes.length >= 1) {
-            editSelectedNodes(text)
-        }
-    }  
-
     function handleClose(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
         onClose(event)
+    }
+
+    const showInput = () => {
+        switch (inputAction) {
+            case "editNode": 
+                return <InputCenter label="Edit Node:" placeholder="Enter label..." isVisible={true} onConfirm={editSelectedNodes} onCancel={() => setInputAction(null)}/>
+            case "generateFromChildren":
+                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
+            case "addChild":
+                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={addChildToNodes} onCancel={() => setInputAction(null)}/>
+        }
     }
 
     return (
         <>
         {showInput()}
-        {/* {showNewNodeInput && <NewNodeInput />} */}
         {active &&
         <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} className="flex flex-col absolute left-[30px] bg-slate-500 z-40"
             onMouseLeave={handleClose} onClick={handleClose}
@@ -187,7 +225,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             {selectedNodes.length >= 2 && 
                 <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
                     onClick={() => putArrow()}>
-                        Put Arrow
+                    Put Arrow
                 </div>}
             <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300"
                 onClick={() => removeArrow()}>
