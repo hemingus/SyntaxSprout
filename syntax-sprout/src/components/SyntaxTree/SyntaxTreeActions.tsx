@@ -10,13 +10,13 @@ interface SyntaxTreeActionProps {
     onClose: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-type InputAction = "editNode" | "generateFromChildren" | "addChild" | null
+type InputAction = "editNode" | "generateNewParent" | "addNewChild" | "insertNewSibling" | null
 
 const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps) => {
     const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const [inputAction, setInputAction] = useState<InputAction>(null)
-    const [undoStack, setUndoStack] = useState<TreeNode[]>([]);
-    const [redoStack, setRedoStack] = useState<TreeNode[]>([]);
+    const [undoStack, setUndoStack] = useState<TreeNode[]>([])
+    const [redoStack, setRedoStack] = useState<TreeNode[]>([])
 
     useEffect(() => {
         setUndoStack([])
@@ -30,13 +30,16 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                     deleteSelectedNodes()
                 } 
                 else if (event.altKey && event.key === 'w') {
-                    setInputAction("generateFromChildren")
+                    if (selectedNodesAreAdjacent()) setInputAction("generateNewParent")
                 }
                 else if (event.altKey && event.key === 'q') {
                     setInputAction("editNode")
                 }
                 else if (event.altKey && event.key === 'a') {
-                    setInputAction("addChild")
+                    setInputAction("addNewChild")
+                }
+                else if (event.altKey && event.key === 's') {
+                    setInputAction("insertNewSibling")
                 }
 
             }
@@ -59,13 +62,14 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     const deepCopyTree = (tree: TreeNode): TreeNode => {
         return tree.deepCopy()
-    };
+    }
 
     const updateRoot = (oldRoot: TreeNode) => {
         setUndoStack([...undoStack, deepCopyTree(oldRoot)])
         setRedoStack([])
         setRoot(deepCopyTree(root))
-    };
+        setSelectedNodes([])
+    }
 
     // Undo function
     const undo = () => {
@@ -78,7 +82,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                 setUndoStack([...undoStack])
             }
         }
-    };
+    }
 
     // Redo function
     const redo = () => {
@@ -91,7 +95,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                 setRedoStack([...redoStack])
             }
         }
-    };
+    }
 
     function putArrow(): void {
         if (selectedNodes.length >= 2) {
@@ -113,7 +117,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     function mergeLines(): void {
         const oldRoot = deepCopyTree(root)
-        selectedNodes.forEach(node => {node.meta?.merged ? node.setMeta({merged: !node.meta!.merged}) : node.setMeta({merged: true})})
+        selectedNodes.forEach(node => {node.meta?.merged ? node.setMeta({...node.meta, merged: !node.meta!.merged}) : node.setMeta({...node.meta, merged: true})})
         updateRoot(oldRoot)
     }
 
@@ -135,13 +139,24 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         updateRoot(oldRoot)
     }
 
+    function insertNodeAtIndex(text: string) {
+        const oldRoot = deepCopyTree(root)
+        selectedNodes.forEach(node => {
+            if (node.parent?.children) {
+                const nodeToInsert: TreeNode = new TreeNode(text, undefined, node.parent)
+                const insertAtIndex: number = node.parent.children.indexOf(node)
+                node.parent.insertChild(nodeToInsert, insertAtIndex)
+            }
+        })
+        updateRoot(oldRoot)
+    }
+
     function selectedNodesHasSameParent(): boolean {
         if (selectedNodes.length < 1) {
             return false
         }
         const parentId = selectedNodes[0].parent?.id
-        selectedNodes.forEach((node) => {if (node.parent!.id !== parentId) return false})
-        return true
+        return selectedNodes.every((node) => node.parent && node.parent.id === parentId)
     }
 
     function selectedNodesAreAdjacent(): boolean {
@@ -159,7 +174,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             if (nodeIndex >= 0 && nodeIndex < indexLow) {
                 indexLow = nodeIndex
             }
-        }
+        } 
         // if difference between highest and lowest index in the children array 
         // is equal to steps apart (number of selected nodes -1) then the selected nodes must be adjacent
         return (indexHigh - indexLow === selectedNodes.length-1)
@@ -167,11 +182,10 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     function insertNewNode(text: string) {
         if (selectedNodesAreAdjacent()) {
+            const oldRoot = deepCopyTree(root)
             selectedNodes.sort((a, b) => a.parent!.children!.indexOf(a) - b.parent!.children!.indexOf(b))
-            const newRoot = root.clone()
-            newRoot.generateParentFromChildren(selectedNodes, text)
-            setSelectedNodes([])
-            setRoot(newRoot)
+            root.generateParentFromChildren(selectedNodes, text)
+            updateRoot(oldRoot)
         }
     }
 
@@ -183,10 +197,12 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         switch (inputAction) {
             case "editNode": 
                 return <InputCenter label="Edit Node:" placeholder="Enter label..." isVisible={true} onConfirm={editSelectedNodes} onCancel={() => setInputAction(null)}/>
-            case "generateFromChildren":
+            case "generateNewParent":
                 return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
-            case "addChild":
+            case "addNewChild":
                 return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={addChildToNodes} onCancel={() => setInputAction(null)}/>
+            case "insertNewSibling":
+                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNodeAtIndex} onCancel={() => setInputAction(null)}/>
         }
     }
 
@@ -198,13 +214,18 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             onMouseLeave={handleClose} onClick={handleClose}
         >
             <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-                onClick={() => setInputAction("generateFromChildren")}>
+                onClick={() => setInputAction("generateNewParent")}>
                 Generate new parent node from selected (alt + w)
             </div>
 
             <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-                onClick={() => setInputAction("addChild")}>
+                onClick={() => setInputAction("addNewChild")}>
                 Add child node (alt + a)
+            </div>
+
+            <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
+                onClick={() => setInputAction("insertNewSibling")}>
+                Insert node (alt + s)
             </div>
 
             <div className=" text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 

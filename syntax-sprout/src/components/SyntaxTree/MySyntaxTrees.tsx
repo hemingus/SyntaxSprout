@@ -76,7 +76,7 @@ const MySyntaxTrees = () => {
 
     function savedTreesList() {
         return (
-        <ul className="flex flex-wrap gap-1">
+        <ul className="flex flex-wrap gap-1 mr-8">
             {savedTrees.map((tree, index) => (
                 <li className={`solid p-1 rounded list-none 
                 ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500" 
@@ -107,7 +107,7 @@ const MySyntaxTrees = () => {
 
     return (
         <div className="flex flex-col justify-center items-center appearGrow">
-            <div className="flex flex-row justify-center items-center gap-2">
+            <div className="flex flex-row justify-center items-center gap-1 mt-2">
                 <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={() => setRoot(expectedTree)}>

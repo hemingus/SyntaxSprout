@@ -49,14 +49,14 @@ const Dashboard = () => {
                         </button>
                         }
                     {showMyTrees ? 
-                    <>
-                        <button className="w-1/4 cursor-pointer text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
+                    <div className="flex flex-col border-solid border-slate-600 rounded appearGrow">
+                        <button className="cursor-pointer text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
                         text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
                         onClick={() => setShowMyTrees(false)}>
-                            Hide
+                            Close
                         </button>
                         <MySyntaxTrees />
-                    </> :
+                    </div> :
                     <button 
                         className="cursor-pointer p-2 text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded mb-4
                         text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 

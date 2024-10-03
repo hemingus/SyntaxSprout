@@ -55,7 +55,7 @@ const SyntaxTreeLines = () => {
             return renderTreeLines(node, parentRect)
         }
 
-        if (node.meta?.arrows!) {
+        if (node.meta?.arrows) {
             node.meta.arrows.forEach((targetId) => {
                 const targetRect = document.getElementById(targetId)?.getBoundingClientRect()!
                 const targetCenterX = targetRect.left + targetRect.width/2 + canvas.scrollLeft - canvas.offsetLeft

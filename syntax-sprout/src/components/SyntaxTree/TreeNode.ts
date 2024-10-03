@@ -72,7 +72,7 @@ export class TreeNode implements TreeNodeMethods {
         
         // Create a new node with the same label and cloned children
         const clonedNode = new TreeNode(this.label, clonedChildren);
-        clonedNode.meta = this.meta;
+        clonedNode.meta = undefined;
         // clonedNode.id = this.id;
 
         // Set the parent reference for each cloned child
