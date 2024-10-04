@@ -99,13 +99,14 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     function putArrow(): void {
         if (selectedNodes.length >= 2) {
+            const oldRoot = deepCopyTree(root)
             const newTargets = []
             for (let i = 1; i < selectedNodes.length; i++) {
                 newTargets.push(selectedNodes[i].id)
             }
             const arrowTargets = selectedNodes[0].meta?.arrows ? [...selectedNodes[0].meta!.arrows!, ...newTargets] : newTargets
             selectedNodes[0].setMeta({...selectedNodes[0].meta, arrows: arrowTargets})
-            updateRoot(root)
+            updateRoot(oldRoot)
         }   
     }
 
