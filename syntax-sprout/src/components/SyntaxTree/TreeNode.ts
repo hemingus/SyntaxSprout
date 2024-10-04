@@ -65,22 +65,51 @@ export class TreeNode implements TreeNodeMethods {
         return clonedNode;
     }
 
-    // Method to create a deep clone of the TreeNode
     deepClone(): TreeNode {
-        // Recursively clone the children
-        const clonedChildren = this.children?.map(child => child.deepClone());
+        // Create a map to track the original node IDs to cloned node IDs
+        const idMapping: Map<string, string> = new Map();
         
-        // Create a new node with the same label and cloned children
-        const clonedNode = new TreeNode(this.label, clonedChildren);
-        clonedNode.meta = undefined;
-        // clonedNode.id = this.id;
+        // Helper function to deep clone the tree and build the ID map
+        const deepCloneRecursive = (node: TreeNode): TreeNode => {
+            // Recursively clone the children
+            const clonedChildren = node.children?.map(child => deepCloneRecursive(child));
+            
+            // Create a new node with the same label and cloned children
+            const clonedNode = new TreeNode(node.label, clonedChildren);
+            clonedNode.meta = { ...node.meta }; // Shallow copy of meta (we'll handle arrows next)
+            
+            // Add original node ID and the cloned node's new ID to the map
+            idMapping.set(node.id, clonedNode.id);
+            
+            // Set the parent reference for each cloned child
+            if (clonedChildren) {
+                clonedChildren.forEach(child => child.parent = clonedNode);
+            }
+            
+            return clonedNode;
+        };
 
-        // Set the parent reference for each cloned child
-        if (clonedChildren) {
-            clonedChildren.forEach(child => child.parent = clonedNode);
-        }
+        // Start the cloning process from the root (this)
+        const clonedRoot = deepCloneRecursive(this);
 
-        return clonedNode;
+        // Now we need to update the arrows in the cloned nodes using the ID map
+        const updateArrows = (node: TreeNode): void => {
+            if (node.meta?.arrows) {
+                node.meta.arrows = node.meta.arrows.map(targetId => {
+                    // Update the targetId to point to the new cloned node using the map
+                    return idMapping.get(targetId) || targetId; // Fallback to original if not found
+                });
+            }
+            // Recursively update arrows in the children
+            if (node.children) {
+                node.children.forEach(child => updateArrows(child));
+            }
+        };
+
+        // Perform the arrow updating process starting from the cloned root
+        updateArrows(clonedRoot);
+
+        return clonedRoot;
     }
 
         // Custom toJSON method to handle circular references
