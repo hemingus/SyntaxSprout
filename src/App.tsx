@@ -6,7 +6,7 @@ import { ThemeProvider } from './components/SyntaxTree/Theme/ThemeContext'
 function App() {
     return (
         <div className="w-full flex flex-col justify-center">
-            <div className="flex justify-center top-0 left-0 w-full bg-[url('./assets/vines_waterfall_01.png')]">   
+            <div className="flex justify-center top-0 left-0 w-full bg-[url('./assets/vines_waterfall_01.png')]">  
                 <h1 className="px-4 bg-gradient-to-b from-transparent rounded-full to-black w-fit 
                 text-[40px] text-center text-green-800 [-webkit-text-stroke:2px_yellowgreen] shadow-md shadow-green-500">  
                     Syntax Sprout
