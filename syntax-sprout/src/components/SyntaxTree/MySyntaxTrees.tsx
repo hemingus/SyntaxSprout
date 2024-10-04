@@ -1,8 +1,9 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
-import { useState, useRef, useEffect, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { TreeNode } from './TreeNode'
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
 import Tooltip from '../../utils/Tooltip';
+import InputCenter from '../InputCenter';
 import { expectedTree, bigTree } from '../../testcases/TestRoots'
 
 const MySyntaxTrees = () => {
@@ -37,42 +38,6 @@ const MySyntaxTrees = () => {
         newRoot.setMeta(newMeta)
         setRoot(newRoot)
     }
-
-        // Input component
-    const NewNameInput = () => {
-        const inputRef = useRef<HTMLInputElement>(null)
-        const [newName, setNewName] = useState("")
-
-        useEffect(() => {
-            if (inputRef.current) inputRef.current.focus()
-        }, [])
-
-        const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-            if (event.key === 'Enter') {
-                changeTreeName(newName)
-                setShowNewNameInput(false)
-            } else if (event.key === 'Escape') {
-                setShowNewNameInput(false)
-            }
-        }
-
-        return (
-            <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-20 text-white text-4xl bg-black/50"
-                onClick={() => setShowNewNameInput(false)}>
-                <label>New name:</label>
-                <input className="w-auto max-w-[80vw] bg-black text-blue-300 text-4xl"
-                    autoComplete="off"
-                    spellCheck="false"
-                    placeholder="enter name..."
-                    ref={inputRef}
-                    value={newName}
-                    onChange={(e) => setNewName(e.currentTarget.value)}
-                    onKeyDown={handleInputKeyDown}
-                />
-            </div>
-        )
-    }
-    
 
     function savedTreesList() {
         return (
@@ -140,7 +105,13 @@ const MySyntaxTrees = () => {
                     ✏️
                 </button>
                 </Tooltip>
-            {showNewNameInput && <NewNameInput />}
+            {showNewNameInput && 
+                <InputCenter 
+                    label="New name:" 
+                    placeholder="enter name..." 
+                    isVisible={true} 
+                    onConfirm={changeTreeName} 
+                    onCancel={() => setShowNewNameInput(false)}/>}
             </div>
         </div>
     )
