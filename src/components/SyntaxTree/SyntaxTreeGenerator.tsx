@@ -55,10 +55,10 @@ const SyntaxTreeGenerator = () => {
         return (
             <div className="my-[4svh] mx-[4svw] h-[90svh] flex flex-col justify-start items-center
             bg-[url('/assets/vines_waterfall_01.png')] bg-center bg-no-repeat">
-                <h1 className="text-center text-white bg-gradient-to-b from-transparent rounded-full to-canvas-green w-fit p-2">New Tree</h1>
-                <div className="flex flex-col justify-center items-center p-5 w-fit relative 
-                lg:w-1/2 md:w-3/4 bg-gradient-to-tr from-slate-900 via-emerald-900 to-slate-900
-                border-solid border-8 border-slate-700">
+                <h1 className="text-center text-white bg-gradient-to-b from-transparent rounded-full to-black w-fit p-2 shadow-[0_0_50px_1px_white]">New Tree</h1>
+                <div className="flex flex-col justify-center items-center p-5 w-fit relative rounded-xl
+                lg:w-1/2 md:w-3/4 bg-gradient-to-tr from-green-700 via-emerald-900 to-green-700
+                border-solid border-8 border-canvas-green">
                     <div className="w-full m-2 flex flex-col justify-center items-center gap-4"
                         onKeyDown={handleKeyDown}>
                         <label className="text-xl text-slate-300 font-bold">Tree Name: </label>
@@ -98,7 +98,7 @@ const SyntaxTreeGenerator = () => {
                         />
                     </div>
                     <button className="mt-4 p-1 text-xl text-gray-300 bg-slate-800 cursor-pointer 
-                    hover:text-white hover:bg-slate-700 hover:shadow-[0_0_20px_1px_green]"
+                    hover:text-white hover:bg-slate-700 hover:shadow-[0_0_20px_1px_white]"
                         onClick={() => {generateSyntaxTree()}}>
                         Generate Syntax Tree
                     </button>
