@@ -27,8 +27,8 @@ export const fontOptions: Font[] = [
     ]
 
 export const defaultSetting = {
-    nodeSize: "text-[20px]",
-    xGap: "gap-[16px]",
-    yGap: "gap-[48px]",
+    nodeSize: "text-[18px]",
+    xGap: "gap-[12px]",
+    yGap: "gap-[32px]",
     font: {name: "default", style: ""}
 }
