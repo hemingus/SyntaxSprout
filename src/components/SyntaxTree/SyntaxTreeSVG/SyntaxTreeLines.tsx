@@ -101,7 +101,7 @@ const SyntaxTreeLines = () => {
 
             const points = `${parentCenterX},${parentBottomY},${childStartX},${childRectY},${childEndX},${childRectY}`
             newLines.push(
-            <polygon key={`polygon-${node.id}`} points={points} fill="transparent" stroke={lineStroke} stroke-width="2.5"/>)
+            <polygon key={`polygon-${node.id}`} points={points} fill="transparent" stroke={lineStroke} strokeWidth="2.5"/>)
                 
             node.children.forEach((child: TreeNode) => {
                 newLines.push(...(renderTreeLines(child, parentRect) || [])); // Ensures an array
