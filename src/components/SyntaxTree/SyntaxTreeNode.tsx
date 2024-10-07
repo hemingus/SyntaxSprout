@@ -59,7 +59,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
         return (
             <div className={`relative h-full w-full flex flex-col justify-start items-center ${setting.yGap}`}>
                 <Tooltip text="🌱root">
-                <span className={`relative block w-fit z-3 px-[4px] pb-[2px]
+                <span className={`relative block w-fit z-3 px-1 py-[1px] ${setting.font.style}
                 ${setting.nodeSize} text-center cursor-pointer
                 border-solid rounded-[8px] border-[3px]
                 ${activeTheme.node}`}
@@ -76,7 +76,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
     else if (node.children) 
         return (
             <div className={`relative h-full w-full flex flex-col justify-start items-center ${setting.yGap}`}> 
-                <span className={`relative block w-fit z-3 px-[4px] pb-[2px]
+                <span className={`relative block w-fit z-3 px-1 py-[1px] ${setting.font.style}
                 ${setting.nodeSize} text-center cursor-pointer
                 border-solid rounded-[8px] border-[3px] ${activeTheme.node}`}
                 style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black", zIndex: 30} : {}}
@@ -93,7 +93,7 @@ const SyntaxTreeNode: React.FC<SyntaxTreeNodeProps> = ({node}) => {
             <span 
             style={selectedNodes.includes(node) ? {borderColor: "#AAFF00", boxShadow: "0 0 1px 1px black", zIndex: 30} : {}}
             id={node.id} 
-            className={`relative block w-fit z-3 px-[4px] pb-[2px]
+            className={`relative block w-fit z-3 px-1 py-[1px] ${setting.font.style}
             ${setting.nodeSize} text-center cursor-pointer
             border-solid rounded-[8px] border-[3px] ${activeTheme.leaf}`}
             onClick={(e) => {e.stopPropagation(); e.ctrlKey ? handleSelectNode() : handleFreeSelectNode();}}>

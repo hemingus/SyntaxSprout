@@ -9,6 +9,11 @@ module.exports = {
       colors: {
         'canvas-green': '#96AA8C',
         'canvas-brown': '#AA9673'
+      },
+      fontFamily: {
+        roboto: ['Roboto', 'sans-serif'],
+        lobster: ['Lobster', 'cursive'],
+        playfair: ['Playfair Display', 'serif']
       }
     },
   },
