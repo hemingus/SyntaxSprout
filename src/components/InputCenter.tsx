@@ -28,10 +28,11 @@ const InputCenter: React.FC<InputCenterProps> = ({ label, placeholder, isVisible
     }
 
     return (
-        <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center gap-2.5 z-50 text-white text-4xl bg-black/50"
+        <div className="fixed inset-0 w-full h-full flex flex-col justify-center items-center z-50 text-white text-4xl bg-black/50"
             onClick={() => onCancel()}>
+            <div className="flex flex-col justify-center items-center p-4 bg-slate-600 border-solid border-gray-400 rounded-2xl gap-2.5">
             <label>{label}</label>
-            <input className="w-auto max-w-[80vw] bg-black text-blue-300 text-4xl"
+            <input className="w-auto max-w-[80vw] bg-black text-sky-300 text-4xl"
                 autoComplete="off"
                 spellCheck="false"
                 placeholder={placeholder}
@@ -40,6 +41,7 @@ const InputCenter: React.FC<InputCenterProps> = ({ label, placeholder, isVisible
                 onChange={(e) => setNewNodeText(e.currentTarget.value)}
                 onKeyDown={handleInputKeyDown}
             />
+            </div>
         </div>
     )
 
