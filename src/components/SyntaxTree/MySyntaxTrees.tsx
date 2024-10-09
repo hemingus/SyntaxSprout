@@ -109,7 +109,7 @@ const MySyntaxTrees = () => {
             {showNewNameInput && 
                 <InputCenter 
                     label="New name:" 
-                    placeholder="enter name..." 
+                    placeholder="Name of the tree..."
                     isVisible={true} 
                     onConfirm={changeTreeName} 
                     onCancel={() => setShowNewNameInput(false)}/>}

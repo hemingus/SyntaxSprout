@@ -44,6 +44,7 @@ export const SyntaxTreeProvider: React.FC<SyntaxTreeProviderProps> = ({ children
         const myTrees = localStorage.getItem('my_trees')
         if (myTrees) {
             try {
+                console.log(myTrees)
                 const parsedTrees = JSON.parse(myTrees)
                 if (Array.isArray(parsedTrees)) {
                     const loadedTrees = parsedTrees.map((treeData: any) => TreeNode.fromJSON(treeData))

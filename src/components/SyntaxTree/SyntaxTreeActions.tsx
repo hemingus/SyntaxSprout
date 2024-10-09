@@ -27,10 +27,10 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         const handleKeyDown = (event: KeyboardEvent) => {
             if (selectedNodes.length >= 1) {
                 if (event.altKey && event.key === 'x') {
-                    deleteSelectedNodes()
+                    deleteNodes()
                 } 
                 else if (event.altKey && event.key === 'w') {
-                    if (selectedNodesAreAdjacent()) setInputAction("generateNewParent")
+                    setInputAction("generateNewParent")
                 }
                 else if (event.altKey && event.key === 'q') {
                     setInputAction("editNode")
@@ -122,25 +122,25 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         updateRoot(oldRoot)
     }
 
-    function deleteSelectedNodes() {
+    function deleteNodes() {
         const oldRoot = deepCopyTree(root)
         selectedNodes.forEach(node => {if (node.parent) root.deleteNodeById(node.id)})
         updateRoot(oldRoot)
     }
 
-    function editSelectedNodes(text: string) {
+    function editNodes(text: string) {
         const oldRoot = deepCopyTree(root)
         selectedNodes.forEach(node => node.setLabel(text))
         updateRoot(oldRoot)
     }
 
-    function addChildToNodes(text: string) {
+    function addNewChildNode(text: string) {
         const oldRoot = deepCopyTree(root)
         selectedNodes.forEach(node => node.addChild(new TreeNode(text, undefined, node)))
         updateRoot(oldRoot)
     }
 
-    function insertNodeAtIndex(text: string) {
+    function insertNewNode(text: string) {
         const oldRoot = deepCopyTree(root)
         selectedNodes.forEach(node => {
             if (node.parent?.children) {
@@ -152,42 +152,54 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         updateRoot(oldRoot)
     }
 
-    function selectedNodesHasSameParent(): boolean {
-        if (selectedNodes.length < 1) {
-            return false
-        }
-        const parentId = selectedNodes[0].parent?.id
-        return selectedNodes.every((node) => node.parent && node.parent.id === parentId)
+    // Function needed when generating nodes from selected to prevent breaking the tree-graph.
+    function groupNodes(nodes: TreeNode[]): TreeNode[][] {
+        // Step 1: Group nodes by their parent
+        const groups: Map<TreeNode, TreeNode[]> = new Map()
+        nodes.forEach(node => {
+            const parent = node.parent
+            if (parent) {
+                if (!groups.has(parent)) {
+                    groups.set(parent, [])
+                }
+                groups.get(parent)!.push(node)
+            }
+        })
+         // Step 2: Split non-adjacent nodes and sort by index in parent's children
+        const result: TreeNode[][] = []
+        groups.forEach((nodesWithSameParent, parent) => {
+          // Ensure the parent has a defined `children` array, which should be the case
+            const parentChildren = parent.children ?? []
+        
+            // Sort the nodes based on their index in the parent's children array
+            nodesWithSameParent.sort(
+                (a, b) => parentChildren.indexOf(a) - parentChildren.indexOf(b)
+            );
+    
+            let currentGroup: TreeNode[] = [nodesWithSameParent[0]] // Start with the first node in the sorted array
+            for (let i = 1; i < nodesWithSameParent.length; i++) {
+                const prevNode = nodesWithSameParent[i - 1]
+                const currentNode = nodesWithSameParent[i]
+        
+                // If the current node is not adjacent to the previous one, create a new group
+                if (parentChildren.indexOf(currentNode) !== parentChildren.indexOf(prevNode) + 1) {
+                    result.push(currentGroup) // Push the previous group to the result
+                    currentGroup = [] // Start a new group
+                }
+        
+                currentGroup.push(currentNode)// Add current node to the group
+            }
+            result.push(currentGroup)
+        })
+        return result
     }
 
-    function selectedNodesAreAdjacent(): boolean {
-        if (!selectedNodesHasSameParent()) {
-            return false
-        }
-        let indexLow = selectedNodes[0].parent!.children!.length-1
-        let indexHigh = 0
-        for (let i = 0; i < selectedNodes[0].parent!.children!.length; i++) {
-            let nodeIndex = selectedNodes[0].parent!.children!.indexOf(selectedNodes[i])
-            console.log(`nodeIndex: ${nodeIndex}`)
-            if (nodeIndex > indexHigh) {
-                indexHigh = nodeIndex
-            }
-            if (nodeIndex >= 0 && nodeIndex < indexLow) {
-                indexLow = nodeIndex
-            }
-        } 
-        // if difference between highest and lowest index in the children array 
-        // is equal to steps apart (number of selected nodes -1) then the selected nodes must be adjacent
-        return (indexHigh - indexLow === selectedNodes.length-1)
-    }
 
-    function insertNewNode(text: string) {
-        if (selectedNodesAreAdjacent()) {
-            const oldRoot = deepCopyTree(root)
-            selectedNodes.sort((a, b) => a.parent!.children!.indexOf(a) - b.parent!.children!.indexOf(b))
-            root.generateParentFromChildren(selectedNodes, text)
-            updateRoot(oldRoot)
-        }
+    function generateNewParentNode(text: string) {
+        const groups = groupNodes(selectedNodes)
+        const oldRoot = deepCopyTree(root)
+        groups.forEach(children => root.generateParentFromChildren(children, text))
+        updateRoot(oldRoot)
     }
 
     function handleClose(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void {
@@ -197,13 +209,13 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     const showInput = () => {
         switch (inputAction) {
             case "editNode": 
-                return <InputCenter label="Edit Node:" placeholder="Enter label..." isVisible={true} onConfirm={editSelectedNodes} onCancel={() => setInputAction(null)}/>
+                return <InputCenter label="Edit Node:" placeholder="Enter label..." isVisible={true} onConfirm={editNodes} onCancel={() => setInputAction(null)}/>
             case "generateNewParent":
-                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
+                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={generateNewParentNode} onCancel={() => setInputAction(null)}/>
             case "addNewChild":
-                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={addChildToNodes} onCancel={() => setInputAction(null)}/>
+                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={addNewChildNode} onCancel={() => setInputAction(null)}/>
             case "insertNewSibling":
-                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNodeAtIndex} onCancel={() => setInputAction(null)}/>
+                return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
         }
     }
 
@@ -211,45 +223,46 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         <>
         {showInput()}
         {active &&
-        <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} className="flex flex-col absolute left-[30px] bg-slate-500 z-40"
+        <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} 
+            className="flex flex-col absolute left-[30px] bg-slate-600 z-40 border-solid border-black"
             onMouseLeave={handleClose} onClick={handleClose}
         >
-            <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
                 onClick={() => setInputAction("generateNewParent")}>
-                Generate new parent node from selected (alt + w)
+                Generate new parent node from selected <span className="text-sky-300">(alt + w)</span>
             </div>
 
-            <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
                 onClick={() => setInputAction("addNewChild")}>
-                Add child node (alt + a)
+                Add child node <span className="text-sky-300">(alt + a)</span>
             </div>
 
-            <div className="border-2 border-white text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
                 onClick={() => setInputAction("insertNewSibling")}>
-                Insert node (alt + s)
+                Insert node <span className="text-sky-300">(alt + s)</span>
             </div>
 
-            <div className=" text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-                onClick={() => {deleteSelectedNodes()}}>
-                Delete selected nodes (alt + x)
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
+                onClick={() => {deleteNodes()}}>
+                Delete selected nodes <span className="text-sky-300">(alt + x)</span>
             </div>
 
-            <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
                 onClick={() => setInputAction("editNode")}>
-                Edit selected nodes (alt + q)
+                Edit selected nodes <span className="text-sky-300">(alt + q)</span>
             </div>
 
-            <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
                 onClick={() => mergeLines()}>
                 Merge / Unmerge children
             </div>
 
-            {selectedNodes.length >= 2 && 
-                <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300" 
-                    onClick={() => putArrow()}>
-                    Put Arrow
-                </div>}
-            <div className="block text-white cursor-pointer p-[5px] hover:bg-lime-700 hover:text-lime-300"
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
+                onClick={() => putArrow()}>
+                Put Arrow
+            </div>
+
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300"
                 onClick={() => removeArrow()}>
                 Remove arrow
             </div>
