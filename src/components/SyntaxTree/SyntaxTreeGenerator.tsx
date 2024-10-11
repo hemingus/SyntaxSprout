@@ -64,9 +64,9 @@ const SyntaxTreeGenerator = () => {
                         <label className="text-xl text-slate-300 font-bold">Tree Name: </label>
                         <h3 className="m-0 w-full p-1 text-yellow-400 bg-gray-700 text-2xl text-center">{treeName}</h3>
                         <label className="text-xl text-slate-300 font-bold">Root Label: </label>
-                        <h3 className="m-0 w-full p-1 text-emerald-500 bg-gray-700 text-2xl text-center">{rootLabel}</h3>
+                        <h3 className="m-0 w-full p-1 text-emerald-400 bg-gray-700 text-2xl text-center">{rootLabel}</h3>
                         <label className="text-xl text-slate-300 font-bold">Sentence: </label>
-                        <h3 className="m-0 w-full p-1 text-lime-500 bg-gray-700 text-2xl text-center">{sentence}</h3>
+                        <h3 className="m-0 w-full p-1 text-lime-400 bg-gray-700 text-2xl text-center">{sentence}</h3>
                     </div>
                     <div className="w-full m-2 flex flex-col gap-4">
                         <input className="w-full font-sans text-center text-2xl text-white bg-black"
