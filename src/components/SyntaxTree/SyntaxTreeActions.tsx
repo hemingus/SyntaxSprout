@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import SyntaxTreeContext from './SyntaxTreeContext'
 import { TreeNode } from './TreeNode'
 import InputCenter from '../InputCenter'
+import ColorSelectCenter from '../ColorSelectCenter'
 
 interface SyntaxTreeActionProps {
     active: boolean
@@ -10,7 +11,7 @@ interface SyntaxTreeActionProps {
     onClose: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-type InputAction = "editNode" | "generateNewParent" | "addNewChild" | "insertNewSibling" | null
+type InputAction = "editNode" | "generateNewParent" | "addNewChild" | "insertNewSibling" | "putTextColor" | null
 
 const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps) => {
     const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
@@ -194,6 +195,12 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         return result
     }
 
+    function putNewTextColor(color: string) {
+        const oldRoot = deepCopyTree(root)
+        selectedNodes.forEach(node => {node.setMeta({...node.meta, textColor: color})})
+        updateRoot(oldRoot)
+    }
+
 
     function generateNewParentNode(text: string) {
         const groups = groupNodes(selectedNodes)
@@ -216,6 +223,8 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                 return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={addNewChildNode} onCancel={() => setInputAction(null)}/>
             case "insertNewSibling":
                 return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={insertNewNode} onCancel={() => setInputAction(null)}/>
+            case "putTextColor":
+                return <ColorSelectCenter label="Select color:" isVisible={true} onConfirm={putNewTextColor} onCancel={() => setInputAction(null)}/>
         }
     }
 
@@ -255,6 +264,11 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
                 onClick={() => mergeLines()}>
                 Merge / Unmerge children
+            </div>
+
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
+                onClick={() => setInputAction("putTextColor")}>
+                Set text color
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 

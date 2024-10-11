@@ -4,6 +4,7 @@ export type TreeMeta = {
     name?: string
     merged?: boolean
     arrows?: string[]
+    textColor?: string
 }
 
 export interface TreeNodeMethods {
