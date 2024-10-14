@@ -126,7 +126,14 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     function deleteNodes() {
         const oldRoot = deepCopyTree(root)
-        selectedNodes.forEach(node => {if (node.parent) root.deleteNodeById(node.id)})
+        const arrowTargets: string[] = []
+        selectedNodes.forEach(node => arrowTargets.push(node.id))
+        root.clearArrowsById(arrowTargets)
+        selectedNodes.forEach(node => {
+            if (node.parent) {
+                root.deleteNodeById(node.id)
+            }
+        })
         updateRoot(oldRoot)
     }
 

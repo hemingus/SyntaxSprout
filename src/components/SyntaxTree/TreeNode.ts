@@ -56,7 +56,7 @@ export class TreeNode implements TreeNodeMethods {
         // Create a new node with the same label and cloned children
         const clonedNode = new TreeNode(this.label, clonedChildren);
         clonedNode.id = this.id;
-        clonedNode.meta = this.meta;
+        clonedNode.meta = this.meta ? JSON.parse(JSON.stringify(this.meta)) : undefined;
 
         // Set the parent reference for each cloned child
         if (clonedChildren) {
@@ -208,6 +208,17 @@ export class TreeNode implements TreeNodeMethods {
         }
         else {
             this.children.splice(index, 0, newNode)
+        }
+    }
+
+    clearArrowsById(targetIds: string[]): void {
+        if (this.meta?.arrows) {
+            this.meta.arrows = this.meta.arrows.filter(x => !targetIds.includes(x))
+        }
+        if (this.children) {
+            this.children.forEach(child => {
+                child.clearArrowsById(targetIds)
+            })   
         }
     }
 
