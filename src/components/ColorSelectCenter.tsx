@@ -16,7 +16,8 @@ const ColorSelectCenter: React.FC<ColorSelectCenterProps> = ({ label, isVisible,
             <div className="flex flex-col justify-center items-center p-4 bg-slate-600 border-solid border-gray-400 rounded-2xl gap-2.5 m-8">
                 <label>{label}</label>
                 <div className="flex flex-row flex-wrap justify-center items-center gap-2.5">
-                
+                <div className="w-auto h-10 rounded-lg border-solid bg-gray-500 border-black cursor-pointer hover:border-white"
+                    onClick={() => onConfirm("None")}>None</div>
                 {colors.map(color => <span 
                     className="w-10 h-10 rounded-lg border-solid border-black cursor-pointer hover:border-white hover:scale-110"
                     style={{background: color}}

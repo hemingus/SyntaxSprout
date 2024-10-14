@@ -198,7 +198,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     function putNewTextColor(color: string) {
         const oldRoot = deepCopyTree(root)
-        selectedNodes.forEach(node => {node.setMeta({...node.meta, textColor: color})})
+        selectedNodes.forEach(node => {node.setMeta(color === "None" ? {...node.meta, textColor: undefined} : {...node.meta, textColor: color})})
         updateRoot(oldRoot)
     }
 
