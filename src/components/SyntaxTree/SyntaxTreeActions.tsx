@@ -15,7 +15,7 @@ interface SyntaxTreeActionProps {
 type InputAction = "editNode" | "generateNewParent" | "addNewChild" | "insertNewSibling" | "putTextColor" | null
 
 const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps) => {
-    const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
+    const {root, setRoot, selectedNodes, setSelectedNodes, syntaxTreeRef} = useContext(SyntaxTreeContext)!
     const [inputAction, setInputAction] = useState<InputAction>(null)
     const [undoStack, setUndoStack] = useState<TreeNode[]>([])
     const [redoStack, setRedoStack] = useState<TreeNode[]>([])
@@ -292,7 +292,11 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
         <SyntaxTreeActionBar />
         {showInput()}
         {active &&
-        <div style={{top: `${posY + window.scrollY-10}px`, left: `${posX + window.scrollX-10}px`}} 
+        <div 
+            style={{
+                width: "380px",
+                top: `${Math.min(window.innerHeight - 290, posY) + window.scrollY-10}px`, 
+                left: `${Math.min(window.innerWidth - 380, posX) + window.scrollX-10}px`}} 
             className="flex flex-col absolute left-[30px] bg-slate-600 z-40 border-solid border-black"
             onMouseLeave={handleClose} onClick={handleClose}
         >
@@ -327,11 +331,6 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => setInputAction("putTextColor")}>
-                Set text color
-            </div>
-
-            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
                 onClick={() => putArrow()}>
                 Put Arrow
             </div>
@@ -339,6 +338,11 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300"
                 onClick={() => removeArrow()}>
                 Remove arrow
+            </div>
+
+            <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
+                onClick={() => setInputAction("putTextColor")}>
+                Set text color
             </div>
         </div>}
         </>
