@@ -15,7 +15,7 @@ interface SyntaxTreeActionProps {
 type InputAction = "editNode" | "generateNewParent" | "addNewChild" | "insertNewSibling" | "putTextColor" | null
 
 const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps) => {
-    const {root, setRoot, selectedNodes, setSelectedNodes, syntaxTreeRef} = useContext(SyntaxTreeContext)!
+    const {root, setRoot, selectedNodes, setSelectedNodes} = useContext(SyntaxTreeContext)!
     const [inputAction, setInputAction] = useState<InputAction>(null)
     const [undoStack, setUndoStack] = useState<TreeNode[]>([])
     const [redoStack, setRedoStack] = useState<TreeNode[]>([])
