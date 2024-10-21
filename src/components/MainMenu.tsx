@@ -1,13 +1,17 @@
 import Dashboard from "./Dashboard"
 import { useState } from 'react'
+import Tutorial from "./Tutorial"
 
 const MainMenu : React.FC = () => {
     const [showSyntaxTree, setShowSyntaxTree] = useState(false)
+    const [showTutorial, setShowTutorial] = useState(false)
     
     if (showSyntaxTree) {
         return (
             <Dashboard />
         )
+    } else if (showTutorial) {
+        return <Tutorial />
     }
 
     return (
@@ -24,6 +28,12 @@ const MainMenu : React.FC = () => {
                     className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white hover:bg-slate-600" 
                     onClick={() => setShowSyntaxTree(true)}>
                         Get started ⏵
+                </button>
+
+                <button 
+                    className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white hover:bg-slate-600" 
+                    onClick={() => setShowTutorial(true)}>
+                        Tutorial ⏵
                 </button>
             </div>
         </div>
