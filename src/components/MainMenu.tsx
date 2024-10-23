@@ -24,17 +24,20 @@ const MainMenu : React.FC = () => {
                     <br/> If you are analyzing sentences and are looking to construct a syntax tree, 
                     <br/> here is a neat tool to help you accomplish that!
                 </p>
+                <div className="flex flex-row gap-10">
+                <button 
+                    className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white hover:bg-slate-600" 
+                    onClick={() => setShowTutorial(true)}>
+                        Tutorial
+                </button>
                 <button 
                     className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white hover:bg-slate-600" 
                     onClick={() => setShowSyntaxTree(true)}>
                         Get started ⏵
                 </button>
 
-                <button 
-                    className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white hover:bg-slate-600" 
-                    onClick={() => setShowTutorial(true)}>
-                        Tutorial ⏵
-                </button>
+
+                </div>
             </div>
         </div>
     )
