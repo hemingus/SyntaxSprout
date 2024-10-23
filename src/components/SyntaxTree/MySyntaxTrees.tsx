@@ -4,7 +4,7 @@ import { TreeNode } from './TreeNode'
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
 import Tooltip from '../../utils/Tooltip';
 import InputCenter from '../InputCenter';
-import { expectedTree, bigTree } from '../../testcases/TestRoots'
+// import { expectedTree, bigTree } from '../../testcases/TestRoots'
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!
@@ -73,7 +73,7 @@ const MySyntaxTrees = () => {
     return (
         <div className="flex flex-col justify-center items-center appearGrow">
             <div className="w-full flex flex-row justify-center items-center gap-1 py-2 bg-gray-400">
-                <button 
+                {/* <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={() => setRoot(expectedTree)}>
                     Test expected tree
@@ -82,7 +82,7 @@ const MySyntaxTrees = () => {
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={() => setRoot(bigTree)}>
                         Test big tree
-                </button>
+                </button> */}
                 <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={duplicateSyntaxTree}>Duplicate Current Tree 🗐</button>
