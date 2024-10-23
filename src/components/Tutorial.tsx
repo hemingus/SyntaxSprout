@@ -9,10 +9,10 @@ const Tutorial = () => {
             <h1 className="w-full text-center bg-blue-950">Tutorial</h1>
             <h2 className="m-0">Actions explained</h2>
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_generateParent.png"/>
                         <h2>Generate new parent <span className="text-sky-400 whitespace-nowrap">(alt + w)</span></h2>          
                     </div>
@@ -30,10 +30,10 @@ const Tutorial = () => {
             </details>
 
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_addChild.png"/>
                         <h2>Add new child <span className="text-sky-400 whitespace-nowrap">(alt + a)</span></h2>          
                     </div>
@@ -50,10 +50,10 @@ const Tutorial = () => {
             </details>
 
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_insertNode.png"/>
                         <h2>Insert new node <span className="text-sky-400 whitespace-nowrap">(alt + a)</span></h2>          
                     </div>
@@ -70,10 +70,10 @@ const Tutorial = () => {
             </details>
 
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_deleteNode.png"/>
                         <h2>Delete node <span className="text-sky-400 whitespace-nowrap">(alt + x)</span></h2>          
                     </div>
@@ -90,10 +90,10 @@ const Tutorial = () => {
             </details>
 
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_editNode.png"/>
                         <h2>Edit node <span className="text-sky-400 whitespace-nowrap">(alt + q)</span></h2>          
                     </div>
@@ -110,10 +110,10 @@ const Tutorial = () => {
             </details>
 
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_mergeLines.png"/>
                         <h2>Merge / unmerge children</h2>          
                     </div>
@@ -130,10 +130,10 @@ const Tutorial = () => {
             </details>
 
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_putArrow.png"/>
                         <h2>Put Arrow</h2>          
                     </div>
@@ -149,10 +149,10 @@ const Tutorial = () => {
             </details>
 
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_removeArrow.png"/>
                         <h2>Remove Arrow</h2>          
                     </div>
@@ -167,10 +167,10 @@ const Tutorial = () => {
             </details>
 
             <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-slate-600">
+                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
                 <summary>
                     <Tooltip text="expand/collapse">
-                    <div className="bg-gradient-to-r from-slate-800 to-transparent flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_pickTextColor.png"/>
                         <h2>Set text color</h2>          
                     </div>

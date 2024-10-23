@@ -35,8 +35,6 @@ const MainMenu : React.FC = () => {
                     onClick={() => setShowSyntaxTree(true)}>
                         Get started ⏵
                 </button>
-
-
                 </div>
             </div>
         </div>
