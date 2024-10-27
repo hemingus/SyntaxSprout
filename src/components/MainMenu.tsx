@@ -1,18 +1,6 @@
-import Dashboard from "./Dashboard"
-import { useState } from 'react'
-import Tutorial from "./Tutorial"
+import { Link } from "react-router-dom"
 
 const MainMenu : React.FC = () => {
-    const [showSyntaxTree, setShowSyntaxTree] = useState(false)
-    const [showTutorial, setShowTutorial] = useState(false)
-    
-    if (showSyntaxTree) {
-        return (
-            <Dashboard />
-        )
-    } else if (showTutorial) {
-        return <Tutorial />
-    }
 
     return (
         <div className="my-[4svh] mx-[4svw] h-[90svh] flex flex-col justify-center items-center
@@ -25,16 +13,18 @@ const MainMenu : React.FC = () => {
                     <br/> here is a neat tool to help you accomplish that!
                 </p>
                 <div className="flex flex-row gap-10">
-                <button 
-                    className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white hover:bg-slate-600" 
-                    onClick={() => setShowTutorial(true)}>
+                <Link 
+                    className="p-1 no-underline border-solid border-black text-xl bg-slate-700 text-slate-300 cursor-pointer 
+                    hover:text-white hover:bg-slate-600"
+                    to="/tutorial">
                         Tutorial
-                </button>
-                <button 
-                    className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white hover:bg-slate-600" 
-                    onClick={() => setShowSyntaxTree(true)}>
+                </Link>
+                <Link 
+                    className="p-1 no-underline border-solid border-black text-xl bg-slate-700 text-slate-300 cursor-pointer 
+                    hover:text-white hover:bg-slate-600" 
+                    to="/dashboard">
                         Get started ⏵
-                </button>
+                </Link>
                 </div>
             </div>
         </div>
