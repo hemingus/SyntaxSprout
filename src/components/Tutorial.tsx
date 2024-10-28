@@ -1,10 +1,7 @@
 import Tooltip from "../utils/Tooltip"
-import { useState } from "react"
-import MainMenu from "./MainMenu"
 
 const Tutorial = () => {
-    const [isVisible, setIsVisible] = useState<boolean>(true)
-    return isVisible ?
+    return (
         <div className="flex flex-col justify-center items-center gap-10 text-white mb-48">
             <h1 className="w-full text-center bg-blue-950">Tutorial</h1>
             <h2 className="m-0">Actions explained</h2>
@@ -183,13 +180,8 @@ const Tutorial = () => {
                     <img className="px-8 w-5/6 max-w-[500px]" src="/assets/action_setTextColor.gif"/>
                 </div>
             </details>
-
-            <button className="text-xl bg-slate-700 text-slate-300 cursor-pointer hover:text-white hover:bg-slate-600"
-                onClick={() => setIsVisible(false)}>
-                Back
-            </button>
-        </div> :
-        <MainMenu />
+        </div>
+    )
 }
 
 export default Tutorial
