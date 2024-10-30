@@ -14,13 +14,13 @@ const MainMenu : React.FC = () => {
                 </p>
                 <div className="flex flex-row gap-10">
                 <Link 
-                    className="p-1 no-underline border-solid border-black text-xl bg-slate-700 text-slate-300 cursor-pointer 
+                    className="p-1 no-underline border-solid rounded-lg border-black text-xl bg-slate-700 text-slate-300 cursor-pointer 
                     hover:text-white hover:bg-slate-600"
                     to="/tutorial">
                         Tutorial
                 </Link>
                 <Link 
-                    className="p-1 no-underline border-solid border-black text-xl bg-slate-700 text-slate-300 cursor-pointer 
+                    className="p-1 no-underline border-solid rounded-lg border-black text-xl bg-slate-700 text-slate-300 cursor-pointer 
                     hover:text-white hover:bg-slate-600" 
                     to="/dashboard">
                         Get started ⏵
