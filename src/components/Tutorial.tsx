@@ -4,8 +4,8 @@ const Tutorial = () => {
     return (
         <div className="flex flex-col justify-center items-center gap-10 text-white mb-48">
             <h1 className="w-full text-center bg-blue-950">Tutorial</h1>
-            <div className="grid w-full xl:w-3/4 text-center rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer">
-                <div className="grid w-full rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
+            <div className="grid w-full xl:w-3/4 text-center rounded-xl bg-gradient-to-b from-slate-900 to-slate-700">
+                <div className="grid w-full rounded-xl bg-gradient-to-b from-slate-900 to-slate-700">
                     <p className="px-8 text-xl"> 
                         <span className="text-emerald-500">🎇Create new🎇</span>to create the beginnings of a new syntax tree.<br/>
                         To save time, SyntaxSprout lets you create the foundation of the syntax tree with a few simple inputs.<br/>
