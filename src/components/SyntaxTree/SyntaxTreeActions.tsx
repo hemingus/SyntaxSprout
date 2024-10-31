@@ -269,7 +269,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                     onClick={() => mergeLines()}/>
                 </Tooltip>
 
-                <Tooltip text="Put Arrow">
+                <Tooltip text="Add Arrow">
                     <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_putArrow.png'
                     onClick={() => putArrow()}/>
                 </Tooltip>
@@ -332,7 +332,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
                 onClick={() => putArrow()}>
-                Put Arrow
+                Add Arrow
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300"

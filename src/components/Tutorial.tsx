@@ -150,7 +150,7 @@ const Tutorial = () => {
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_putArrow.png"/>
-                        <h2>Put Arrow</h2>          
+                        <h2>Add Arrow</h2>          
                     </div>
                     </Tooltip>
                 </summary>
