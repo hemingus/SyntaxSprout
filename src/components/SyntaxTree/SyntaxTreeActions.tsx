@@ -20,6 +20,8 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     const [undoStack, setUndoStack] = useState<TreeNode[]>([])
     const [redoStack, setRedoStack] = useState<TreeNode[]>([])
 
+    const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
+
     useEffect(() => {
         setUndoStack([])
         setRedoStack([])
@@ -27,24 +29,26 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
+            
             if (selectedNodes.length >= 1) {
-                if (event.altKey && event.key === 'x') {
-                    deleteNodes()
+                if (event.altKey && event.key === 'x') { // Option/Alt key logic
+                    deleteNodes();
                 } 
                 else if (event.altKey && event.key === 'w') {
-                    setInputAction("generateNewParent")
+                    setInputAction("generateNewParent");
                 }
                 else if (event.altKey && event.key === 'q') {
-                    setInputAction("editNode")
+                    setInputAction("editNode");
                 }
                 else if (event.altKey && event.key === 'a') {
-                    setInputAction("addNewChild")
+                    setInputAction("addNewChild");
                 }
                 else if (event.altKey && event.key === 's') {
-                    setInputAction("insertNewSibling")
+                    setInputAction("insertNewSibling");
                 }
-
             }
+    
+            // Handle Undo/Redo with Command on Mac, Ctrl on others
             if ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === 'z') {
                 redo()
             }
@@ -54,12 +58,12 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             else if ((event.ctrlKey || event.metaKey) && event.key === 'z') {
                 undo()
             }
-
-        }
+        };
+    
         document.addEventListener('keydown', handleKeyDown)
         return () => {
             document.removeEventListener('keydown', handleKeyDown)
-        }
+        };
     }, [selectedNodes])
 
     const deepCopyTree = (tree: TreeNode): TreeNode => {
