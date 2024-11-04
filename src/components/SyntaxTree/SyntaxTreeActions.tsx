@@ -20,8 +20,6 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     const [undoStack, setUndoStack] = useState<TreeNode[]>([])
     const [redoStack, setRedoStack] = useState<TreeNode[]>([])
 
-    const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent);
-
     useEffect(() => {
         setUndoStack([])
         setRedoStack([])
@@ -29,7 +27,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            
+
             if (selectedNodes.length >= 1) {
                 if (event.altKey && event.key === 'x') { // Option/Alt key logic
                     deleteNodes();
