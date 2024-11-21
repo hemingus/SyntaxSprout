@@ -1,6 +1,9 @@
 import Tooltip from "../utils/Tooltip"
 
 const Tutorial = () => {
+    const detailsClassName: string = 
+    "grid w-full xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900"
+
     return (
         <div className="flex flex-col justify-center items-center gap-10 text-white mb-48">
             <h1 className="w-full text-center bg-blue-950">Tutorial</h1>
@@ -23,8 +26,7 @@ const Tutorial = () => {
                 </div>
             </div>
             <h2 className="m-0">Actions explained</h2>
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
@@ -44,8 +46,7 @@ const Tutorial = () => {
                 </div>
             </details>
 
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
@@ -64,8 +65,7 @@ const Tutorial = () => {
                 </div>
             </details>
 
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
@@ -84,8 +84,7 @@ const Tutorial = () => {
                 </div>
             </details>
 
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
@@ -104,8 +103,7 @@ const Tutorial = () => {
                 </div>
             </details>
 
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
@@ -124,8 +122,7 @@ const Tutorial = () => {
                 </div>
             </details>
 
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
@@ -144,8 +141,7 @@ const Tutorial = () => {
                 </div>
             </details>
 
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
@@ -163,8 +159,7 @@ const Tutorial = () => {
                 </div>
             </details>
 
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
@@ -181,8 +176,7 @@ const Tutorial = () => {
                 </div>
             </details>
 
-            <details className="grid w-full lg:grid-cols-2 xl:w-3/4  rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 cursor-pointer 
-                hover:bg-gradient-to-b hover:from-blue-950 hover:to-slate-900">
+            <details className={detailsClassName}>
                 <summary>
                     <Tooltip text="expand/collapse">
                     <div className="flex flex-row justify-start items-center gap-10 mx-10">
