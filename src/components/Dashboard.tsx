@@ -18,7 +18,8 @@ const Dashboard = () => {
     function dashboardContent() { 
         return (
         <>
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center text-white">
+                <h1 className="w-full text-center bg-blue-950">Dashboard</h1>
                 <div className="w-full flex justify-center flex-col items-center overflow-x-auto relative solid 
                 bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900 gap-4">
                     <div className="flex flex-row justify-center items-center flex-wrap gap-4 mt-4">
