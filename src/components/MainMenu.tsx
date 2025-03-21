@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 const MainMenu : React.FC = () => {
 
     return (
-        <div className="my-[4svh] mx-[4svw] h-[90svh] self-center flex flex-col justify-center items-center
+        <div className="h-[90svh] self-center flex flex-col justify-center items-center
         bg-[url('/assets/vines_waterfall_02.png')] bg-center bg-no-repeat bg-cover rounded-3xl">
             <div className="w-[80%] flex flex-col justify-center items-center p-8 bg-gradient-to-tr from-green-700 via-emerald-900 to-green-700
             border-solid border-4 border-gray-800 rounded-xl">
