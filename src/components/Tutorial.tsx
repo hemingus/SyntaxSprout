@@ -1,4 +1,3 @@
-import Tooltip from "../utils/Tooltip"
 
 const Tutorial = () => {
     const detailsClassName: string = 
@@ -11,9 +10,11 @@ const Tutorial = () => {
                 <p className="px-8 text-xl"> 
                     <span className="text-emerald-500">🎇Create new🎇</span>to create the beginnings of a new syntax tree.<br/>
                     To save time, SyntaxSprout lets you create the foundation of the syntax tree with a few simple inputs.<br/>
+                    <br/>
                     <span className="text-amber-400">1. Name </span>Give the syntax tree a name to help you keep track.<br/>
                     <span className="text-amber-400">2. Root </span>Set label of your root (Example: S for Sentence or CP for compound).<br/>
                     <span className="text-amber-400">3. Sentence </span>Type the words of analysis (sentence/compound).<br/>
+                    <br/>
                     You should see the beginnings of a syntax tree, and the rest of the syntax tree you will build using actions (explained below).<br/>
                     <span className="text-emerald-500">📸 Download as image ⤓ </span>
                     when you are done.<br/>
@@ -21,14 +22,12 @@ const Tutorial = () => {
                 </p>
             </div>
             <h2 className="m-0">Actions explained</h2>
-            <details className={detailsClassName}>
+            <details className={detailsClassName}>           
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_generateParent.png"/>
                         <h2>Generate new parent <span className="text-sky-400 whitespace-nowrap">(alt + w)</span></h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
@@ -43,12 +42,10 @@ const Tutorial = () => {
 
             <details className={detailsClassName}>
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_addChild.png"/>
                         <h2>Add new child <span className="text-sky-400 whitespace-nowrap">(alt + a)</span></h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
@@ -62,12 +59,10 @@ const Tutorial = () => {
 
             <details className={detailsClassName}>
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_insertNode.png"/>
                         <h2>Insert new node <span className="text-sky-400 whitespace-nowrap">(alt + a)</span></h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
@@ -81,12 +76,10 @@ const Tutorial = () => {
 
             <details className={detailsClassName}>
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_deleteNode.png"/>
                         <h2>Delete node <span className="text-sky-400 whitespace-nowrap">(alt + x)</span></h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
@@ -100,12 +93,10 @@ const Tutorial = () => {
 
             <details className={detailsClassName}>
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_editNode.png"/>
                         <h2>Edit node <span className="text-sky-400 whitespace-nowrap">(alt + q)</span></h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
@@ -119,12 +110,10 @@ const Tutorial = () => {
 
             <details className={detailsClassName}>
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_mergeLines.png"/>
                         <h2>Merge / unmerge children</h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
@@ -138,12 +127,10 @@ const Tutorial = () => {
 
             <details className={detailsClassName}>
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_putArrow.png"/>
                         <h2>Add Arrow</h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
@@ -156,12 +143,10 @@ const Tutorial = () => {
 
             <details className={detailsClassName}>
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_removeArrow.png"/>
                         <h2>Remove Arrow</h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
@@ -173,12 +158,10 @@ const Tutorial = () => {
 
             <details className={detailsClassName}>
                 <summary>
-                    <Tooltip text="expand/collapse">
-                    <div className="flex flex-row justify-start items-center gap-10 mx-10">
+                    <div className="flex flex-row justify-start items-center gap-10 mx-10 mb-2">
                         <img className="h-16 rounded-lg shadow-[0_0_20px_5px_white]" src="/assets/action_pickTextColor.png"/>
                         <h2>Set text color</h2>          
                     </div>
-                    </Tooltip>
                 </summary>
                 <div className="grid w-full lg:grid-cols-2 rounded-xl bg-gradient-to-b from-slate-900 to-slate-700 appearGrow">
                     <p className="px-8 text-xl"> 
