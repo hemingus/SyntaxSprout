@@ -226,7 +226,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     const showInput = () => {
         switch (inputAction) {
             case "editNode": 
-                return <InputCenter label="Edit Node:" placeholder="Enter label..." isVisible={true} onConfirm={editNodes} onCancel={() => setInputAction(null)}/>
+                return <InputCenter label="Edit Node:" text={selectedNodes[0].label} placeholder="Enter label..." isVisible={true} onConfirm={editNodes} onCancel={() => setInputAction(null)}/>
             case "generateNewParent":
                 return <InputCenter label="New Node:" placeholder="Enter label..." isVisible={true} onConfirm={generateNewParentNode} onCancel={() => setInputAction(null)}/>
             case "addNewChild":
@@ -245,27 +245,27 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                 <div className="flex flex-row flex-wrap justify-center items-center m-1 gap-1">
                     <Tooltip text="Generate parent node <alt + w>">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_generateParent.png'
-                        onClick={() => setInputAction("generateNewParent")}/>
+                        onClick={() => selectedNodes.length > 0 ? setInputAction("generateNewParent") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Add child node <alt + a>">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_addChild.png'
-                        onClick={() => setInputAction("addNewChild")}/>
+                        onClick={() => selectedNodes.length > 0 ? setInputAction("addNewChild") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Insert node <alt + s>">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_insertNode.png'
-                        onClick={() => setInputAction("insertNewSibling")}/>
+                        onClick={() => selectedNodes.length > 0 ? setInputAction("insertNewSibling") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Delete node(s) <alt + x>">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_deleteNode.png'
-                        onClick={() => {deleteNodes()}}/>
+                        onClick={() => selectedNodes.length > 0 ? deleteNodes() : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Edit node(s) <alt + q>">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_editNode.png'
-                        onClick={() => setInputAction("editNode")}/>
+                        onClick={() => selectedNodes.length > 0 ? setInputAction("editNode") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Merge / Unmerge children">
