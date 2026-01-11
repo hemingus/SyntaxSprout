@@ -22,6 +22,7 @@ var child2 = new TreeNode("the_middle_son_child2", [c2_gc1, c2_gc2, c2_gc3])
 var child3 = new TreeNode("the_youngest_son_child3", [c3_gc1, c3_gc2, c3_gc3])
     
 export const bigTree = new TreeNode("S", [child1, c1_gc2, c1_gc3, child2, child3])
+bigTree.setMeta({name: "Big Tree"})
 
 var word1 = new TreeNode("YouTube")
 var word2 = new TreeNode("shows")
@@ -48,3 +49,19 @@ var S_1 = new TreeNode("S'", [Comp1, S1])
 var VP2 = new TreeNode("VP", [V1, S_1])
 
 export const expectedTree = new TreeNode("S", [NP1, VP2])
+expectedTree.setMeta({name: "Expected Tree"})
+
+var placeholder_word1 = new TreeNode("This")
+var placeholder_word2 = new TreeNode("is")
+var placeholder_word3 = new TreeNode("a")
+var placeholder_word4 = new TreeNode("placeholder")
+
+var placeholder_NP1 = new TreeNode("NP", [placeholder_word1])
+var placeholder_V = new TreeNode("V", [placeholder_word2])
+var placeholder_Det = new TreeNode("Det", [placeholder_word3])
+var placeholder_N = new TreeNode("N", [placeholder_word4])
+var placeholder_NP2 = new TreeNode("NP", [placeholder_Det, placeholder_N])
+var placeholder_VP = new TreeNode("VP", [placeholder_V, placeholder_NP2])
+
+export const placeholderTree = new TreeNode("S", [placeholder_NP1, placeholder_VP])
+placeholderTree.setMeta({name: "Placeholder Tree"})
