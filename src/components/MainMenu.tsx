@@ -5,7 +5,7 @@ import StartIcon from "../../public/assets/icons/start.svg?react"
 const MainMenu : React.FC = () => {
 
     return (
-        <main className="flex flex-col items-center justify-center">
+        <main className="flex flex-col bg-gradient-to-b from-black to-slate-700 items-center justify-center">
             <h1 className="text-[3rem] font-extrabold bg-gradient-to-r from-canvas-brown to-canvas-green bg-clip-text text-transparent">Welcome to Syntax Sprout</h1>
             <p className="text-[1.5rem] text-center text-white">
                 If you are analyzing sentences and are looking to construct a syntax tree, <br/>
