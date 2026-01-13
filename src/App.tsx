@@ -15,7 +15,7 @@ function App() {
                     <Link className="no-underline" 
                         to="/">
                         <h1 className="mb-0 px-4 bg-gradient-to-b from-transparent rounded-full to-black w-fit 
-                        text-[40px] text-center text-green-800 [-webkit-text-stroke:2px_yellowgreen] shadow-md shadow-green-500">  
+                        text-4xl xs:text-[40px] text-center text-green-800 [-webkit-text-stroke:2px_yellowgreen] shadow-md shadow-green-500">  
                             Syntax Sprout
                         </h1>
                     </Link>
