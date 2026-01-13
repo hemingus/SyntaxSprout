@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom"
 import TutorialIcon from "../../public/assets/icons/tutorial.svg?react"
 import StartIcon from "../../public/assets/icons/start.svg?react"
+import { showcases } from "../data/showcases"
+import Showcase from "./Showcase"
 
 const MainMenu : React.FC = () => {
 
     return (
         <main className="flex flex-col gap-4 bg-gradient-to-b from-black to-slate-700 items-center justify-center p-4">
-            <h1 className="text-center text-[clamp(2rem,5vw,3rem)] font-extrabold bg-gradient-to-r from-canvas-brown via-canvas-green to-green-400 bg-clip-text text-transparent">Welcome to SyntaxSprout</h1>
+            <h1 className="text-center text-[clamp(2rem,5vw,3rem)] font-extrabold bg-gradient-to-r from-yellow-700 via-canvas-brown via-canvas-green to-green-400 bg-clip-text text-transparent">
+                Welcome to SyntaxSprout
+            </h1>
             <p className="text-[clamp(1.2rem,2.5vw,1.5rem)] text-center text-white">
                 If you are analyzing sentences and are looking to construct a syntax tree, <br/>
                 here is a neat tool to help you accomplish that!
@@ -25,8 +29,10 @@ const MainMenu : React.FC = () => {
                     </div>
                 </Link>
             </div>
-            <section>
-                div
+            <section className="flex flex-wrap justify-center gap-8">
+                {showcases.map(sc => {
+                    return <Showcase containerStyles="w-[280px]" {...sc} />
+                })}
             </section>
         </main>
     )
