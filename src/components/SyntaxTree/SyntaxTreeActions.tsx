@@ -293,10 +293,10 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                         <div>
                             <span className="absolute right-1 font-semibold">{undoStack.length}</span>
                             {undoStack.length > 0 ? 
-                            <img className="w-12 h-12 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/undo_active.png'
+                            <img className="w-12 h-12 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/undo_active.png'
                             onClick={() => undo()}/>
                             :
-                            <img className="w-12 h-12 border-solid rounded-lg opacity-50" src='/assets/undo_inactive.png'/> 
+                            <img className="w-12 h-12 border-solid rounded-lg opacity-50" src='/assets/icons/undo_inactive.png'/> 
                             }
                         </div>
                     </Tooltip>
@@ -305,10 +305,10 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
                         <div>
                             <span className="absolute left-1 font-semibold">{redoStack.length}</span>
                             {redoStack.length > 0 ? 
-                            <img className="w-12 h-12 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/redo_active.png'
+                            <img className="w-12 h-12 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/redo_active.png'
                             onClick={() => redo()}/> 
                             :
-                            <img className="w-12 h-12 border-solid rounded-lg opacity-50" src='/assets/redo_inactive.png'/> 
+                            <img className="w-12 h-12 border-solid rounded-lg opacity-50" src='/assets/icons/redo_inactive.png'/> 
                             }
                         </div>
                     </Tooltip>
