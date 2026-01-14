@@ -244,47 +244,47 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
                 <div className="flex flex-row flex-wrap justify-center items-center m-1 gap-1">
                     <Tooltip text="Generate parent node <alt + w>">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_generateParent.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_generateParent.png'
                         onClick={() => selectedNodes.length > 0 ? setInputAction("generateNewParent") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Add child node <alt + a>">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_addChild.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_addChild.png'
                         onClick={() => selectedNodes.length > 0 ? setInputAction("addNewChild") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Insert node <alt + s>">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_insertNode.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_insertNode.png'
                         onClick={() => selectedNodes.length > 0 ? setInputAction("insertNewSibling") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Delete node(s) <alt + x>">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_deleteNode.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_deleteNode.png'
                         onClick={() => selectedNodes.length > 0 ? deleteNodes() : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Edit node(s) <alt + q>">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_editNode.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_editNode.png'
                         onClick={() => selectedNodes.length > 0 ? setInputAction("editNode") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Merge / Unmerge children">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_mergeLines.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_mergeLines.png'
                         onClick={() => mergeLines()}/>
                     </Tooltip>
 
                     <Tooltip text="Add Arrow">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_putArrow.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_putArrow.png'
                         onClick={() => putArrow()}/>
                     </Tooltip>
 
                     <Tooltip text="Remove arrow">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_removeArrow.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_removeArrow.png'
                         onClick={() => removeArrow()}/>
                     </Tooltip>
 
                     <Tooltip text="Set text color">
-                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/action_pickTextColor.png'
+                        <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_pickTextColor.png'
                         onClick={() => setInputAction("putTextColor")}/>
                     </Tooltip>
                 </div>
