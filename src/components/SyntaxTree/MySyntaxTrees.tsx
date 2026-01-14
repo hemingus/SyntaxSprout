@@ -71,6 +71,7 @@ const MySyntaxTrees = () => {
     }
 
     return (
+        <>
         <div className="flex flex-col justify-center items-center appearGrow">
             <div className="w-full flex flex-row justify-center items-center gap-1 py-2 bg-gray-400">
                 {/* <button 
@@ -96,25 +97,27 @@ const MySyntaxTrees = () => {
             </div>
             <h3 className="text-white text-2xl m-2">🌳 My trees 🌳</h3>
                 {savedTrees && savedTreesList()}
-            <div className="flex flex-row justify-center items-center gap-2">
-                <h1 className="text-yellow-400">
-                    {root.meta?.name || "(no name)"}
-                </h1>                
-                <Tooltip text="edit name">
-                <button className="text-lg hover:border-slate-400 cursor-pointer bg-gradient-to-br from-black to-slate-700 rounded-xl"
-                    onClick={() => setShowNewNameInput(true)}>
-                    ✏️
-                </button>
-                </Tooltip>
-            {showNewNameInput && 
-                <InputCenter 
-                    label="New name:" 
-                    placeholder="Name of the tree..."
-                    isVisible={true} 
-                    onConfirm={changeTreeName} 
-                    onCancel={() => setShowNewNameInput(false)}/>}
-            </div>
+
         </div>
+        <div className="flex flex-row justify-center items-center gap-2">
+            <h1 className="text-yellow-400">
+                {root.meta?.name || "(no name)"}
+            </h1>                
+            <Tooltip text="edit name">
+            <button className="text-lg hover:border-slate-400 cursor-pointer bg-gradient-to-br from-black to-slate-700 rounded-xl"
+                onClick={() => setShowNewNameInput(true)}>
+                ✏️
+            </button>
+            </Tooltip>
+        {showNewNameInput && 
+            <InputCenter 
+                label="New name:" 
+                placeholder="Name of the tree..."
+                isVisible={true} 
+                onConfirm={changeTreeName} 
+                onCancel={() => setShowNewNameInput(false)}/>}
+        </div>
+        </>
     )
 };
 
