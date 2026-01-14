@@ -6,6 +6,7 @@ import { useState, useContext } from 'react'
 import SyntaxTreeContext from "./SyntaxTree/SyntaxTreeContext"
 import SyntaxTreeGenerator from "./SyntaxTree/SyntaxTreeGenerator"
 import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas"
+import SyntaxTreeName from "./SyntaxTree/SyntaxTreeName"
 
 
 const Dashboard = () => {
@@ -13,7 +14,7 @@ const Dashboard = () => {
     const [isGenerating, setIsGenerating] = useState(false)
 
     const [showSettings, setShowSettings] = useState(false)
-    const [showMyTrees, setShowMyTrees] = useState(true)
+    const [showMyTrees, setShowMyTrees] = useState(false)
 
     function dashboardContent() { 
         return (
@@ -64,6 +65,7 @@ const Dashboard = () => {
                         onClick={() => setShowMyTrees(true)}>
                             🌳 My Trees 🌳
                     </button>}
+                    <SyntaxTreeName />
                 </div>
                 
             </div>
