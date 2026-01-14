@@ -1,5 +1,5 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { TreeNode } from './TreeNode'
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
 import Tooltip from '../../utils/Tooltip';
@@ -8,7 +8,6 @@ import InputCenter from '../InputCenter';
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!
-    const [showNewNameInput, setShowNewNameInput] = useState(false)
 
     function duplicateSyntaxTree() {
         const newTree = root.deepClone()
@@ -30,13 +29,6 @@ const MySyntaxTrees = () => {
 
     function clearAll() {
         setSavedTrees([])
-    }
-
-    function changeTreeName(name: string) {
-        const newRoot = root.deepCopy()
-        const newMeta = {...newRoot.meta, name}
-        newRoot.setMeta(newMeta)
-        setRoot(newRoot)
     }
 
     function savedTreesList() {
@@ -71,7 +63,6 @@ const MySyntaxTrees = () => {
     }
 
     return (
-        <>
         <div className="flex flex-col justify-center items-center appearGrow">
             <div className="w-full flex flex-row justify-center items-center gap-1 py-2 bg-gray-400">
                 {/* <button 
@@ -99,25 +90,6 @@ const MySyntaxTrees = () => {
                 {savedTrees && savedTreesList()}
 
         </div>
-        <div className="flex flex-row justify-center items-center gap-2">
-            <h1 className="text-yellow-400">
-                {root.meta?.name || "(no name)"}
-            </h1>                
-            <Tooltip text="edit name">
-            <button className="text-lg hover:border-slate-400 cursor-pointer bg-gradient-to-br from-black to-slate-700 rounded-xl"
-                onClick={() => setShowNewNameInput(true)}>
-                ✏️
-            </button>
-            </Tooltip>
-        {showNewNameInput && 
-            <InputCenter 
-                label="New name:" 
-                placeholder="Name of the tree..."
-                isVisible={true} 
-                onConfirm={changeTreeName} 
-                onCancel={() => setShowNewNameInput(false)}/>}
-        </div>
-        </>
     )
 };
 
