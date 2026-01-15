@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import TutorialIcon from "../../public/assets/icons/tutorial.svg?react"
-import StartIcon from "../../public/assets/icons/start.svg?react"
+import TutorialIcon from "../assets/tutorial.svg?react"
+import StartIcon from "../assets/start.svg?react"
 import { showcases } from "../data/showcases"
 import Showcase from "./Showcase"
 
