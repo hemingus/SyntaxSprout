@@ -7,6 +7,7 @@ import SyntaxTreeContext from "./SyntaxTree/SyntaxTreeContext"
 import SyntaxTreeGenerator from "./SyntaxTree/SyntaxTreeGenerator"
 import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas"
 import SyntaxTreeName from "./SyntaxTree/SyntaxTreeName"
+import CreateNewIcon from "../assets/createnew.svg?react"
 
 
 const Dashboard = () => {
@@ -25,10 +26,10 @@ const Dashboard = () => {
                 bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900 gap-4">
                     <div className="flex flex-row justify-center items-center flex-wrap gap-4 mt-4">
                         <button 
-                            className="cursor-pointer p-4 text-xl bg-gradient-to-br from-emerald-500 to-slate-700 rounded-[2rem]
-                            text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
+                            className="flex-1 whitespace-nowrap flex gap-2 items-center cursor-pointer text-2xl text-white bg-gradient-to-b from-slate-800 to-slate-700 pr-4 py-2 rounded-xl" 
                             onClick={() => setIsGenerating(true)}>
-                                🎇 Create new 🎇
+                            <CreateNewIcon className="h-[clamp(2rem,4vw,3rem)] w-auto text-emerald-500"/>
+                                Create new
                         </button>
                         <HtmlToImageButton element={syntaxTreeRef.current} imageName={root.meta?.name ? root.meta.name : "(no name)"}/>
 
