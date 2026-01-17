@@ -2,6 +2,7 @@ import * as htmlToImage from 'html-to-image'
 import { saveAs } from 'file-saver'
 import { dataURLToBlob } from "../utils/DataConvertion";
 import DownloadIcon from "../assets/download.svg?react"
+import Tooltip from '../utils/Tooltip';
 
 interface HtmlToImageButtonProps {
     element: HTMLElement | null
@@ -31,11 +32,12 @@ const HtmlToImageButton = ({element, imageName}: HtmlToImageButtonProps) => {
     };
 
     return (
-        <button className="flex-1 whitespace-nowrap flex gap-2 items-center cursor-pointer text-2xl text-white 
-        bg-gradient-to-b from-slate-800 to-slate-700 pr-4 py-2 rounded-xl" 
+        <button className="whitespace-nowrap flex gap-2 items-center cursor-pointer text-2xl text-white 
+        bg-gradient-to-b from-slate-800 to-slate-700 pr-4 py-2 rounded-xl
+        hover:bg-gradient-to-b hover:from-slate-900 hover:to-blue-950" 
             onClick={handleDownload}>
-                <DownloadIcon className="h-[clamp(2rem,4vw,3rem)] w-auto text-blue-400"/>
-                Download
+                <DownloadIcon className="h-[clamp(2rem,4vw,3rem)] w-auto text-sky-500"/>
+                Download (PNG)
         </button>
     )
 }

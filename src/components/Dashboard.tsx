@@ -8,6 +8,8 @@ import SyntaxTreeGenerator from "./SyntaxTree/SyntaxTreeGenerator"
 import SyntaxTreeCanvas from "./SyntaxTree/SyntaxTreeCanvas"
 import SyntaxTreeName from "./SyntaxTree/SyntaxTreeName"
 import CreateNewIcon from "../assets/createnew.svg?react"
+import SettingsIcon from "../assets/settings.svg?react"
+import MyTreesIcon from "../assets/mytrees.svg?react"
 
 
 const Dashboard = () => {
@@ -22,50 +24,61 @@ const Dashboard = () => {
         <>
             <div className="flex flex-col justify-center items-center text-white">
                 <h1 className="w-full text-center bg-blue-950">Dashboard</h1>
-                <div className="w-full flex justify-center flex-col items-center overflow-x-auto relative solid 
+                <div className="flex flex-col w-full items-center relative solid 
                 bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900 gap-4">
-                    <div className="flex flex-row justify-center items-center flex-wrap gap-4 mt-4">
+                    <div className="grid sm:grid-cols-2 gap-4 mt-4">
                         <button 
-                            className="flex-1 whitespace-nowrap flex gap-2 items-center cursor-pointer text-2xl text-white bg-gradient-to-b from-slate-800 to-slate-700 pr-4 py-2 rounded-xl" 
+                            className="whitespace-nowrap flex gap-2 items-center cursor-pointer text-2xl text-white 
+                            bg-gradient-to-b from-slate-800 to-slate-700 pr-4 py-2 rounded-xl
+                            hover:bg-gradient-to-b hover:from-slate-900 hover:to-blue-950" 
                             onClick={() => setIsGenerating(true)}>
-                            <CreateNewIcon className="h-[clamp(2rem,4vw,3rem)] w-auto text-emerald-500"/>
+                            <CreateNewIcon className="h-[clamp(2rem,4vw,3rem)] w-auto text-emerald-400"/>
                                 Create new
                         </button>
                         <HtmlToImageButton element={syntaxTreeRef.current} imageName={root.meta?.name ? root.meta.name : "(no name)"}/>
 
                     </div>
-                    {showSettings ?
-                        <div className="flex flex-col sm:flex-row border-solid border-slate-600 rounded appearGrow">
-                            <button className="cursor-pointer p-2 text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
+                    
+                        {showSettings ?
+                            <div className="flex flex-col border-solid border-slate-600 rounded appearGrow">
+                                <button className="cursor-pointer text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
+                                text-gray-300 border-slate-300 hover:from-gray-400 hover:to-slate-600 hover:text-white"
+                                    onClick={() => setShowSettings(false)}>
+                                    Close
+                                </button>
+                                <div className="flex flex-col xs:flex-row">
+                                    <TreeSettings />
+                                    <ThemeSettings />
+                                </div>
+                            </div> :
+                            <button
+                                className="w-[160px] whitespace-nowrap flex gap-2 items-center justify-between cursor-pointer text-xl text-white 
+                                bg-gradient-to-b from-slate-800 to-slate-700 p-1 rounded-xl
+                                hover:bg-gradient-to-b hover:from-slate-900 hover:to-blue-950"
+                                onClick={() => setShowSettings(true)}>
+                                <SettingsIcon className="h-[clamp(1.5rem,3vw,2rem)] w-auto text-slate-400" />
+                                    Settings
+                                <SettingsIcon className="h-[clamp(1.5rem,3vw,2rem)] w-auto text-slate-400" />
+                            </button>
+                            }
+                        {showMyTrees ?
+                        <div className="flex flex-col border-solid border-slate-600 rounded appearGrow">
+                            <button className="cursor-pointer text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
                             text-gray-300 border-slate-300 hover:from-gray-400 hover:to-slate-600 hover:text-white"
-                                onClick={() => setShowSettings(false)}>
+                            onClick={() => setShowMyTrees(false)}>
                                 Close
                             </button>
-                            <TreeSettings />
-                            <ThemeSettings />
+                            <MySyntaxTrees />
                         </div> :
-                        <button 
-                            className="cursor-pointer p-2 text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
-                            text-white border-slate-300 hover:from-gray-400 hover:to-slate-600" 
-                            onClick={() => setShowSettings(true)}>
-                                ⚙️ Settings ⚙️
-                        </button>
-                        }
-                    {showMyTrees ? 
-                    <div className="flex flex-col border-solid border-slate-600 rounded appearGrow">
-                        <button className="cursor-pointer text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
-                        text-gray-300 border-slate-300 hover:from-gray-400 hover:to-slate-600 hover:text-white"
-                        onClick={() => setShowMyTrees(false)}>
-                            Close
-                        </button>
-                        <MySyntaxTrees />
-                    </div> :
-                    <button 
-                        className="cursor-pointer p-2 text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded mb-4
-                        text-white border-slate-300 hover:from-gray-400 hover:to-slate-600" 
-                        onClick={() => setShowMyTrees(true)}>
-                            🌳 My Trees 🌳
-                    </button>}
+                        <button
+                            className="w-[160px] whitespace-nowrap flex gap-2 items-center justify-between cursor-pointer text-xl text-white 
+                            bg-gradient-to-b from-slate-800 to-slate-700 p-1 rounded-xl
+                            hover:bg-gradient-to-b hover:from-slate-900 hover:to-blue-950"
+                            onClick={() => setShowMyTrees(true)}>
+                            <MyTreesIcon className="h-[clamp(1.5rem,3vw,2rem)] w-auto text-green-600"/>
+                                My Trees
+                            <MyTreesIcon className="h-[clamp(1.5rem,3vw,2rem)] w-auto text-green-600"/>
+                        </button>}
                     <SyntaxTreeName />
                 </div>
                 
