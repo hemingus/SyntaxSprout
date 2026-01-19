@@ -15,15 +15,15 @@ export default function SyntaxTreeName() {
     }
 
     return (
-        <div className="flex flex-row justify-center items-center gap-2">
-            <h1 className="text-yellow-400">
+        <div className="w-full min-w-0 flex flex-row justify-center items-center mr-auto">
+            <h1 className="min-w-0 text-center text-yellow-400 break-words px-2">
                 {root.meta?.name || "(no name)"}
             </h1>                
             <Tooltip text="edit name">
-            <button className="text-lg hover:border-slate-400 cursor-pointer bg-gradient-to-br from-black to-slate-700 rounded-xl"
-                onClick={() => setShowNewNameInput(true)}>
-                ✏️
-            </button>
+                <button className="mr-[2vw] text-lg hover:border-slate-400 cursor-pointer bg-gradient-to-br from-black to-slate-700 rounded-xl"
+                    onClick={() => setShowNewNameInput(true)}>
+                    ✏️
+                </button>
             </Tooltip>
         {showNewNameInput && 
             <InputCenter 

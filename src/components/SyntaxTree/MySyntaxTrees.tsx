@@ -33,27 +33,30 @@ const MySyntaxTrees = () => {
 
     function savedTreesList() {
         return (
-        <ul className="flex flex-wrap gap-2 mr-8 my-0">
+        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mr-8 my-0">
             {savedTrees.map((tree, index) => (
-                <li className={`solid p-1 rounded list-none 
+                <li className={`w-[80vw] sm:w-[250px] flex justify-between gap-2 items-center px-3 rounded list-none 
                 ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500" 
                     : "bg-gradient-to-b from-slate-800 to-slate-500"}
                 text-white text-xl font-semibold
-                cursor-pointer 
-                hover:bg-gradient-to-b hover:text-yellow-400`}
+                cursor-pointer
+                hover:bg-gradient-to-b hover:from-slate-800 hover:to-lime-500`}
                 key={tree.id}
                 onClick={() => loadSyntaxTree(tree)}
-                >      
-                    <span className="text-yellow-400 p-1" >                           
-                        {`${index+1}. `}
-                    </span>
-                    {tree.meta?.name! ? tree.meta.name : "(no name)"}
-                    
+                >
+                    <div className="min-w-0 flex items-center justify-center gap-2 p-0 m-0">
+                        <p className="text-yellow-400 py-2 m-0" >
+                            {`${index+1}. `}
+                        </p>
+                        <p className="min-w-0 break-words py-2 m-0">
+                            {tree.meta?.name! ? tree.meta.name : "(no name)"}
+                        </p>
+                    </div>
                     <ButtonWithConfirmation
                         action={() => deleteSyntaxTree(tree, index)}
                         buttonText="🗑"
                         confirmationMessage={`Are you sure you want to delete "${tree.meta?.name || "(no name)"}" ?`}
-                        className="ml-4 p-1 rounded cursor-pointer border-none text-2xl bg-transparent text-slate-300 hover:text-white"
+                        className="ml-auto rounded cursor-pointer border-none text-2xl bg-transparent text-slate-300 hover:text-white"
                         tooltip="delete"
                     />
                 </li>
@@ -64,7 +67,8 @@ const MySyntaxTrees = () => {
 
     return (
         <div className="flex flex-col justify-center items-center appearGrow">
-            <div className="w-full flex flex-row justify-center items-center gap-1 py-2 bg-gray-400">
+            <div className="w-full flex flex-row justify-center items-center gap-1 py-2 
+            bg-gray-400">
                 {/* <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={() => setRoot(expectedTree)}>
@@ -76,13 +80,13 @@ const MySyntaxTrees = () => {
                         Test big tree
                 </button> */}
                 <button 
-                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                    className="cursor-pointer text-xl bg-slate-800 text-white hover:bg-slate-900"
                     onClick={duplicateSyntaxTree}>Duplicate Current Tree 🗐</button>
                 <ButtonWithConfirmation
                     action={() => clearAll()}
                     buttonText="Delete all ❌"
                     confirmationMessage="Are you sure you want to delete all trees ?"
-                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
+                    className="cursor-pointer text-xl bg-slate-800 text-white hover:bg-slate-900"
                     tooltip="delete ALL"
                 />
             </div>
