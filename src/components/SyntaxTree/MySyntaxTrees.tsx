@@ -1,9 +1,10 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import { TreeNode } from './TreeNode'
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
 import Tooltip from '../../utils/Tooltip';
 import InputCenter from '../InputCenter';
+import useLineClamp from 'use-line-clamp';
 // import { expectedTree, bigTree } from '../../testcases/TestRoots'
 
 const MySyntaxTrees = () => {
@@ -31,35 +32,52 @@ const MySyntaxTrees = () => {
         setSavedTrees([])
     }
 
-    function savedTreesList() {
+    interface TreeItemProps {
+        tree: TreeNode
+        index: number
+    }
+
+    function TreeItem({tree, index}: TreeItemProps) {
+        const ref = useRef<HTMLLIElement>(null);
+        const clamps = useLineClamp(ref, { lines: 1 });
+
+        return (
+            <li ref={ref}
+            className={`line-clamp-1 w-[80vw] sm:w-[250px] flex justify-between gap-2 items-center px-3 rounded list-none 
+            ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500" 
+                : "bg-gradient-to-b from-slate-800 to-slate-500"}
+            text-white text-xl font-semibold
+            cursor-pointer
+            hover:bg-gradient-to-b hover:from-slate-800 hover:to-lime-500
+            ${clamps? "grid-rows-2" : "grid-rows-1"}`}
+            key={tree.id}
+            onClick={() => loadSyntaxTree(tree)}
+            >
+                <div className="min-w-0 flex items-center justify-center gap-2 p-0 m-0">
+                    <p className="text-yellow-400 py-2 m-0" >
+                        {`${index+1}. `}
+                    </p>
+                    <p className="min-w-0 break-words py-2 m-0">
+                        {clamps?"true":"false"}
+                        {tree.meta?.name! ? tree.meta.name : "(no name)"}
+                    </p>
+                </div>
+                <ButtonWithConfirmation
+                    action={() => deleteSyntaxTree(tree, index)}
+                    buttonText="🗑"
+                    confirmationMessage={`Are you sure you want to delete "${tree.meta?.name || "(no name)"}" ?`}
+                    className="ml-auto rounded cursor-pointer border-none text-2xl bg-transparent text-slate-300 hover:text-white"
+                    tooltip="delete"
+                />
+            </li>
+        )
+    }
+
+    function SavedTreesList() {
         return (
         <ul className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mr-8 my-0">
             {savedTrees.map((tree, index) => (
-                <li className={`w-[80vw] sm:w-[250px] flex justify-between gap-2 items-center px-3 rounded list-none 
-                ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500" 
-                    : "bg-gradient-to-b from-slate-800 to-slate-500"}
-                text-white text-xl font-semibold
-                cursor-pointer
-                hover:bg-gradient-to-b hover:from-slate-800 hover:to-lime-500`}
-                key={tree.id}
-                onClick={() => loadSyntaxTree(tree)}
-                >
-                    <div className="min-w-0 flex items-center justify-center gap-2 p-0 m-0">
-                        <p className="text-yellow-400 py-2 m-0" >
-                            {`${index+1}. `}
-                        </p>
-                        <p className="min-w-0 break-words py-2 m-0">
-                            {tree.meta?.name! ? tree.meta.name : "(no name)"}
-                        </p>
-                    </div>
-                    <ButtonWithConfirmation
-                        action={() => deleteSyntaxTree(tree, index)}
-                        buttonText="🗑"
-                        confirmationMessage={`Are you sure you want to delete "${tree.meta?.name || "(no name)"}" ?`}
-                        className="ml-auto rounded cursor-pointer border-none text-2xl bg-transparent text-slate-300 hover:text-white"
-                        tooltip="delete"
-                    />
-                </li>
+                <TreeItem key={tree.id} tree={tree} index={index} />
             ))}
         </ul>
         )
@@ -91,7 +109,7 @@ const MySyntaxTrees = () => {
                 />
             </div>
             <h3 className="text-white text-2xl m-2">🌳 My trees 🌳</h3>
-                {savedTrees && savedTreesList()}
+                {savedTrees && SavedTreesList()}
 
         </div>
     )
