@@ -15,13 +15,12 @@ import MyTreesIcon from "../assets/mytrees.svg?react"
 const Dashboard = () => {
     const {root, syntaxTreeRef} = useContext(SyntaxTreeContext)!
     const [isGenerating, setIsGenerating] = useState(false)
-
     const [showSettings, setShowSettings] = useState(false)
     const [showMyTrees, setShowMyTrees] = useState(false)
 
-    function dashboardContent() { 
-        return (
+    return (
         <>
+            {isGenerating && <SyntaxTreeGenerator isVisible={true} onCancel={() => setIsGenerating(false)}/>}
             <div className="flex flex-col justify-center items-center text-white">
                 <h1 className="w-full text-center bg-blue-950">Dashboard</h1>
                 <div className="flex flex-col w-full items-center relative solid 
@@ -40,11 +39,12 @@ const Dashboard = () => {
                     </div>
                     
                         {showSettings ?
-                            <div className="flex flex-col border-solid border-slate-600 rounded appearGrow">
-                                <button className="cursor-pointer text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
-                                text-gray-300 border-slate-300 hover:from-gray-400 hover:to-slate-600 hover:text-white"
+                            <div className="flex flex-col  appearGrow">
+                                <button className="cursor-pointer text-xl bg-gradient-to-br from-gray-900 to-slate-600
+                                text-gray-300 border-slate-600 
+                                hover:text-white hover:border-slate-500"
                                     onClick={() => setShowSettings(false)}>
-                                    Close
+                                    ◀ Close ▶
                                 </button>
                                 <div className="flex flex-col xs:flex-row">
                                     <TreeSettings />
@@ -62,11 +62,12 @@ const Dashboard = () => {
                             </button>
                             }
                         {showMyTrees ?
-                        <div className="flex flex-col border-solid border-slate-600 rounded appearGrow">
-                            <button className="cursor-pointer text-xl bg-gradient-to-br from-gray-500 to-slate-700 rounded
-                            text-gray-300 border-slate-300 hover:from-gray-400 hover:to-slate-600 hover:text-white"
+                        <div className="flex flex-col rounded appearGrow">
+                            <button className="cursor-pointer text-xl bg-gradient-to-br from-gray-900 to-slate-600
+                            text-gray-300 border-slate-600 
+                            hover:text-white hover:border-slate-500"
                             onClick={() => setShowMyTrees(false)}>
-                                Close
+                                ◀ Close ▶
                             </button>
                             <MySyntaxTrees />
                         </div> :
@@ -85,17 +86,6 @@ const Dashboard = () => {
             </div>
         <SyntaxTreeCanvas />
         </>
-        )
-    }
-
-    const content = () => {
-        return isGenerating ? <SyntaxTreeGenerator /> : dashboardContent()
-    }
-
-    return (
-        <div>
-            {content()}
-        </div>
     )
 }
 

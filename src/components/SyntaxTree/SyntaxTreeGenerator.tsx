@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef, useContext } from 'react'
 import { TreeNode } from './TreeNode'
 import SyntaxTreeContext from "./SyntaxTreeContext"
-import Dashboard from "../Dashboard"
 
-const SyntaxTreeGenerator = () => {
+interface SyntaxTreeGeneratorProps {
+    isVisible: boolean
+    onCancel: () => void
+}
+
+const SyntaxTreeGenerator = ({ isVisible, onCancel }:SyntaxTreeGeneratorProps) => {
     const [treeName, setTreeName] = useState<string>("")
     const [rootLabel, setRootLabel] = useState<string>("")
     const [sentence, setSentence] = useState<string>("")
-    const [isGenerating, setIsGenerating] = useState(true)
     const {root, setRoot, savedTrees, setSavedTrees} = useContext(SyntaxTreeContext)!
 
     const inputTreeNameRef = useRef<HTMLInputElement>(null)
@@ -20,9 +23,20 @@ const SyntaxTreeGenerator = () => {
         }
       }, []);
 
+useEffect(() => {
+    const handleGlobalKeyDown = (event: KeyboardEvent) => {
+        if (event.key === "Escape") {
+            onCancel();
+        }
+    };
+
+    window.addEventListener("keydown", handleGlobalKeyDown);
+    return () => window.removeEventListener("keydown", handleGlobalKeyDown);
+}, [onCancel]);
+
       const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === "Escape") {
-            setIsGenerating(false)
+            onCancel()
         }
 
         if (event.key === "Enter") {
@@ -48,19 +62,18 @@ const SyntaxTreeGenerator = () => {
         newRoot.setMeta({name: treeName})
         setRoot(newRoot)
         setSavedTrees([...savedTrees, newRoot])
-        setIsGenerating(false)
+        onCancel()
     }
 
     const sentenceGenerator = () => {
+        if (!isVisible) return null
         return (
-            <div className="my-[4svh] mx-[4svw] h-[90svh] flex flex-col justify-start items-center
-            bg-[url('/assets/vines_waterfall_01.png')] bg-center bg-no-repeat">
-                <h1 className="text-center text-white bg-gradient-to-b from-transparent rounded-full to-black w-fit p-2 shadow-[0_0_50px_1px_white]">New Tree</h1>
+            <div className="fixed inset-0 flex flex-col items-center justify-start z-50 bg-black/50">
+                <h1 className="text-center text-white bg-black rounded-full w-fit p-2 shadow-[0_0_50px_1px_white]">New Tree</h1>
                 <div className="flex flex-col justify-center items-center p-5 w-fit relative rounded-xl
                 lg:w-1/2 md:w-3/4 bg-gradient-to-tr from-green-700 via-emerald-900 to-green-700
-                border-solid border-8 border-canvas-green">
-                    <div className="w-full m-2 flex flex-col justify-center items-center gap-4"
-                        onKeyDown={handleKeyDown}>
+                border-solid border-4 border-slate-700">
+                    <div className="w-full m-2 flex flex-col justify-center items-center gap-4">
                         <label className="text-xl text-slate-300 font-bold">Tree Name: </label>
                         <h3 className="m-0 w-full p-1 text-yellow-400 bg-gray-700 text-2xl text-center">{treeName}</h3>
                         <label className="text-xl text-slate-300 font-bold">Root Label: </label>
@@ -99,12 +112,12 @@ const SyntaxTreeGenerator = () => {
                     </div>
                     <button className="mt-4 p-1 text-xl text-gray-300 bg-slate-800 cursor-pointer 
                     hover:text-white hover:bg-slate-700 hover:shadow-[0_0_20px_1px_white]"
-                        onClick={() => {generateSyntaxTree()}}>
+                        onClick={() => {generateSyntaxTree(); onCancel}}>
                         Generate Syntax Tree
                     </button>
                     <button className="mt-8 text-xl text-gray-400 bg-slate-800 cursor-pointer 
                     hover:text-gray-300 hover:bg-slate-700"
-                        onClick={() => {setIsGenerating(false)}}>
+                        onClick={onCancel}>
                         Cancel
                     </button>
                 </div>
@@ -112,15 +125,7 @@ const SyntaxTreeGenerator = () => {
         )
     }
 
-
-
-    if (isGenerating) {
-        return sentenceGenerator()
-    }
-    else return (
-        <Dashboard />
-    )
-
+    return sentenceGenerator()
 }
 
 export default SyntaxTreeGenerator
