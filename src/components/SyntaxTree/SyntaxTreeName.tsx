@@ -15,8 +15,8 @@ export default function SyntaxTreeName() {
     }
 
     return (
-        <div className="w-full min-w-0 flex flex-row justify-center items-center mr-auto">
-            <h1 className="min-w-0 text-center text-yellow-400 break-words px-2">
+        <div className="w-full min-w-0 flex justify-center items-center mr-auto">
+            <h1 className="min-w-0 text-[clamp(1.4rem,2.6vw,1.8rem)] text-center text-yellow-400 break-words p-0 mb-2 mt-0 px-2">
                 {root.meta?.name || "(no name)"}
             </h1>                
             <Tooltip text="edit name">
