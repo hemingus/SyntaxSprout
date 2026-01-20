@@ -15,8 +15,7 @@
     "nanoid": "^5.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.27.0",
-    "use-line-clamp": "^1.0.4"
+    "react-router-dom": "^6.27.0"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.7",
