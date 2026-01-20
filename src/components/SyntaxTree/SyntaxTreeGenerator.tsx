@@ -68,8 +68,10 @@ useEffect(() => {
     const sentenceGenerator = () => {
         if (!isVisible) return null
         return (
-            <div className="fixed inset-0 flex flex-col items-center justify-start z-50 bg-black/50">
-                <h1 className="text-center text-white bg-black rounded-full w-fit p-2 shadow-[0_0_50px_1px_white]">New Tree</h1>
+            <div className="fixed inset-0 flex flex-col items-center justify-center z-50 bg-black/50">
+                <h1 className="text-center text-white bg-black rounded-full w-fit p-2 shadow-[0_0_50px_1px_white]">
+                    🌱 New Tree 🌱
+                </h1>
                 <div className="flex flex-col justify-center items-center p-5 w-fit relative rounded-xl
                 w-full lg:w-1/2 md:w-3/4 bg-gradient-to-b from-emerald-700 to-black
                 border-solid border-2 border-emerald-950">
