@@ -22,7 +22,9 @@ const Dashboard = () => {
         <>
             {isGenerating && <SyntaxTreeGenerator isVisible={true} onCancel={() => setIsGenerating(false)}/>}
             <div className="flex flex-col justify-center items-center text-white">
-                <h1 className="w-full text-center bg-blue-950">Dashboard</h1>
+                <h1 className="w-full text-2xl xs:text-3xl text-center bg-blue-950 m-4 p-1">
+                    Dashboard
+                </h1>
                 <div className="flex flex-col w-full items-center relative solid 
                 bg-gradient-to-tr from-slate-900 via-gray-950 to-slate-900 gap-4">
                     <div className="grid sm:grid-cols-2 gap-4 mt-4">
