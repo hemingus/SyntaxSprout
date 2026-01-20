@@ -1,11 +1,11 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
-import { useContext, useRef } from 'react'
+import { useContext, useRef, useState, useLayoutEffect, ReactElement } from 'react'
 import { TreeNode } from './TreeNode'
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
 import Tooltip from '../../utils/Tooltip';
 import InputCenter from '../InputCenter';
 import useLineClamp from 'use-line-clamp';
-// import { expectedTree, bigTree } from '../../testcases/TestRoots'
+import { expectedTree, bigTree } from '../../testcases/TestRoots'
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!
@@ -38,27 +38,42 @@ const MySyntaxTrees = () => {
     }
 
     function TreeItem({tree, index}: TreeItemProps) {
-        const ref = useRef<HTMLLIElement>(null);
+        const ref = useRef<HTMLParagraphElement>(null);
         const clamps = useLineClamp(ref, { lines: 1 });
 
+        const [rowSpan, setRowSpan] = useState(1);
+
+        useLayoutEffect(() => {
+            if (!ref.current) return;
+
+            const el = ref.current;
+
+            const lineHeight = parseFloat(
+                getComputedStyle(el).lineHeight
+            );
+
+            const lines = Math.ceil(el.scrollHeight / lineHeight);
+            setRowSpan(lines);
+        }, [tree.meta?.name])
+
         return (
-            <li ref={ref}
-            className={`line-clamp-1 w-[80vw] sm:w-[250px] flex justify-between gap-2 items-center px-3 rounded list-none 
-            ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500" 
-                : "bg-gradient-to-b from-slate-800 to-slate-500"}
+            <li
+            className={`w-[80vw] sm:w-auto flex justify-between gap-2 items-center px-3 rounded list-none
             text-white text-xl font-semibold
             cursor-pointer
             hover:bg-gradient-to-b hover:from-slate-800 hover:to-lime-500
-            ${clamps? "grid-rows-2" : "grid-rows-1"}`}
+            ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500"
+            : "bg-gradient-to-b from-slate-800 to-slate-500"}
+            ${clamps ? "grid-grow" : ""}`}
             key={tree.id}
             onClick={() => loadSyntaxTree(tree)}
             >
                 <div className="min-w-0 flex items-center justify-center gap-2 p-0 m-0">
-                    <p className="text-yellow-400 py-2 m-0" >
-                        {`${index+1}. `}
+                    <p className="text-yellow-400 py-1.5 m-0" >
+                        {`${index+1}.${rowSpan}`}
                     </p>
-                    <p className="min-w-0 break-words py-2 m-0">
-                        {clamps?"true":"false"}
+                    <p ref={ref}
+                    className={`line-clamp-1 min-w-0 break-words py-0 m-0`}>
                         {tree.meta?.name! ? tree.meta.name : "(no name)"}
                     </p>
                 </div>
@@ -75,7 +90,11 @@ const MySyntaxTrees = () => {
 
     function SavedTreesList() {
         return (
-        <ul className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mr-8 my-0">
+        <ul className={`grid
+        sm:grid-cols-2 
+        lg:grid-cols-3 
+        xl:grid-cols-4 
+        gap-2 mr-8 mb-4`}>
             {savedTrees.map((tree, index) => (
                 <TreeItem key={tree.id} tree={tree} index={index} />
             ))}
@@ -84,10 +103,10 @@ const MySyntaxTrees = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center items-center appearGrow">
+        <div className="flex flex-col justify-center items-center appearGrow border-solid border-slate-900">
             <div className="w-full flex flex-row justify-center items-center gap-1 py-2 
-            bg-gray-400">
-                {/* <button 
+            bg-slate-900">
+                <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={() => setRoot(expectedTree)}>
                     Test expected tree
@@ -96,7 +115,7 @@ const MySyntaxTrees = () => {
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={() => setRoot(bigTree)}>
                         Test big tree
-                </button> */}
+                </button>
                 <button 
                     className="cursor-pointer text-xl bg-slate-800 text-white hover:bg-slate-900"
                     onClick={duplicateSyntaxTree}>Duplicate Current Tree 🗐</button>
