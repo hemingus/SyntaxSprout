@@ -73,7 +73,7 @@ useEffect(() => {
                     🌱 New Tree 🌱
                 </h1>
                 <div className="flex flex-col justify-center items-center p-5 w-fit relative rounded-xl
-                w-full lg:w-1/2 md:w-3/4 bg-gradient-to-b from-emerald-700 to-black
+                lg:w-1/2 md:w-3/4 bg-gradient-to-b from-emerald-700 to-black
                 border-solid border-2 border-emerald-950">
                     <div className="w-full m-2 flex flex-col justify-center items-center gap-4">
                         <label className="text-xl text-slate-300 font-bold">Tree Name: </label>
