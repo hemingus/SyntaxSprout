@@ -20,6 +20,10 @@ const HtmlToImageButton = ({element, imageName}: HtmlToImageButtonProps) => {
         const originalOverflow = element.style.overflow;
         element.style.overflow = 'visible';
 
+        // wait two frames for layout to stabilize
+        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame);
+
         try {
             const dataUrl = await htmlToImage.toPng(element, { pixelRatio: 2 });
             const blob = dataURLToBlob(dataUrl);
