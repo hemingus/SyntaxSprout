@@ -11,11 +11,11 @@ body {
   animation: appearGrow 0.3s ease;
 }
 
-
 @keyframes appearGrow {
-from {transform: scaleY(0%);}
-to {transform: scaleY(100%);}
+  from {transform: scaleY(0%);}
+  to {transform: scaleY(100%);}
 }
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;

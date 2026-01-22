@@ -37,7 +37,7 @@ const TreeSettings = () => {
     }
 
     return (
-        <div className="border-solid border-slate-400 p-4 rounded">
+        <div className="border-solid border-slate-900 p-4">
             <h2 className="text-white m-1">Tree Settings ⚙️</h2>
             <div className="w-fit flex flex-row justify-between items-center">
                 <label className="w-14 text-white mr-1">Size:</label>

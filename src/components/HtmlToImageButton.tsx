@@ -1,6 +1,7 @@
 import * as htmlToImage from 'html-to-image'
 import { saveAs } from 'file-saver'
-import { dataURLToBlob } from "../utils/DataConvertion";
+import { dataURLToBlob } from "../utils/dataConvertion";
+import DownloadIcon from "../assets/download.svg?react"
 
 interface HtmlToImageButtonProps {
     element: HTMLElement | null
@@ -9,36 +10,37 @@ interface HtmlToImageButtonProps {
 
 const HtmlToImageButton = ({element, imageName}: HtmlToImageButtonProps) => {
 
-    const handleDownload = (): void => {
-        if (element) {
-            // Scroll to the top left to capture the full tree
-            element.scrollTop = 0;
-            element.scrollLeft = 0;
+    const handleDownload = async () => {
+        if (!element) return;
 
-            const originalOverflow = element.style.overflow;
+        element.scrollTop = 0;
+        element.scrollLeft = 0;
 
-            element.style.overflow = 'visible';
-    
-            setTimeout(() => {
-                htmlToImage.toPng(element as HTMLElement, { pixelRatio: 2 }) // Increase pixel ratio for better quality
-                    .then((dataUrl: string) => {
-                        const blob = dataURLToBlob(dataUrl);
-                        saveAs(blob, `${imageName}.png`);
-                        element!.style.overflow = originalOverflow;
-                    })
-                    .catch((error: Error) => {
-                        console.error('Error generating image:', error);
-                        element!.style.overflow = originalOverflow;
-                    });
-            }, 500); // Delay to ensure DOM is fully rendered
+        const originalOverflow = element.style.overflow;
+        element.style.overflow = 'visible';
+
+        // wait two frames for layout to stabilize
+        await new Promise(requestAnimationFrame);
+        await new Promise(requestAnimationFrame);
+
+        try {
+            const dataUrl = await htmlToImage.toPng(element, { pixelRatio: 2 });
+            const blob = dataURLToBlob(dataUrl);
+            saveAs(blob, `${imageName}.png`);
+        } catch (error) {
+            console.error('Error generating image:', error);
+        } finally {
+            element.style.overflow = originalOverflow;
         }
     };
 
     return (
-        <button className="cursor-pointer p-4 text-xl bg-gradient-to-br from-emerald-500 to-slate-700 rounded-[2rem] 
-        text-white border-slate-300 hover:shadow-[0px_0px_10px_5px_greenyellow]" 
+        <button className="whitespace-nowrap flex gap-2 items-center cursor-pointer text-2xl text-white 
+        bg-gradient-to-b from-slate-800 to-slate-700 pr-4 py-2 rounded-xl
+        hover:bg-gradient-to-b hover:from-slate-900 hover:to-blue-950" 
             onClick={handleDownload}>
-                📸 Download as image ⤓
+                <DownloadIcon className="h-[clamp(2rem,4vw,3rem)] w-auto text-sky-500"/>
+                Download (PNG)
         </button>
     )
 }

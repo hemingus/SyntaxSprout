@@ -1,14 +1,11 @@
 import SyntaxTreeContext from './SyntaxTreeContext'
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { TreeNode } from './TreeNode'
 import ButtonWithConfirmation from '../ButtonWithConfirmation';
-import Tooltip from '../../utils/Tooltip';
-import InputCenter from '../InputCenter';
 // import { expectedTree, bigTree } from '../../testcases/TestRoots'
 
 const MySyntaxTrees = () => {
     const { root, setRoot, savedTrees, setSavedTrees } = useContext(SyntaxTreeContext)!
-    const [showNewNameInput, setShowNewNameInput] = useState(false)
 
     function duplicateSyntaxTree() {
         const newTree = root.deepClone()
@@ -32,47 +29,62 @@ const MySyntaxTrees = () => {
         setSavedTrees([])
     }
 
-    function changeTreeName(name: string) {
-        const newRoot = root.deepCopy()
-        const newMeta = {...newRoot.meta, name}
-        newRoot.setMeta(newMeta)
-        setRoot(newRoot)
+    interface TreeItemProps {
+        tree: TreeNode
+        index: number
     }
 
-    function savedTreesList() {
+    function TreeItem({tree, index}: TreeItemProps) {
         return (
-        <ul className="flex flex-wrap gap-2 mr-8 my-0">
+            <li
+            className={`w-[80vw] sm:w-auto flex justify-between gap-2 items-center px-3 rounded list-none
+            text-white text-xl font-semibold
+            cursor-pointer
+            hover:bg-gradient-to-b hover:from-slate-800 hover:to-lime-500
+            ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500"
+            : "bg-gradient-to-b from-slate-800 to-slate-500"}
+           `}
+            key={tree.id}
+            onClick={() => loadSyntaxTree(tree)}
+            >
+                <div className="min-w-0 flex items-center justify-center gap-2 p-0 m-0">
+                    <p className="text-yellow-400 py-1.5 m-0" >
+                        {`${index+1}.`}
+                    </p>
+                    <p
+                    className={`truncate min-w-0 break-words py-0 m-0`}>
+                        {tree.meta?.name! ? tree.meta.name : "(no name)"}
+                    </p>
+                </div>
+                <ButtonWithConfirmation
+                    action={() => deleteSyntaxTree(tree, index)}
+                    buttonText="🗑"
+                    confirmationMessage={`Are you sure you want to delete "${tree.meta?.name || "(no name)"}" ?`}
+                    className="ml-auto rounded cursor-pointer border-none text-2xl bg-transparent text-slate-300 hover:text-white"
+                    tooltip="delete"
+                />
+            </li>
+        )
+    }
+
+    function SavedTreesList() {
+        return (
+        <ul className={`grid
+        sm:grid-cols-2 
+        lg:grid-cols-3 
+        xl:grid-cols-4 
+        gap-2 mr-8 mb-4`}>
             {savedTrees.map((tree, index) => (
-                <li className={`solid p-1 rounded list-none 
-                ${root.id === tree.id ? "bg-gradient-to-b from-slate-800 to-green-500" 
-                    : "bg-gradient-to-b from-slate-800 to-slate-500"}
-                text-white text-xl font-semibold
-                cursor-pointer 
-                hover:bg-gradient-to-b hover:text-yellow-400`}
-                key={tree.id}
-                onClick={() => loadSyntaxTree(tree)}
-                >      
-                    <span className="text-yellow-400 p-1" >                           
-                        {`${index+1}. `}
-                    </span>
-                    {tree.meta?.name! ? tree.meta.name : "(no name)"}
-                    
-                    <ButtonWithConfirmation
-                        action={() => deleteSyntaxTree(tree, index)}
-                        buttonText="🗑"
-                        confirmationMessage={`Are you sure you want to delete "${tree.meta?.name || "(no name)"}" ?`}
-                        className="ml-4 p-1 rounded cursor-pointer border-none text-2xl bg-transparent text-slate-300 hover:text-white"
-                        tooltip="delete"
-                    />
-                </li>
+                <TreeItem key={tree.id} tree={tree} index={index} />
             ))}
         </ul>
         )
     }
 
     return (
-        <div className="flex flex-col justify-center items-center appearGrow">
-            <div className="w-full flex flex-row justify-center items-center gap-1 py-2 bg-gray-400">
+        <div className="flex flex-col justify-center items-center appearGrow border-solid border-slate-900">
+            <div className="w-full flex flex-row justify-center items-center gap-1 py-2 
+            bg-gradient-to-b from-slate-700 to-transparent">
                 {/* <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={() => setRoot(expectedTree)}>
@@ -84,36 +96,19 @@ const MySyntaxTrees = () => {
                         Test big tree
                 </button> */}
                 <button 
-                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                    onClick={duplicateSyntaxTree}>Duplicate Current Tree 🗐</button>
+                    className="cursor-pointer text-xl bg-slate-800 text-white hover:bg-slate-900"
+                    onClick={duplicateSyntaxTree}>Duplicate Tree 🗐</button>
                 <ButtonWithConfirmation
                     action={() => clearAll()}
                     buttonText="Delete all ❌"
                     confirmationMessage="Are you sure you want to delete all trees ?"
-                    className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
-                    tooltip="delete ALL"
+                    className="cursor-pointer text-xl bg-slate-800 text-white hover:bg-slate-900"
+                    tooltip="delete ALL trees"
                 />
             </div>
             <h3 className="text-white text-2xl m-2">🌳 My trees 🌳</h3>
-                {savedTrees && savedTreesList()}
-            <div className="flex flex-row justify-center items-center gap-2">
-                <h1 className="text-yellow-400">
-                    {root.meta?.name || "(no name)"}
-                </h1>                
-                <Tooltip text="edit name">
-                <button className="text-lg hover:border-slate-400 cursor-pointer bg-gradient-to-br from-black to-slate-700 rounded-xl"
-                    onClick={() => setShowNewNameInput(true)}>
-                    ✏️
-                </button>
-                </Tooltip>
-            {showNewNameInput && 
-                <InputCenter 
-                    label="New name:" 
-                    placeholder="Name of the tree..."
-                    isVisible={true} 
-                    onConfirm={changeTreeName} 
-                    onCancel={() => setShowNewNameInput(false)}/>}
-            </div>
+                {savedTrees && SavedTreesList()}
+
         </div>
     )
 };
