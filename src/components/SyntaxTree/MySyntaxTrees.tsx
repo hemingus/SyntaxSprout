@@ -84,7 +84,7 @@ const MySyntaxTrees = () => {
     return (
         <div className="flex flex-col justify-center items-center appearGrow border-solid border-slate-900">
             <div className="w-full flex flex-row justify-center items-center gap-1 py-2 
-            bg-slate-900">
+            bg-gradient-to-b from-slate-700 to-transparent">
                 {/* <button 
                     className="cursor-pointer text-xl bg-slate-700 text-white hover:bg-slate-500"
                     onClick={() => setRoot(expectedTree)}>
@@ -97,13 +97,13 @@ const MySyntaxTrees = () => {
                 </button> */}
                 <button 
                     className="cursor-pointer text-xl bg-slate-800 text-white hover:bg-slate-900"
-                    onClick={duplicateSyntaxTree}>Duplicate Current Tree 🗐</button>
+                    onClick={duplicateSyntaxTree}>Duplicate Tree 🗐</button>
                 <ButtonWithConfirmation
                     action={() => clearAll()}
                     buttonText="Delete all ❌"
                     confirmationMessage="Are you sure you want to delete all trees ?"
                     className="cursor-pointer text-xl bg-slate-800 text-white hover:bg-slate-900"
-                    tooltip="delete ALL"
+                    tooltip="delete ALL trees"
                 />
             </div>
             <h3 className="text-white text-2xl m-2">🌳 My trees 🌳</h3>

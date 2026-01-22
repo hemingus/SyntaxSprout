@@ -1,7 +1,7 @@
 import { actionDetailsData } from "../data/actiondetails"
-import ActionDetails from "./ActionDetails"
+import ActionDetails from "../components/ActionDetails"
 
-const Tutorial = () => {
+const TutorialPage = () => {
     return (
         <div className="flex flex-col justify-center items-center gap-4 text-white mb-48">
             <h1 className="w-full text-2xl xs:text-3xl text-center bg-blue-950 m-4 p-1">
@@ -52,4 +52,4 @@ const Tutorial = () => {
     )
 }
 
-export default Tutorial
+export default TutorialPage

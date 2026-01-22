@@ -1,12 +1,12 @@
-import MainMenu from './components/MainMenu'
 import { SyntaxTreeProvider } from './components/SyntaxTree/SyntaxTreeContext'
 import { SettingsProvider } from './components/SyntaxTree/Settings/SettingsContex'
 import { ThemeProvider } from './components/SyntaxTree/Theme/ThemeContext'
 import { Routes, Route, Link } from 'react-router-dom'
-import Dashboard from './components/Dashboard'
-import Tutorial from './components/Tutorial'
-import AboutPage from './components/AboutPage'
+import Dashboard from './pages/Dashboard'
+import Tutorial from './pages/TutorialPage'
+import AboutPage from './pages/AboutPage'
 import Navbar from './components/Navbar'
+import LandingPage from './pages/LandingPage'
 
 function App() {
     return (
@@ -25,7 +25,7 @@ function App() {
                 <SettingsProvider>
                     <ThemeProvider>
                         <Routes>
-                            <Route path="/" element={<MainMenu/>} />
+                            <Route path="/" element={<LandingPage/>} />
                             <Route path="/dashboard" element={<Dashboard/>} />
                             <Route path="/tutorial" element={<Tutorial/>} />
                             <Route path="/about" element={<AboutPage/>}  />

@@ -1,8 +1,7 @@
 import * as htmlToImage from 'html-to-image'
 import { saveAs } from 'file-saver'
-import { dataURLToBlob } from "../utils/DataConvertion";
+import { dataURLToBlob } from "../utils/dataConvertion";
 import DownloadIcon from "../assets/download.svg?react"
-import Tooltip from '../utils/Tooltip';
 
 interface HtmlToImageButtonProps {
     element: HTMLElement | null
