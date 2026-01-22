@@ -8,7 +8,7 @@ const Tutorial = () => {
                 Tutorial
             </h1>
             <h2 className="m-0">Create a syntax tree</h2>
-            <div className="grid justify-center items-center w-full xs:w-7/8 p-2 sm:w-3/4 lg:w-4/5 lg:p-4 xl:w-3/4 xl:p-6 
+            <div className="max-w-[1200px] grid justify-center items-center w-full xs:w-7/8 p-2 sm:w-3/4 lg:w-4/5 lg:p-4 xl:w-3/4 xl:p-6 
             bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 sm:rounded-xl mb-4">
                 <div className="px-2 text-xl p-4 rounded-xl"> 
 
@@ -19,8 +19,8 @@ const Tutorial = () => {
                             <br/>
 
                                 <span className="text-amber-400">1. Name </span> <br/> Give the syntax tree a name <br/> to help you keep track.<br/><br/>
-                                <span className="text-amber-400">2. Root </span> <br/>Set label of your root <br/> (Example: S for Sentence or CP for compound).<br/><br/>
-                                <span className="text-amber-400">3. Sentence </span> <br/>Type the words of analysis <br/> (sentence/compound).<br/><br/>
+                                <span className="text-amber-400">2. Root </span> <br/>Set label of your root. <br/> (Example: S for Sentence or CP for compound)<br/><br/>
+                                <span className="text-amber-400">3. Sentence </span> <br/>Type the words of analysis. <br/> (sentence/compound)<br/><br/>
                             </p>
                             
                             <div className="flex justify-center">
