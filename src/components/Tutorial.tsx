@@ -8,30 +8,38 @@ const Tutorial = () => {
                 Tutorial
             </h1>
             <h2 className="m-0">Create a syntax tree</h2>
-            <div className="grid justify-center items-center md:grid-cols-2 w-7/8 p-2 lg:w-4/5 lg:p-4 xl:w-3/4 xl:p-6 
-            bg-slate-900 rounded-xl">
-                <div className="px-8 text-xl bg-gradient-to-b from-slate-900 to-slate-700 p-4 rounded-xl"> 
-                    <p className="p-4 rounded-xl">
-                        Press <span className="text-emerald-500">Create new</span> to create the beginnings of a new syntax tree.<br/>
-                        To save time, SyntaxSprout lets you create the foundation of the syntax tree with a few simple inputs.<br/>
+            <div className="grid justify-center items-center w-full xs:w-7/8 p-2 sm:w-3/4 lg:w-4/5 lg:p-4 xl:w-3/4 xl:p-6 
+            bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 sm:rounded-xl mb-4">
+                <div className="px-2 text-xl p-4 rounded-xl"> 
+
+                        <div className="grid lg:grid-cols-2 items-center gap-4 px-4">
+                            <p className="rounded-xl flex-1">
+                                Press <span className="text-emerald-400">Create new</span> to create the beginnings of a new syntax tree.<br/><br/>
+                                To save time, SyntaxSprout lets you create the foundation of the syntax tree with a few simple inputs.<br/>
+                            <br/>
+
+                                <span className="text-amber-400">1. Name </span> <br/> Give the syntax tree a name <br/> to help you keep track.<br/><br/>
+                                <span className="text-amber-400">2. Root </span> <br/>Set label of your root <br/> (Example: S for Sentence or CP for compound).<br/><br/>
+                                <span className="text-amber-400">3. Sentence </span> <br/>Type the words of analysis <br/> (sentence/compound).<br/><br/>
+                            </p>
+                            
+                            <div className="flex justify-center">
+                                <img
+                                    src="../assets/gifs/startwithasentence.gif"
+                                    alt="Gif that demonstrate how to create a new syntax tree"
+                                    className="flex-1 rounded-lg w-full max-w-[500px]"
+                                />
+                            </div>
+                        </div>
                         <br/>
-                        <span className="text-amber-400">1. Name </span> Give the syntax tree a name to help you keep track.<br/>
-                        <span className="text-amber-400">2. Root </span>Set label of your root (Example: S for Sentence or CP for compound).<br/>
-                        <span className="text-amber-400">3. Sentence </span>Type the words of analysis (sentence/compound).<br/>
-                        <br/>
-                        You should see the beginnings of a syntax tree, and the rest of the syntax tree you will build using actions (explained below).<br/>
-                        <span className="text-emerald-500"> Download (PNG) </span>
-                        when you are done.<br/>
+                    <p className="p-4">
+                        You should see the beginnings of a syntax tree. <br/> The rest of the syntax tree you will build using actions (explained below).<br/><br/>
+                        Press<span className="text-emerald-400"> Download (PNG) </span>
+                        when you are done.
                         Your syntax tree is downloaded as a PNG file.
                     </p>
                 </div>
-                <div className="flex justify-center items-center">
-                    <img
-                        src="../assets/gifs/startwithasentence.gif"
-                        alt="Gif that demonstrate how to create a new syntax tree"
-                        className="border-solid border-slate-800 rounded-2xl w-full max-w-[400px]"
-                    />
-                </div>
+
 
                 
 
