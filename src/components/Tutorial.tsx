@@ -20,7 +20,7 @@ const Tutorial = () => {
 
                                 <span className="text-amber-400">1. Name </span> <br/> Give the syntax tree a name <br/> to help you keep track.<br/><br/>
                                 <span className="text-amber-400">2. Root </span> <br/>Set label of your root. <br/> (Example: S for Sentence or CP for compound)<br/><br/>
-                                <span className="text-amber-400">3. Sentence </span> <br/>Type the words of analysis. <br/> (sentence/compound)<br/><br/>
+                                <span className="text-amber-400">3. Sentence </span> <br/>Type the words of analysis. <br/> (sentence/compound)
                             </p>
                             
                             <div className="flex justify-center">
@@ -36,7 +36,7 @@ const Tutorial = () => {
                         You should see the beginnings of a syntax tree. <br/> The rest of the syntax tree you will build using actions (explained below).<br/><br/>
                         Press<span className="text-emerald-400"> Download (PNG) </span>
                         when you are done.
-                        Your syntax tree is downloaded as a PNG file.
+                        Your syntax tree is downloaded as an image (PNG) file.
                     </p>
                 </div>
 
