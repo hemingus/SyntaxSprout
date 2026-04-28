@@ -28,7 +28,7 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
 
-            if (selectedNodes.length >= 1) {
+            if (selectedNodes.length > 0) {
                 if (event.altKey && event.key === 'x') { // Option/Alt key logic
                     deleteNodes();
                 } 
@@ -270,22 +270,22 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
 
                     <Tooltip text="Merge / Unmerge children">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_mergeLines.png'
-                        onClick={() => mergeLines()}/>
+                        onClick={() => selectedNodes.length > 0 ? mergeLines() : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Add Arrow">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_putArrow.png'
-                        onClick={() => putArrow()}/>
+                        onClick={() => selectedNodes.length > 0 ? putArrow() : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Remove arrow">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_removeArrow.png'
-                        onClick={() => removeArrow()}/>
+                        onClick={() => selectedNodes.length > 0 ? removeArrow() : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
 
                     <Tooltip text="Set text color">
                         <img className="w-16 h-16 cursor-pointer border-solid rounded-lg hover:border-white" src='/assets/icons/actionIcons/action_pickTextColor.png'
-                        onClick={() => setInputAction("putTextColor")}/>
+                        onClick={() => selectedNodes.length > 0 ? setInputAction("putTextColor") : alert("Action requires one or more selected nodes.")}/>
                     </Tooltip>
                 </div>
                 <div className="flex justify-center items-center">
@@ -331,47 +331,47 @@ const SyntaxTreeActions = ({active, posX, posY, onClose}: SyntaxTreeActionProps)
             onMouseLeave={handleClose} onClick={handleClose}
         >
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => setInputAction("generateNewParent")}>
+                onClick={() => selectedNodes.length > 0 ? setInputAction("generateNewParent") : alert("Action requires one or more selected nodes.")}>
                 Generate new parent node from selected <span className="text-sky-300">(alt + w)</span>
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => setInputAction("addNewChild")}>
+                onClick={() => selectedNodes.length > 0 ? setInputAction("addNewChild") : alert("Action requires one or more selected nodes.")}>
                 Add child node <span className="text-sky-300">(alt + a)</span>
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => setInputAction("insertNewSibling")}>
+                onClick={() => selectedNodes.length > 0 ? setInputAction("insertNewSibling") : alert("Action requires one or more selected nodes.")}>
                 Insert node <span className="text-sky-300">(alt + s)</span>
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => {deleteNodes()}}>
+                onClick={() => selectedNodes.length > 0 ? deleteNodes() : alert("Action requires one or more selected nodes.")}>
                 Delete selected nodes <span className="text-sky-300">(alt + x)</span>
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => setInputAction("editNode")}>
+                onClick={() => selectedNodes.length > 0 ? setInputAction("editNode") : alert("Action requires one or more selected nodes.")}>
                 Edit selected nodes <span className="text-sky-300">(alt + q)</span>
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => mergeLines()}>
+                onClick={() => selectedNodes.length > 0 ? mergeLines() : alert("Action requires one or more selected nodes.")}>
                 Merge / Unmerge children
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => putArrow()}>
+                onClick={() => selectedNodes.length > 0 ? putArrow() : alert("Action requires one or more selected nodes.")}>
                 Add Arrow
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300"
-                onClick={() => removeArrow()}>
+                onClick={() => selectedNodes.length > 0 ? removeArrow() : alert("Action requires one or more selected nodes.")}>
                 Remove arrow
             </div>
 
             <div className="border border-solid border-black text-white cursor-pointer p-[5px] hover:bg-slate-700 hover:text-emerald-300" 
-                onClick={() => setInputAction("putTextColor")}>
+                onClick={() => selectedNodes.length > 0 ? setInputAction("putTextColor") : alert("Action requires one or more selected nodes.")}>
                 Set text color
             </div>
         </div>}
